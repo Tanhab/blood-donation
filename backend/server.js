@@ -12,14 +12,7 @@ app.use(express.urlencoded({extended : false}))
 
 app.use('/api/',require('./routes/donationRoutes'))
 app.use('/api/user/',require('./routes/userRoutes'))
-// var mysql = require('mysql2');
-// var pool  = mysql.createPool({
-//   connectionLimit : 20,
-//   host            : 'localhost',
-//   user            : 'root',
-//   password        : 'drishub',
-//   database        : 'blood_donation'
-// });
+app.use('/api/medical-centre/',require('./routes/medicalCentreRoutes'))
 
 
 app.use(errorHandler)
