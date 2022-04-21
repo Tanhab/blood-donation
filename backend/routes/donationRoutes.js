@@ -1,13 +1,7 @@
 const express = require("express");
 const router =  express.Router()
-// var mysql = require('mysql2');
-// var pool  = mysql.createPool({
-//   connectionLimit : 100,
-//   host            : 'localhost',
-//   user            : 'root',
-//   password        : 'drishub',
-//   database        : 'blood_donation'
-// });
+
+
 const pool = require('../config/database')
 router.get('/',(req,res)=> {
     const params = new URLSearchParams({
@@ -26,7 +20,7 @@ console.log(params.toString());
 /**
  * @desc 
  * @route GET /api/search
- * @query - uid,first_name,last_name,
+ * @query - uid,first_name,last_name,phone_no,district,city,blood_group
  * @access - private
  */
 router.get('/search',async (req,res)=>{
@@ -70,7 +64,8 @@ router.get('/search',async (req,res)=>{
                 res.json({"message": "No result found"})
                 return
             }
-            query += "AND a_id IN(?);"
+            if(!isFirstCondition) query+= "AND "
+            query += "a_id IN(?);"
             console.log(query);
             console.log(a_ids)
             // ? will be replaced with a_ids
