@@ -13,3 +13,14 @@ VALUES
 
 SELECT * FROM users;
 
+INSERT INTO medical_centre(
+	name,phone_no,a_id,verified
+) VALUES ("SMC",123456,3,1);
+SELECT * from medical_centre;
+INSERT INTO medical_history(
+	uid,last_checked,checked_at,physical_illness,genetical_issues
+) VALUES ( 4,NOW(), 1,"AIDS","Color blind"); 
+
+SELECT * from medical_history;
+
+

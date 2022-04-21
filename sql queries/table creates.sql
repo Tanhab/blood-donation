@@ -33,6 +33,34 @@ ALTER TABLE `blood_donation`.`users`
 ADD COLUMN `email` VARCHAR(60) NOT NULL AFTER `last_name`,
 ADD UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE;
 ;
+
+-- medical center
+CREATE TABLE `blood_donation`.`medical_centre` (
+  `m_id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `phone_no` BIGINT(12) NULL,
+  `a_id` INT NOT NULL,
+  `verified` TINYINT(1) UNSIGNED NULL DEFAULT 0,
+  PRIMARY KEY (`m_id`),
+  INDEX `adress_idx` (`a_id` ASC) VISIBLE,
+  CONSTRAINT `adress`
+    FOREIGN KEY (`a_id`)
+    REFERENCES `blood_donation`.`adress` (`a_id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `blood_donation`.`medical_history`(
+`uid` INT NOT NULL,
+ `last_checked` DATETIME NOT NULL,
+ `checked_at` INT NOT NULL,
+ `physical_illness` LONGTEXT NULL,
+ `genetical_issues` LONGTEXT NULL,
+ FOREIGN KEY (uid) REFERENCES users(uid),
+ FOREIGN KEY (checked_at) REFERENCES adress(a_id)
+)
+
+
+
     
     
   
