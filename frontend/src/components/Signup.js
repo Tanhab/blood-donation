@@ -1,16 +1,16 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useContext } from "react"
 import { Form, Button, Alert, DropdownButton, Dropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from 'axios'
 import styles from "../styles/Signup.module.css";
 import NavigationBar from "./NavigationBar";
-
+import { AuthContext } from "../helpers/AuthContext";
 
 
 
 export default function Signup() {
 
-
+  const { setAuthState } = useContext(AuthContext);
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
@@ -63,12 +63,19 @@ export default function Signup() {
       first_name: firstNameRef.current.value,
       last_name: lastNameRef.current.value,
       email: emailRef.current.value,
-      a_id : 1,
       password: passwordRef.current.value,
       phone_no: phoneNoRef.current.value,
+      a_id: 1,
       blood_group: bloodGrpRef.current.value
 
     }).then((response) => {
+      if (response.data.error) {
+        alert(response.data.error);
+      } else {
+        localStorage.setItem("token", response.data.token);
+        setAuthState(true)
+        navigate('/home')
+      }
       console.log(response)
     })
   }
@@ -84,6 +91,8 @@ export default function Signup() {
       setError("")
       setLoading(true)
       await register()
+      
+     
     
     } catch {
       setError("Failed to create an account")
@@ -113,7 +122,6 @@ export default function Signup() {
                 required
               />
    <SelectComponent/>
-   {error && <Alert variant="danger">{error}</Alert>}
               <Button disabled={loading} type="submit">Sign Up</Button>
               <p className={styles.message}>
                 Already registered? <Link to="/login">Login</Link>

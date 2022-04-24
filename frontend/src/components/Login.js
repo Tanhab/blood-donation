@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useContext } from "react"
 import { Form, Button, Alert, DropdownButton, Dropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/Signup.module.css";
 import NavigationBar from "./NavigationBar";
 import Axios from 'axios'
+import { AuthContext } from "../helpers/AuthContext";
 
 
 export default function Login() {
@@ -12,14 +13,23 @@ export default function Login() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
+  const { setAuthState } = useContext(AuthContext);
 
   function login()
   {
+
       Axios.post("http://localhost:5000/api/user/login",{
       email: emailRef.current.value,
       password: passwordRef.current.value,
    
     }).then((response) => {
+      if (response.data.error) {
+        alert(response.data.error);
+      } else {
+        localStorage.setItem("token", response.data.token);
+        setAuthState(true)
+        navigate('/home')
+      }
       console.log(response)
     })
   }
@@ -30,6 +40,7 @@ export default function Login() {
       setError("")
       setLoading(true)
       await login()
+      
      
     } catch {
       setError("Failed to log in")

@@ -7,7 +7,7 @@ const {
     loginUser,
     getMe,
 } = require('../controllers/userController')
-const { protect } = require('../middleware/authMiddleware')
+const { protect} = require('../middleware/authMiddleware')
 
 
 // api/user/
@@ -38,6 +38,12 @@ router.post('/adress',async (req,res)=>{
         res.status(201).json({'adress': result})
     })
 })
+
+router.get("/auth", protect, (req, res) => {
+    console.log("here")
+    res.json(req.user);
+  });
+
 
 module.exports = router
 
