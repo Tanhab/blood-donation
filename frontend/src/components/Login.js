@@ -1,33 +1,62 @@
-import React from "react";
+import React, { useRef, useState } from "react"
 import { Form, Button, Alert, DropdownButton, Dropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/Signup.module.css";
 import NavigationBar from "./NavigationBar";
+import Axios from 'axios'
 
 
 export default function Login() {
+  const emailRef = useRef()
+  const passwordRef = useRef()
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate();
+
+  function login()
+  {
+      Axios.post("http://localhost:5000/api/user/login",{
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+   
+    }).then((response) => {
+      console.log(response)
+    })
+  }
+  async function handleSubmit(e) {
+    e.preventDefault()
+
+    try {
+      setError("")
+      setLoading(true)
+      await login()
+     
+    } catch {
+      setError("Failed to log in")
+    }
+
+    setLoading(false)
+  }
   return (
     <>
       <NavigationBar />
       <div className={styles.bg}>
-        <br />
-
-        <div className={styles.login}>
-          <div className={styles.form}>
-            <Form className="login-form">
+    <br/>
+    <br/>
+    <br/>
+    <div className={styles.login}>
+        <div className={styles.form}>
+      
+          <Form onSubmit={handleSubmit} className="login-form">
+            <Form.Control type="email" placeholder="Email" ref={emailRef} required/>
+            <Form.Control type="password" placeholder="Password" ref={passwordRef} required />
             
-              <Form.Control type="email" placeholder="Email" required />
-             
-              <Form.Control type="password" placeholder="Password" required />
-        
-   
-              <Button type="submit">Login</Button>
-              <p className={styles.message}>
-                Not a member yet? <Link to="/signup">Sign Up</Link>
-              </p>
-            </Form>
-          </div>
+            {error && <Alert variant="danger">{error}</Alert>}
+            <Button disabled={loading} type="submit">login</Button>
+            <p className={styles.message}>Not registered? <Link to="/signup">Create an account</Link></p>
+          </Form>
         </div>
+      </div>
       </div>
     </>
   );

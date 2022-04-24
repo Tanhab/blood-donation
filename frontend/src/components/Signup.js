@@ -58,10 +58,12 @@ export default function Signup() {
 
   function register()
   {
-    Axios.post("/api/user/",{
+    console.log(bloodGrpRef.current.value)
+    Axios.post("http://localhost:5000/api/user/",{
       first_name: firstNameRef.current.value,
       last_name: lastNameRef.current.value,
       email: emailRef.current.value,
+      a_id : 1,
       password: passwordRef.current.value,
       phone_no: phoneNoRef.current.value,
       blood_group: bloodGrpRef.current.value
@@ -111,6 +113,7 @@ export default function Signup() {
                 required
               />
    <SelectComponent/>
+   {error && <Alert variant="danger">{error}</Alert>}
               <Button disabled={loading} type="submit">Sign Up</Button>
               <p className={styles.message}>
                 Already registered? <Link to="/login">Login</Link>
