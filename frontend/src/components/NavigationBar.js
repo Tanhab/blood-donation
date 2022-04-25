@@ -45,6 +45,24 @@ export default function NavigationBar() {
             CRIMSON
           </NavLink>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
+          {authState && (
+          <li className="nav-item">
+                  <NavLink
+                    exact
+                    to="/home"
+                    activeClassName="active"
+                    className="nav-links"
+                    onClick={click ? handleClick : null}
+                  >
+                    <i
+                      class="fa fa-home"
+                      aria-hidden="true"
+                      style={{ marginRight: 5 }}
+                    ></i>
+                    Home
+                  </NavLink>
+                </li>
+          )}
             <li className="nav-item">
               <NavLink
                 exact
@@ -81,22 +99,7 @@ export default function NavigationBar() {
             )}
             {authState && (
               <>
-                <li className="nav-item">
-                  <NavLink
-                    exact
-                    to="/home"
-                    activeClassName="active"
-                    className="nav-links"
-                    onClick={click ? handleClick : null}
-                  >
-                    <i
-                      class="fa fa-home"
-                      aria-hidden="true"
-                      style={{ marginRight: 5 }}
-                    ></i>
-                    Home
-                  </NavLink>
-                </li>
+                
                 <li className="nav-item">
                   <NavLink
                     exact

@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import NavigationBar from "./NavigationBar";
 import Footer from "./Footer";
 
@@ -11,21 +11,28 @@ export default function Welcome() {
       <div className="landing">
         <div className="bg"></div>
         <div className="container column bg-column__center">
-          <h1 className="title">Donate Blood, Save Life</h1>
+          <h1 className="title">Make <span style={{color: "#FF0000"}}>Someone's Life </span><br/>
+          by giving of yours</h1>
           <p className="subheading">
-          Your blood is precious, and your donations are truly life-saving.
+          Crimson is a digital foundation for collecting donations
+          to be distributed to people in need. We build strength, stability and 
+          self reliance through shelter
           </p>
-          <button className="book-button">
-            <a href="#1" className="book-link">
-              Donate Now
-            </a>
-          </button>
+          <Link
+            className="ms-auto me-3 btn text-white shadow book-button"
+            to="/login"
+            style={{color: "white"}}
+          >
+            {" "}
+           Make a donation
+          </Link>
+        
         </div>
       </div>
 
 
 
-      <div className="info-content">
+      <div className="info-content" >
         <div className="container info-flex">
           <main className="main-content">
             <h1 className="main-title">Start Saving Lives</h1>
