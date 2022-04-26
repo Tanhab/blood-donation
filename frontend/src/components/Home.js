@@ -2,8 +2,11 @@ import React from "react";
 import { Navigation } from "react-minimal-side-navigation";
 import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
 import NavigationBar from "./NavigationBar";
+import { useNavigate } from "react-router-dom";
 import { Carousel, Card } from "react-bootstrap";
 export default function Home() {
+
+  const navigate = useNavigate();
   return (
     <>
       <NavigationBar />
@@ -12,9 +15,10 @@ export default function Home() {
       >
         <Navigation
           // you can use your own router's api to get pathname
-          activeItemId="/management/members"
+          activeItemId="/"
           onSelect={({ itemId }) => {
             // maybe push to the route
+          navigate(itemId)
           }}
           items={[
             {
@@ -31,16 +35,7 @@ export default function Home() {
               itemId: "/profile",
               elemBefore: () => <i class="fa fa-user" aria-hidden="true"></i>,
 
-              subNav: [
-                {
-                  title: "User Details",
-                  itemId: "/management/projects",
-                },
-                {
-                  title: "Medical History",
-                  itemId: "/management/members",
-                },
-              ],
+             
             },
             {
               title: "Donations",

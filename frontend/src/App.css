@@ -8,16 +8,15 @@
 }
 
 :root {
-  --neon-clr: aquamarine;
-  --body-clr: #9190cb;
-  --card-clr: #1e1d38;
   --ff-os: "Open Sans", sans-serif;
   --ff-ss: "Source Sans Pro", sans-serif;
   --ff-kd: "Kaisei Decol", serif;
   --ff-o: "Oswald", sans-serif;
 }
 
-
+a:hover {
+  color:#ff0000 !important
+}
 
 
   body {
@@ -104,7 +103,7 @@
     height: 3px;
     width: 0;
     background: transparent;
-    transition: width 0.7s ease, background-color 0.5s ease;
+    transition: width 0.7s ease,  0.5s ease;
   }
   
   .nav-item:hover:after {

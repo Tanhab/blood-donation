@@ -19,7 +19,7 @@ export default function Welcome() {
           self reliance through shelter
           </p>
           <Link
-            className="ms-auto me-3 btn text-white shadow book-button"
+            className="me-3 btn text-white shadow book-button"
             to="/login"
             style={{color: "white"}}
           >

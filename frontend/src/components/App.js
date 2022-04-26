@@ -6,8 +6,8 @@ import Home from "./Home";
 import Signup from "./Signup";
 import Login from "./Login"
 import Welcome from "./Welcome";
-// import Profile from "./Profile"
-// import ContactUs from "./ContactUs";
+import Profile from "./Profile";
+import Search from "./Search";
 // import ForgotPassword from "./ForgotPassword";
 
 
@@ -41,10 +41,11 @@ function App() {
               <Route path="/" element={<Welcome />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/home" element={<Home />} />
+              <Route path="/search" element={<Search />} />
               {authState && (
               <>
                 <Route path="/home" element={<Home />} />
+                <Route path="/profile" element={<Profile />} />
               </>
             )}
             

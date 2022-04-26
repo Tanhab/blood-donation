@@ -23,7 +23,7 @@ export default function NavigationBar() {
    
     });
   }, []);
-  console.log(authState)
+
   const logout = () => {
     localStorage.removeItem("token");
     setAuthState(false);
@@ -66,7 +66,7 @@ export default function NavigationBar() {
             <li className="nav-item">
               <NavLink
                 exact
-                to="/blog"
+                to="/search"
                 activeClassName="active"
                 className="nav-links"
                 onClick={click ? handleClick : null}
