@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import NavigationBar from "./NavigationBar";
-import Footer from "./Footer";
+import NavigationBar from "../components/NavigationBar";
+import Footer from "../components/Footer";
 
 
 export default function Welcome() {

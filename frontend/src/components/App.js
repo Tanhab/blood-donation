@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthContext } from "../helpers/AuthContext";
-import Home from "./Home";
-import Signup from "./Signup";
-import Login from "./Login"
-import Welcome from "./Welcome";
-import Profile from "./Profile";
-import Search from "./Search";
+import Home from "../pages/Home";
+import Signup from "../pages/Signup";
+import Login from "../pages/Login"
+import Welcome from "../pages/Welcome";
+import Profile from "../pages/Profile";
+import Search from "../pages/Search";
+import MedicalHistory from "../pages/MedicalHistory"
 // import ForgotPassword from "./ForgotPassword";
 
 
@@ -46,6 +47,7 @@ function App() {
               <>
                 <Route path="/home" element={<Home />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/medicalhistory" element={<MedicalHistory/>}/>
               </>
             )}
             

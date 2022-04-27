@@ -3,7 +3,7 @@ import { Form, Button, Alert, DropdownButton, Dropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from 'axios'
 import styles from "../styles/Signup.module.css";
-import NavigationBar from "./NavigationBar";
+import NavigationBar from "../components/NavigationBar";
 import { AuthContext } from "../helpers/AuthContext";
 
 

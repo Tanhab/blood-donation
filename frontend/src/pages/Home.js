@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigation } from "react-minimal-side-navigation";
 import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
-import NavigationBar from "./NavigationBar";
+import NavigationBar from "../components/NavigationBar";
 import { useNavigate } from "react-router-dom";
 import { Carousel, Card } from "react-bootstrap";
 export default function Home() {
@@ -32,9 +32,18 @@ export default function Home() {
             },
             {
               title: "Profile",
-              itemId: "/profile",
+              itemId: "",
               elemBefore: () => <i class="fa fa-user" aria-hidden="true"></i>,
-
+              subNav: [
+                {
+                  title: "User info",
+                  itemId: "/profile",
+                },
+                {
+                  title: "Medical History",
+                  itemId: "/medicalhistory",
+                },
+              ],
              
             },
             {

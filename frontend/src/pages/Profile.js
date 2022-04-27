@@ -1,5 +1,5 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
-import NavigationBar from "./NavigationBar";
+import NavigationBar from "../components/NavigationBar";
 import axios from "axios";
 
 
@@ -259,7 +259,7 @@ export default function Profile() {
           <div className="col-md-4">
             <div className="p-3 py-5">
               <div className="d-flex justify-content-between align-items-center experience">
-                <h4>Medical History</h4>
+                <h4>Physical Issues</h4>
               
               </div>
               <br />
@@ -272,6 +272,8 @@ export default function Profile() {
                 <label className="labels">Genetic Issues</label>
                 <textarea name="Text1" cols="40" rows="5"></textarea>
               </div>
+           
+
             </div>
           </div>
         </div>
