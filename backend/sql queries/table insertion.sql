@@ -1,10 +1,10 @@
-INSERT INTO `blood_donation`.`adress`
-(`building`,`village_road`,`post_office`,`city`,`district`,`longitude`,`lattitude`)
+INSERT INTO `blood_donation`.`address`
+(`building`,`village_road`,`post_office`,`city`,`district`,`longitude`,`latitude`)
 VALUES
 ("SHAHI HOUSE","12/A ROAD3","POST OFFICE3","khulshi","CHITTAGONG",90.99,55.55);
 
-SELECT * FROM adress;
-select * from adress where a_id = last_insert_id();
+SELECT * FROM address;
+select * from address where a_id = last_insert_id();
 
 INSERT INTO `blood_donation`.`users`
 (`first_name`,`last_name`,`email`,`blood_group`,`a_id`,`phone_no`,`password`)
@@ -22,5 +22,7 @@ INSERT INTO medical_history(
 ) VALUES ( 4,NOW(), 1,"AIDS","Color blind"); 
 
 SELECT * from medical_history;
+
+
 
 

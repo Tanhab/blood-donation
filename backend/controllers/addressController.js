@@ -7,15 +7,15 @@ function isNumeric(str) {
 }
 
 
-function insertAdress(adressFieldName,adressFieldValue){
-    let query = 'INSERT INTO blood_donation.adress ('
+function insertAddress(addressFieldName,addressFieldValue){
+    let query = 'INSERT INTO blood_donation.address ('
     let first = true
-    adressFieldName.map((item)=>{
+    addressFieldName.map((item)=>{
         if(!first) query+= ','
         query += item;
         first = false;
     })
-    values = adressFieldValue.map((item)=>{
+    values = addressFieldValue.map((item)=>{
         if(!isNumeric(item))
         return item
         else 
@@ -35,5 +35,5 @@ function insertAdress(adressFieldName,adressFieldValue){
 }
 
 module.exports = {
-    insertAdress
+    insertAddress
 }
