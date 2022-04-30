@@ -2,7 +2,7 @@ import React from "react";
 import { Navigation } from "react-minimal-side-navigation";
 import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
 import NavigationBar from "../components/NavigationBar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Carousel, Card } from "react-bootstrap";
 export default function Home() {
 
@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <NavigationBar />
       <div
-        style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}
+        style={{ display: "flex", height: "100vh", overflow: "scroll initial"}}
       >
         <Navigation
           // you can use your own router's api to get pathname
@@ -88,7 +88,7 @@ export default function Home() {
             },
             {
               title: "Ambulances",
-              itemId: "/ambulances",
+              itemId: "/ambulance",
               // you can use your own custom Icon component as well
               // icon is optional
               elemBefore: () => (
@@ -166,6 +166,24 @@ export default function Home() {
             We Believe that We can <span style={{ color: "red" }}> Save </span>{" "}
             More <span style={{ color: "red" }}> Lives </span> with you
           </h1>
+
+          <Link
+            className="me-3 btn text-white shadow book-button"
+            to="/login"
+            style={{color: "white"}}
+          >
+            {" "}
+           Make a donation
+          </Link>
+
+          <Link
+            className="me-3 btn text-white shadow book-button"
+            to="/login"
+            style={{color: "white"}}
+          >
+            {" "}
+        Request for blood
+          </Link>
 
           <div className="row" >
             <div className="col-md-6 col-xl-4 mb-4">

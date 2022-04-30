@@ -38,7 +38,7 @@
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #800000;
+  background: #ff0000;
   width: 100%;
   border: 0;
   padding: 15px;
@@ -58,7 +58,7 @@
   font-size: 12px;
 }
 .form .message a {
-  color: #812e2e;
+  color: #ff0000;
   text-decoration: none;
 }
 

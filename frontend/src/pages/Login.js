@@ -59,6 +59,7 @@ export default function Login() {
         <div className={styles.form}>
       
           <Form onSubmit={handleSubmit} className="login-form">
+          <h4 className=" text-center"><i className="fa fa-user-circle" style={{fontSize:"110px"}}></i></h4>
             <Form.Control type="email" placeholder="Email" ref={emailRef} required/>
             <Form.Control type="password" placeholder="Password" ref={passwordRef} required />
             

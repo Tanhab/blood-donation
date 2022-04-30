@@ -1,12 +1,75 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthContext } from "./helpers/AuthContext";
+import Home from "./pages/Home";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login"
+import Welcome from "./pages/Welcome";
+import Profile from "./pages/Profile";
+import Search from "./pages/Search";
+import MedicalHistory from "./pages/MedicalHistory"
+import Donations from "./pages/Donations";
+import MedicalCentreReg from "./pages/MedicalCentreReg"
+import MedicalCentre from "./pages/MedicalCentre";
+import Driver from "./pages/Driver";
+import Ambulance from "./pages/Ambulance"
+// import ForgotPassword from "./ForgotPassword";
 
-import './App.css';
 
 function App() {
-    return (
-        <div className="App App-header">
-            MODEL IS THE BEST
-        </div>
-    );
+
+  const [authState, setAuthState] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/user/auth", {
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("token")
+      },
+      })
+      .then((response) => {
+        if (response.data.error) {
+          setAuthState(false);
+        } else {
+          setAuthState(true);
+        }
+      });
+  }, []);
+
+  return (
+    <>
+        <AuthContext.Provider value={{ authState, setAuthState }}>
+        <BrowserRouter>
+         
+            <Routes>
+             
+              <Route path="/" element={<Welcome />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/donations" element={<Donations/>} />
+              <Route path="/medicalcentre" element={<MedicalCentre/>}/>
+              {authState && (
+              <>
+                <Route path="/home" element={<Home />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/medicalhistory" element={<MedicalHistory/>}/>
+                <Route path="/medicalcentrereg" element={<MedicalCentreReg/>}/>
+                <Route path="/driver" element={<Driver />} />
+                <Route path="/ambulance" element={<Ambulance />} />
+              
+              </>
+            )}
+            
+         
+            </Routes>
+        
+        </BrowserRouter>
+        </AuthContext.Provider>
+   </>
+  );
 }
 
 export default App;
+
