@@ -1,7 +1,7 @@
 const express = require("express");
 const router =  express.Router()
 const pool = require('../config/database')
-const {insertAdress} = require('../controllers/adressController')
+const {insertAddress} = require('../controllers/adressController')
 const {
     registerUser,
     loginUser,
@@ -29,13 +29,13 @@ router.get('/',(req,res)=>{
     });
 })
 
-router.post('/adress',async (req,res)=>{
+router.post('/address',async (req,res)=>{
     console.log(req.body)
-    a_id = await insertAdress(Object.keys(req.body),Object.values(req.body))
-    pool.query("SELECT * FROM adress WHERE a_id = ?", a_id, (err,result,fields)=>{
+    a_id = await insertAddress(Object.keys(req.body),Object.values(req.body))
+    pool.query("SELECT * FROM address WHERE a_id = ?", a_id, (err,result,fields)=>{
         if(err)
             res.status(401).json({"Error message": err.message})
-        res.status(201).json({'adress': result})
+        res.status(201).json({'address': result})
     })
 })
 
