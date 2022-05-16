@@ -1,3 +1,6 @@
+ CREATE DATABASE blood_donation;
+ 
+ use blood_donation;
   -- user table 
   CREATE TABLE `blood_donation`.`users` (
   `uid` INT NOT NULL AUTO_INCREMENT,
@@ -30,12 +33,6 @@ CREATE TABLE `blood_donation`.`address` (
   PRIMARY KEY (`a_id`));
   
   
--- email added unique
--- ALTER TABLE `blood_donation`.`users` 
--- ADD COLUMN `email` VARCHAR(60) NOT NULL AFTER `last_name`,
--- ADD UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE;
--- ;
-
 -- medical center
 CREATE TABLE `blood_donation`.`medical_centre` (
   `m_id` INT NOT NULL AUTO_INCREMENT,

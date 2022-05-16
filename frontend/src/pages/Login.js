@@ -18,7 +18,7 @@ export default function Login() {
   function login()
   {
 
-      Axios.post("http://localhost:5000/api/user/login",{
+      Axios.post("http://localhost:5001/api/user/login",{
       email: emailRef.current.value,
       password: passwordRef.current.value,
    
@@ -30,7 +30,7 @@ export default function Login() {
         setAuthState(true)
         navigate('/home')
       }
-      console.log(response)
+     
     })
   }
   async function handleSubmit(e) {
@@ -39,7 +39,7 @@ export default function Login() {
     try {
       setError("")
       setLoading(true)
-      await login()
+      login()
       
      
     } catch {

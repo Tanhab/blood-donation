@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/user/auth", {
+      .get("http://localhost:5001/api/user/auth", {
         headers: {
           "Authorization": "Bearer " + localStorage.getItem("token")
       },

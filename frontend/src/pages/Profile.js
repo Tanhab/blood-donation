@@ -39,7 +39,7 @@ export default function Profile() {
 
   useEffect(() => {
   
-      axios.get("http://localhost:5000/api/user/me", {
+      axios.get("http://localhost:5001/api/user/me", {
         headers: {
           "Authorization": "Bearer " + localStorage.getItem("token")
       },

@@ -9,7 +9,7 @@ export default function NavigationBar() {
   const [authState, setAuthState] = useState(false);
   
   useEffect(() => {
-    axios.get("http://localhost:5000/api/user/auth", {
+    axios.get("http://localhost:5001/api/user/auth", {
       headers: {
         "Authorization": "Bearer " + localStorage.getItem("token")
     },

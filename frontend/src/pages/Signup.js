@@ -33,9 +33,9 @@ export default function Signup() {
                  
                       
                           <div className="form-row">
-                              <div className="form-group col-md-6">
-                                  <label>Blood Group:</label>
-                                  <select className="form-control" ref={bloodGrpRef} value={bloodGrp} onChange={(e) => setBloodGrp(e.target.value)}>
+                              <div className="form-group" style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                                  <div  htmlFor="blood-select">Blood Group:</div>
+                                  <select style={{width: "65%"}} className="form-control" ref={bloodGrpRef} value={bloodGrp} onChange={(e) => setBloodGrp(e.target.value)}>
                                       <option selected>Select Blood Group</option>
                                       <option value="1">O+</option>
                                       <option value="2">O-</option>
@@ -59,7 +59,7 @@ export default function Signup() {
   function register()
   {
     console.log(bloodGrpRef.current.value)
-    Axios.post("http://localhost:5000/api/user/",{
+    Axios.post("http://localhost:5001/api/user/",{
       first_name: firstNameRef.current.value,
       last_name: lastNameRef.current.value,
       email: emailRef.current.value,
