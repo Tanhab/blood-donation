@@ -66,7 +66,7 @@ CREATE TABLE `blood_donation`.`ambulance`(
 `organization` INT NOT NULL,
 `phone_no` BIGINT(12) NULL,
 PRIMARY KEY (`vehicle_id`),
-FOREIGN KEY (`organization`) REFERENCES `blood_donation`.`medical_history` (`m_id`)
+FOREIGN KEY (`organization`) REFERENCES `blood_donation`.`medical_centre`(`m_id`)
 );
 
 -- driver
@@ -77,8 +77,8 @@ CREATE TABLE `blood_donation`.`driver`(
 `station` INT NOT NULL,
 `vehicle` INT NULL,
 PRIMARY KEY (`driving_licence`),
-FOREIGN KEY (`station`) REFERENCES `blood_donation`.`medical_history`(`m_id`),
-FOREIGN KEY (`vehicle`) REFERENCES `blood_donation`.`driver`(`driving_licence`)
+FOREIGN KEY (`station`) REFERENCES `blood_donation`.`medical_centre`(`m_id`),
+FOREIGN KEY (`vehicle`) REFERENCES `blood_donation`.`ambulance`(`vehicle_id`)
 );
 
 
@@ -121,7 +121,7 @@ CREATE TABLE `blood_donation`.`donations` (
  PRIMARY KEY (`id`),
  FOREIGN KEY (`recipient_id`) REFERENCES `blood_donation`.`recipient`(`uid`),
  FOREIGN KEY (`donor_id`) REFERENCES `blood_donation`.`donor`(`uid`),
- FOREIGN KEY (`station`) REFERENCES `blood_donation`.`medical_history`(`m_id`)
+ FOREIGN KEY (`medical_centre`) REFERENCES `blood_donation`.`medical_centre`(`m_id`)
  );
     
   

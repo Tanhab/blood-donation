@@ -58,7 +58,6 @@ export default function Signup() {
 
   function register()
   {
-    console.log(bloodGrpRef.current.value)
     Axios.post("http://localhost:5001/api/user/",{
       first_name: firstNameRef.current.value,
       last_name: lastNameRef.current.value,
@@ -70,7 +69,7 @@ export default function Signup() {
 
     }).then((response) => {
       if (response.data.error) {
-        alert(response.data.error);
+        console.log(response.data.error);
       } else {
         localStorage.setItem("token", response.data.token);
         setAuthState(true)

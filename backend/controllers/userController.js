@@ -25,6 +25,7 @@ const registerUser = asyncHandler(async (req, res) => {
     if(phone_no && typeof phone_no == "string") phone_no = parseInt(phone_no)
     values = [first_name,last_name,email,blood_group,a_id,phone_no,hashedPassword]
     console.log(values)
+    
     const promisePool = pool.promise();
     // query database using promises
     let query = "INSERT INTO blood_donation.users (first_name,last_name,email,blood_group,a_id,phone_no,password) VALUES(?);"
@@ -34,6 +35,7 @@ const registerUser = asyncHandler(async (req, res) => {
             rows.insertId
         )
         console.log(user)
+        
         res.status(201).json({
             uid : user[0].uid,
             first_name : user[0].first_name,
@@ -80,7 +82,7 @@ const loginUser = asyncHandler(async (req, res) => {
 const getMe = asyncHandler(async (req, res) => {
     let user = req.user
     delete user.is_admin
-    delete user.a_id 
+   // delete user.a_id 
     res.status(200).json(req.user)
 })
 

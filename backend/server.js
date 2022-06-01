@@ -14,6 +14,7 @@ app.use(express.urlencoded({extended : false}))
 
 app.use('/api/',require('./routes/donationRoutes'))
 app.use('/api/user/',require('./routes/userRoutes'))
+app.use('/api/address/', require('./routes/addressRoutes'))
 app.use('/api/medical-centre/',require('./routes/medicalCentreRoutes'))
 
 

@@ -29,14 +29,20 @@ router.get('/',(req,res)=>{
     });
 })
 
-router.post('/address',async (req,res)=>{
+
+
+
+
+router.post('/user-update', (req,res)=>{
     console.log(req.body)
-    a_id = await insertAddress(Object.keys(req.body),Object.values(req.body))
-    pool.query("SELECT * FROM address WHERE a_id = ?", a_id, (err,result,fields)=>{
-        if(err)
-            res.status(401).json({"Error message": err.message})
-        res.status(201).json({'address': result})
-    })
+    const {first_name, last_name, blood_group, phone_no, email, a_id} = req.body
+    pool.query('UPDATE users SET a_id=?, first_name=?, last_name=?, blood_group=?, phone_no=?  WHERE email=?', [a_id, first_name, last_name, blood_group, phone_no, email], function (error, results, fields) {
+    if (error) 
+       return res.status(401).json({"Error message": err.message})
+
+    console.log(results)
+    return res.status(200).json({ 'users' : results})
+    });
 })
 
 router.get("/auth", protect, (req, res) => {

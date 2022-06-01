@@ -36,6 +36,86 @@ export default function Profile() {
 
 
 
+  function save()
+  {
+   let building = "", village_road = "", post_office = "", city = "", district = "", longitude = "", latitude = "";
+
+   if(buildingRef.current.value)
+   building = buildingRef.current.value
+
+   if(villlageroadRef.current.value)
+   village_road = villlageroadRef.current.value
+
+   if(postOfficeRef.current.value)
+   post_office = postOfficeRef.current.value
+
+   if(townRef.current.value)
+   city = townRef.current.value
+
+   if(districtRef.current.value)
+   district = districtRef.current.value
+
+   if(longitudeRef.current.value)
+   longitude = longitudeRef.current.value
+
+   if(latitudeRef.current.value)
+   latitude = latitudeRef.current.value
+   
+    axios.post("http://localhost:5001/api/address/",{
+     
+      building: building,
+      village_road: village_road,
+      post_office: post_office,
+      city: city,
+      district: district,
+      longitude: longitude,
+      latitude: latitude,
+
+    }).then((response) => {
+      if (response.data.error) {
+        alert(response.data.error);
+      } else {
+        console.log(response.data)
+        axios.post("http://localhost:5001/api/user/user-update/", {
+        first_name: firstNameValue,
+        last_name: lastNameValue,
+        blood_group: bd_inv(bloodGroupValue),
+        phone_no: phoneNoValue,
+        email: emailValue,
+        a_id: response.data.address[0].a_id 
+        ,}).then((response) => {
+      
+          if(response.data.error){
+            console.log(response.data.error)
+          }
+          else
+          {
+            console.log(response.data)
+          }
+        })
+      }
+      
+    })
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+
+   
+    try {
+      setError("")
+      setLoading(true)
+      save()
+      
+     
+    
+    } catch {
+      setError("Failed to save")
+    }
+
+    setLoading(false)
+  }
+
 
   useEffect(() => {
   
@@ -48,13 +128,35 @@ export default function Profile() {
         if (response.data.error) {
           console.log(response.data.error)
         } else {
-         
+         console.log(response.data.a_id)
           setFirstNameValue(response.data.first_name)
           setLastNameValue(response.data.last_name)
           setEmailValue(response.data.email)
           setPhoneNoValue(response.data.phone_no)
           setBloodGroupValue(bd(response.data.blood_group))
 
+        }
+     
+      });
+
+      axios.get("http://localhost:5001/api/address/me-address", {
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("token")
+      },
+      }).then((response) => {
+       
+        if (response.data.error) {
+          console.log(response.data.error)
+        } else {
+         console.log(response.data)
+         setBuildingValue(response.data.address[0].building)
+         setVillageroadValue(response.data.address[0].village_road)
+         setTownValue(response.data.address[0].city)
+         setpostOfficeValue(response.data.address[0].post_office)
+         setDistrictValue(response.data.address[0].district)
+         setLatitudeValue(response.data.address[0].latitude)
+         setLongitudeValue(response.data.address[0].longitude)
+         
         }
      
       });
@@ -81,10 +183,30 @@ export default function Profile() {
     return 'AB-'
    }
 
+   function bd_inv(bloodgrp) {
+
+    if(bloodgrp==='O+')
+    return '1'
+    if(bloodgrp==='O-')
+    return '2'
+    if(bloodgrp==='A+')
+    return '3'
+    if(bloodgrp==='A-')
+    return '4'
+    if(bloodgrp==='B+')
+    return '5'
+    if(bloodgrp==='B-')
+    return '6'
+    if(bloodgrp==='AB+')
+    return '7'
+    if(bloodgrp==='AB-')
+    return '8'
+   }
+
   return (
     <>
       <NavigationBar />
-      <form >
+      <form onSubmit={handleSubmit}>
       <div className="container rounded  mb-5">
         <div className="row">
           <div className="col-md-3 border-right">
@@ -250,7 +372,7 @@ export default function Profile() {
                 </div>
               </div>
               <div className="mt-5 text-center">
-                <button className="btn btn-danger profile-button" type="button">
+                <button className="btn btn-danger profile-button" type="submit">
                   Save Profile
                 </button>
               </div>
