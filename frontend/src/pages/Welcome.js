@@ -37,12 +37,12 @@ export default function Welcome() {
           <main className="main-content">
             <h1 className="main-title">Start Saving Lives</h1>
             <div className="section-info">
-              <p className="section-info__para" style={{marginTop: 20, fontFamily: "sans"}}>
+              <h5 className="section-info__para" style={{marginTop: 20, fontFamily: "sans"}}>
               The reason to donate is simple…it helps save lives. In fact, every two seconds of every day, someone needs blood. Since blood cannot be manufactured outside the body and has a limited shelf life, the supply must constantly be replenished by generous blood donors.
               Blood donors play a vital role in the healthcare of patients in your community. 37% of the population is eligible to donate blood, yet only 5% actually do. With every blood donation, you are providing strength, hope and courage to patients and their families in your local hospitals.
               Join our cause and help us save more lives. Everyone should have the right to get a blood transfusion.
              
-              </p>
+              </h5>
             
             </div>
           </main>

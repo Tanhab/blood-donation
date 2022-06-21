@@ -14,6 +14,10 @@ import MedicalCentreReg from "./pages/MedicalCentreReg"
 import MedicalCentre from "./pages/MedicalCentre";
 import Driver from "./pages/Driver";
 import Ambulance from "./pages/Ambulance"
+import DonorS from "./pages/DonorS";
+import BloodS from "./pages/BloodS";
+import MedCenS from "./pages/MedCenS";
+import AmbS from "./pages/AmbS";
 // import ForgotPassword from "./ForgotPassword";
 
 
@@ -48,6 +52,10 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
               <Route path="/search" element={<Search />} />
+              <Route path="/donor" element={<DonorS/>} />
+              <Route path="/blood" element={<BloodS/>} />
+              <Route path="/med-cen" element={<MedCenS/>} />
+              <Route path="/amb" element={<AmbS/>}/>
               <Route path="/donations" element={<Donations/>} />
               <Route path="/medicalcentre" element={<MedicalCentre/>}/>
               {authState && (

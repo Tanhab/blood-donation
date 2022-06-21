@@ -208,7 +208,7 @@ a:hover {
 }
 .title {
   font-family: var(--ff-ss);
-  font-size: 3rem;
+  font-size: 3.5rem;
   color: rgb(0, 0, 0);
   width: 60%;
  
@@ -249,7 +249,7 @@ a:hover {
 }
 .main-title {
   font-family: var(--ff-o);
-  font-size: 2rem;
+  font-size: 3rem;
   color: #ff0000;
 }
 .main-content {

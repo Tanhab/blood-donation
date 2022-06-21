@@ -1,11 +1,28 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import styles from "../styles/Search.module.css";
+import NavigationBar from "../components/NavigationBar";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 export default function Search() {
+  const navigate = useNavigate();
+
+  function goToDonor() {
+    navigate("/donor");
+  }
+  function goToBlood() {
+    navigate("/blood");
+  }
+  function goToMedCen() {
+    navigate("/med-cen");
+  }
+  function goToAmb() {
+    navigate("/amb");
+  }
   return (
     <>
-      <div className="container" style={{ marginTop: 50 }}>
+      <NavigationBar />
+      {/* <div className="container" style={{ marginTop: 50 }}>
         <div className={styles.search}>
           <input
             type="text"
@@ -16,23 +33,42 @@ export default function Search() {
             <i class="fa fa-search"></i>
           </button>
         </div>
-      </div>
-      <div className="container" style={{ marginTop: 100 }}>
+      </div> */}
+
+      <h2 style={{ textAlign: "center", marginTop: 100, color: "grey" }}>
+        What can we help you find today?
+      </h2>
+      <div className="container" style={{ marginTop: 80 }}>
         <ul className={styles.checklist}>
           <li>
-              <Card style={{padding:10}}>
+            <Card
+              onClick={goToDonor}
+              className="shadow-sm"
+              style={{ padding: 10 }}
+            >
               Find Donors
-                  </Card></li>
+            </Card>
+          </li>
           <li>
-          <Card style={{padding:10}}>Find Blood
-          
-          </Card></li>
+            <Card
+              onClick={goToBlood}
+              className="shadow-sm"
+              style={{ padding: 10 }}
+            >
+              Find Blood
+            </Card>
+          </li>
           <li>
-          <Card style={{padding:10}}>Find Medical Centres</Card></li>
+            <Card className="shadow-sm" style={{ padding: 10 }} onClick={goToMedCen}>
+              Find Medical Centres
+            </Card>
+          </li>
           <li>
-          <Card style={{padding:10}}>Find Ambulances</Card></li>
-          <li>
-          <Card style={{padding:10}}>Find Drivers</Card></li>
+            <Card className="shadow-sm" style={{ padding: 10 }} onClick={goToAmb}>
+              Find Ambulances
+            </Card>
+          </li>
+         
         </ul>
       </div>
     </>
