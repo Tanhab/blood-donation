@@ -41,7 +41,7 @@ export default function Home() {
                 },
                 {
                   title: "Medical History",
-                  itemId: "/medicalhistory",
+                  itemId: "/medical-history",
                 },
               ],
              

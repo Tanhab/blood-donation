@@ -18,6 +18,9 @@ import DonorS from "./pages/DonorS";
 import BloodS from "./pages/BloodS";
 import MedCenS from "./pages/MedCenS";
 import AmbS from "./pages/AmbS";
+import Notification from "./pages/Notification"
+import AmbulanceReg from "./pages/AmbulanceReg";
+import DriverReg from "./pages/DriverReg";
 // import ForgotPassword from "./ForgotPassword";
 
 
@@ -62,11 +65,13 @@ function App() {
               <>
                 <Route path="/home" element={<Home />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/medicalhistory" element={<MedicalHistory/>}/>
-                <Route path="/medicalcentrereg" element={<MedicalCentreReg/>}/>
+                <Route path="/medical-history" element={<MedicalHistory/>}/>
+                <Route path="/medical-centre-reg" element={<MedicalCentreReg/>}/>
                 <Route path="/driver" element={<Driver />} />
+                <Route path="/driver-reg" element={<DriverReg />} />
                 <Route path="/ambulance" element={<Ambulance />} />
-              
+                <Route path="/ambulance-reg" element={<AmbulanceReg />} />
+                <Route path="/notification" element={<Notification/>}/>
               </>
             )}
             

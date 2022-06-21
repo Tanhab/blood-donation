@@ -50,7 +50,7 @@ export default function NavigationBar() {
                   <NavLink
                     exact
                     to="/home"
-                    activeClassName="active"
+                    //activeClassName="active"
                     className="nav-links"
                     onClick={click ? handleClick : null}
                   >
@@ -67,7 +67,7 @@ export default function NavigationBar() {
               <NavLink
                 exact
                 to="/search"
-                activeClassName="active"
+                //activeClassName="active"
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
@@ -84,7 +84,7 @@ export default function NavigationBar() {
                 <NavLink
                   exact
                   to="/signup"
-                  activeClassName="active"
+                 // activeClassName="active"
                   className="nav-links"
                   onClick={click ? handleClick : null}
                 >
@@ -104,7 +104,7 @@ export default function NavigationBar() {
                   <NavLink
                     exact
                     to="/"
-                    activeClassName="active"
+                    //activeClassName="active"
                     className="nav-links"
                     onClick={logout}
                   >

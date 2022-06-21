@@ -13,7 +13,7 @@ export default function MedicalCentre() {
 
 
         <Link className="btn btn-dark" style={{marginTop: 50}}
-        to="/medicalcentrereg"
+        to="/medical-centre-reg"
         >
             Register Medical Centre
         </Link>

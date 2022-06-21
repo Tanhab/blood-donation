@@ -15,7 +15,7 @@ export default function Driver() {
 
 
         <Link className="btn btn-dark" style={{marginTop: 50}}
-        to=""
+        to="/driver-reg"
         >
             Register as Driver
         </Link>
