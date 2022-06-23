@@ -3,27 +3,24 @@ import {  Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import NavigationBar from "../components/NavigationBar";
 
-export default function Driver() {
+export default function Organization() {
   return (
     <>
-
       <NavigationBar />
-      
 
-      <div className="container" style={{ marginTop: 50}}>
-        <h2 style={{ textAlign: "center" }}>Driver</h2>
+      <div className="container" style={{ marginTop: 50 }}>
+        <h2 style={{ textAlign: "center" }}>Organization</h2>
 
 
-      
+       
 
         <Table bordered hover style={{marginTop: 50}}>
   <thead>
     <tr>
       <th>#</th>
-      <th>Name</th>
-      <th>Driving Lisence</th>
-      <th>Station</th>
-      <th>Vehicle</th>
+      <th>Org Name</th>
+      <th>Org Branch</th>
+      <th>Hotline</th>
      
    
     </tr>
@@ -31,19 +28,18 @@ export default function Driver() {
   <tbody>
     <tr>
       <td>1</td>
-      <td>Paul Nigel </td>
-      <td>02438957283gvedf</td>
-      <td>xyz, skejbdgkvb</td>
-      <td>nil</td>
+      <td>Popular Donor Centre </td>
+      <td>Dhaka Branch</td>
+      <td>02438957283</td>
+      
       
     
     </tr>
     <tr>
     <td>2</td>
-    <td>Mark Bd </td>
-      <td>0243db 8957283</td>
-      <td>xyz, skejbdgkvb</td>
-      <td>3463637</td>
+      <td>Popular Donor Centre </td>
+      <td>Dhaka Branch</td>
+      <td>02438957283</td>
     </tr>
   
   </tbody>

@@ -26,7 +26,7 @@ function insertAddress(addressFieldName,addressFieldValue){
     console.log(query)
     return new Promise((resolve,reject)=>{
         pool.query(query,[values],(err,result,fields)=>{
-            console.log(err)
+            console.log(fields)
             if(err)
                 reject(err.message)
             resolve(result.insertId)

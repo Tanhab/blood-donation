@@ -30,7 +30,7 @@ const createAmbulance = asyncHandler(async (req, res) => {
     try {
         const [rows,fields] = await promisePool.query('INSERT INTO ambulance(vehicle_id,organization,phone_no) VALUES(?,?,?);',[vehicle_id,organization,phone_no])
         const [ambulance,fields2 ] = await promisePool.query("SELECT * FROM ambulance WHERE vehicle_id = ?",
-            rows.insertId)
+            vehicle_id)
         res.status(200).json({"ambulance": ambulance[0]})
     } catch (error) {
         res.status(400).json({'Error message': error.message,'stack':error.stack})

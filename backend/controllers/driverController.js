@@ -30,7 +30,7 @@ const createDriver = asyncHandler(async (req, res) => {
     try {
         const [rows,fields] = await promisePool.query('INSERT INTO driver(driving_license, first_name, last_name, station, vehicle) VALUES(?,?,?);',[driving_license, first_name, last_name, station, vehicle])
         const [driver,fields2 ] = await promisePool.query("SELECT * FROM driver WHERE driving_license = ?",
-            rows.insertId)
+           driving_license)
         res.status(200).json({"driver": driver[0]})
     } catch (error) {
         res.status(400).json({'Error message': error.message,'stack':error.stack})

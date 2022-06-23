@@ -21,6 +21,9 @@ import AmbS from "./pages/AmbS";
 import Notification from "./pages/Notification"
 import AmbulanceReg from "./pages/AmbulanceReg";
 import DriverReg from "./pages/DriverReg";
+import Organization from "./pages/Organization";
+import OrgReg from "./pages/OrgReg";
+import Settings from "./pages/Settings";
 // import ForgotPassword from "./ForgotPassword";
 
 
@@ -72,6 +75,9 @@ function App() {
                 <Route path="/ambulance" element={<Ambulance />} />
                 <Route path="/ambulance-reg" element={<AmbulanceReg />} />
                 <Route path="/notification" element={<Notification/>}/>
+                <Route path="/org" element={< Organization/>} />
+                <Route path="/org-reg" element={< OrgReg/>} />
+                <Route path="/settings" element={<Settings />}/>
               </>
             )}
             

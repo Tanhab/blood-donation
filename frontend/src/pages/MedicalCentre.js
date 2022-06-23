@@ -12,13 +12,9 @@ export default function MedicalCentre() {
         <h2 style={{ textAlign: "center" }}>Medical Centre</h2>
 
 
-        <Link className="btn btn-dark" style={{marginTop: 50}}
-        to="/medical-centre-reg"
-        >
-            Register Medical Centre
-        </Link>
+   
 
-        <Table bordered hover style={{marginTop: 10}}>
+        <Table bordered hover style={{marginTop: 50}}>
   <thead>
     <tr>
       <th>#</th>
