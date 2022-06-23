@@ -71,12 +71,12 @@ FOREIGN KEY (`organization`) REFERENCES `blood_donation`.`medical_centre`(`m_id`
 
 -- driver
 CREATE TABLE `blood_donation`.`driver`(
-`driving_licence` BIGINT(20) NOT NULL ,
+`driving_license` BIGINT(20) NOT NULL ,
  `first_name` VARCHAR(20) NOT NULL,
  `last_name` VARCHAR(20) NOT NULL,
 `station` INT NOT NULL,
 `vehicle` INT NULL,
-PRIMARY KEY (`driving_licence`),
+PRIMARY KEY (`driving_license`),
 FOREIGN KEY (`station`) REFERENCES `blood_donation`.`medical_centre`(`m_id`),
 FOREIGN KEY (`vehicle`) REFERENCES `blood_donation`.`ambulance`(`vehicle_id`)
 );

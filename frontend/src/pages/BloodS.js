@@ -60,17 +60,139 @@ export default function DonorS() {
           <Card.Body>
             Advanced Search
             <Form style={{marginTop:20}} >
-            <SelectComponent  />
-
-             
-              
-
-             
+            <SelectComponent  />             
               <Button style={{marginTop:20, backgroundColor: "#FF0000"}} type="submit">Search</Button>
             </Form>
           </Card.Body>
         </Card>
       </div>
+
+      <div style={{ padding: 200 }}>
+          <h3 style={{ marginTop: -100 }}>User List</h3>
+          <div className="row">
+            <div className="p-4 col-lg-3">
+              <div
+                className="card text-white bg-danger mb-3 "
+                style={{ maxWidth: 300, marginTop: 20 }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">O+</h5>
+                  <p className="card-text">
+                   Available blood bags: 100
+                  </p>
+                  <button className="btn btn-sm bg-white">More Info</button>
+                </div>
+              </div>
+            </div>
+
+           
+            <div className="p-4 col-lg-3">
+              <div
+                className="card text-white bg-danger mb-3 "
+                style={{ maxWidth: 300, marginTop: 20 }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">O-</h5>
+                  <p className="card-text">
+                   Available blood bags: 100
+                  </p>
+                  <button className="btn btn-sm bg-white">More Info</button>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 col-lg-3">
+              <div
+                className="card text-white bg-danger mb-3 "
+                style={{ maxWidth: 300, marginTop: 20 }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">A+</h5>
+                  <p className="card-text">
+                   Available blood bags: 100
+                  </p>
+                  <button className="btn btn-sm bg-white">More Info</button>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 col-lg-3">
+              <div
+                className="card text-white bg-danger mb-3 "
+                style={{ maxWidth: 300, marginTop: 20 }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">A-</h5>
+                  <p className="card-text">
+                   Available blood bags: 100
+                  </p>
+                  <button className="btn btn-sm bg-white">More Info</button>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 col-lg-3">
+              <div
+                className="card text-white bg-danger mb-3 "
+                style={{ maxWidth: 300, marginTop: 20 }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">B+</h5>
+                  <p className="card-text">
+                   Available blood bags: 100
+                  </p>
+                  <button className="btn btn-sm bg-white">More Info</button>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 col-lg-3">
+              <div
+                className="card text-white bg-danger mb-3 "
+                style={{ maxWidth: 300, marginTop: 20 }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">B-</h5>
+                  <p className="card-text">
+                   Available blood bags: 100
+                  </p>
+                  <button className="btn btn-sm bg-white">More Info</button>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 col-lg-3">
+              <div
+                className="card text-white bg-danger mb-3 "
+                style={{ maxWidth: 300, marginTop: 20 }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">AB+</h5>
+                  <p className="card-text">
+                   Available blood bags: 100
+                  </p>
+                  <button className="btn btn-sm bg-white">More Info</button>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 col-lg-3">
+              <div
+                className="card text-white bg-danger mb-3 "
+                style={{ maxWidth: 300, marginTop: 20 }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">AB-</h5>
+                  <p className="card-text">
+                   Available blood bags: 100
+                  </p>
+                  <button className="btn btn-sm bg-white">More Info</button>
+                </div>
+              </div>
+            </div>
+           
+          </div>
+          </div>
     </>
   );
 }

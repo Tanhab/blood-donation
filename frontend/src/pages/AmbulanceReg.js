@@ -22,8 +22,8 @@ export default function AmbulanceReg() {
               <div className="d-flex flex-column align-items-center text-center p-3 py-5">
                 <img
                   className="rounded-circle mt-5"
-                  width="300px"
-                  src="https://healthpayerintelligence.com/images/site/article_headers/_normal/ThinkstockPhotos-844275248.jpg"
+                  width="250px"
+                  src="https://www.vectorjunky.com/wp-content/uploads/2017/02/Pr%20122-%20TRI%20-%2025_02_11%20-%20006.jpg"
                 />
               </div>
             </div>

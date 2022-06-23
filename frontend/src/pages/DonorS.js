@@ -18,8 +18,7 @@ export default function DonorS() {
                 alignItems: "center",
               }}
             >
-             
-              <select  className="form-control">
+              <select className="form-control">
                 <option selected>Select Blood Group</option>
                 <option value="1">O+</option>
                 <option value="2">O-</option>
@@ -52,26 +51,113 @@ export default function DonorS() {
           </button>
         </div>
       </div> */}
-      <h2 style={{textAlign: "center", marginTop: 50, color: "grey"}}>
-      Search for a Donor
-      </h2>
-      <div style={{ paddingLeft: 400, paddingRight: 400, marginTop: 20 }}>
-        <Card style={{padding:10}} className="shadow">
-          <Card.Body>
-            Advanced Search
-            <Form style={{marginTop:20}} >
-            <SelectComponent  />
+      <div>
+        <h2 style={{ textAlign: "center", marginTop: 50, color: "grey" }}>
+          Search for a Donor
+        </h2>
+        <div style={{ paddingLeft: 400, paddingRight: 400, marginTop: 20 }}>
+          <Card style={{ padding: 10 }} className="shadow">
+            <Card.Body>
+              Advanced Search
+              <Form style={{ marginTop: 20 }}>
+                <SelectComponent />
 
-              <Form.Control style={{marginTop:10}} type="text" placeholder="District" />
-              <Form.Control style={{marginTop:10}} type="text" placeholder="Town" />
-              <Form.Control style={{marginTop:10}} type="text" placeholder="Village/Road" />
-              
+                <Form.Control
+                  style={{ marginTop: 10 }}
+                  type="text"
+                  placeholder="District"
+                />
+                <Form.Control
+                  style={{ marginTop: 10 }}
+                  type="text"
+                  placeholder="Town"
+                />
+                <Form.Control
+                  style={{ marginTop: 10 }}
+                  type="text"
+                  placeholder="Village/Road"
+                />
 
-             
-              <Button style={{marginTop:20, backgroundColor: "#FF0000"}} type="submit">Search</Button>
-            </Form>
-          </Card.Body>
-        </Card>
+                <Button
+                  style={{ marginTop: 20, backgroundColor: "#FF0000" }}
+                  type="submit"
+                >
+                  Search
+                </Button>
+              </Form>
+            </Card.Body>
+          </Card>
+        </div>
+
+        
+        <div style={{ padding: 200 }}>
+          <h3 style={{ marginTop: -100 }}>User List</h3>
+          <div className="row">
+            <div className="p-4 col-lg-3">
+              <div
+                className="card text-white bg-danger mb-3 "
+                style={{ maxWidth: 300, marginTop: 20 }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">John Roe</h5>
+                  <p className="card-text">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </p>
+                  <button className="btn btn-sm bg-white">More Info</button>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 col-lg-3">
+              <div
+                className="card text-white bg-danger mb-3 "
+                style={{ maxWidth: 300, marginTop: 20 }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">John Roe</h5>
+                  <p className="card-text">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </p>
+                  <button className="btn btn-sm bg-white">More Info</button>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 col-lg-3" >
+              <div
+                className="card text-white bg-danger mb-3 "
+                style={{ maxWidth: 300, marginTop: 20 }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">John Roe</h5>
+                  <p className="card-text">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </p>
+                  <button className="btn btn-sm bg-white">More Info</button>
+                </div>
+              </div>
+            </div>
+            <div className="p-4 col-lg-3" >
+              <div
+                className="card text-white bg-danger mb-3 "
+                style={{ maxWidth: 300, marginTop: 20 }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">John Roe</h5>
+                  <p className="card-text">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </p>
+                  <button className="btn btn-sm bg-white">More Info</button>
+                </div>
+              </div>
+            </div>
+           
+          </div>
+        </div>
       </div>
     </>
   );

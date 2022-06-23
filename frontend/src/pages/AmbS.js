@@ -39,6 +39,41 @@ export default function AmbS() {
           </Card.Body>
         </Card>
       </div>
+
+      <div style={{ padding: 200 }}>
+          <h3 style={{ marginTop: -100 }}>Ambulance List</h3>
+          <div className="row">
+            <div className="p-4 col-lg-3">
+              <div
+                className="card text-white bg-danger mb-3 "
+                style={{ maxWidth: 300, marginTop: 20 }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">Popular Diagnostic Centre</h5>
+                  <p className="card-text">
+                    Available Ambulances: 3
+                  </p>
+                  <button className="btn btn-sm bg-white">More Info</button>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 col-lg-3">
+              <div
+                className="card text-white bg-danger mb-3 "
+                style={{ maxWidth: 300, marginTop: 20 }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">Central Hospital</h5>
+                  <p className="card-text">
+                  Available Ambulances: 1
+                  </p>
+                  <button className="btn btn-sm bg-white">More Info</button>
+                </div>
+              </div>
+            </div>
+            </div>
+            </div>
     </>
   );
 }
