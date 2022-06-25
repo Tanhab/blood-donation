@@ -169,7 +169,7 @@ export default function Home() {
 
           <Link
             className="me-3 btn text-white shadow book-button"
-            to="/login"
+            to="/donation-req"
             style={{color: "white"}}
           >
             {" "}
@@ -178,7 +178,7 @@ export default function Home() {
 
           <Link
             className="me-3 btn text-white shadow book-button"
-            to="/login"
+            to="/blood-req"
             style={{color: "white"}}
           >
             {" "}

@@ -18,15 +18,33 @@ export default function Welcome() {
           to be distributed to people in need. We build strength, stability and 
           self reliance through shelter
           </p>
-          <Link
+          {/* <Link
             className="me-3 btn text-white shadow book-button"
             to="/login"
             style={{color: "white"}}
           >
             {" "}
            Make a donation
+          </Link> */}
+          <div className="row">
+          <Link
+            className="me-3 btn text-white shadow book-button"
+            to="/donation-req"
+            style={{color: "white"}}
+          >
+            {" "}
+           Make a donation
           </Link>
-        
+
+          <Link
+            className="me-3 btn text-white shadow book-button"
+            to="/blood-req"
+            style={{color: "white"}}
+          >
+            {" "}
+        Request for blood
+          </Link>
+          </div>
         </div>
       </div>
 

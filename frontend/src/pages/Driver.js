@@ -2,6 +2,7 @@ import React from "react";
 import {  Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import NavigationBar from "../components/NavigationBar";
+import styles from '../styles/Table.module.css'
 
 export default function Driver() {
   return (
@@ -16,12 +17,12 @@ export default function Driver() {
 
       
 
-        <Table bordered hover style={{marginTop: 50}}>
+        <table className={styles.tables} style={{marginTop: 50}}>
   <thead>
     <tr>
       <th>#</th>
       <th>Name</th>
-      <th>Driving Lisence</th>
+      <th>Driving License</th>
       <th>Station</th>
       <th>Vehicle</th>
      
@@ -47,7 +48,7 @@ export default function Driver() {
     </tr>
   
   </tbody>
-</Table>
+</table>
 
 
         <div className="container"></div>

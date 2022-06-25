@@ -1,7 +1,6 @@
 import React from "react";
-import {  Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import NavigationBar from "../components/NavigationBar";
+import styles from '../styles/Table.module.css'
 
 export default function MedicalCentre() {
   return (
@@ -12,9 +11,13 @@ export default function MedicalCentre() {
         <h2 style={{ textAlign: "center" }}>Medical Centre</h2>
 
 
+
+
+
+
    
 
-        <Table bordered hover style={{marginTop: 50}}>
+        <table className={styles.tables} style={{marginTop: 50}}>
   <thead>
     <tr>
       <th>#</th>
@@ -42,7 +45,7 @@ export default function MedicalCentre() {
     </tr>
   
   </tbody>
-</Table>
+</table>
 
 
         <div className="container"></div>

@@ -1,6 +1,7 @@
 import React from "react";
 import NavigationBar from "../components/NavigationBar";
 import { Table } from "react-bootstrap";
+import styles from '../styles/Table.module.css'
 
 export default function Donations() {
   return (
@@ -16,12 +17,12 @@ export default function Donations() {
 
         <img src="https://wallpapercave.com/wp/wp4323504.jpg" alt="image" className="w-100"/>
         </div>
-        <Table bordered hover style={{marginTop: 50}}>
+        <table className={styles.tables} style={{marginTop: 50}}>
   <thead>
     <tr>
       <th>#</th>
       <th>Donor</th>
-      <th>Recepient</th>
+      <th>Recipient</th>
       <th>Date of donation</th>
       <th>Medical Centre</th>
       <th>Status</th>
@@ -48,7 +49,7 @@ export default function Donations() {
     </tr>
   
   </tbody>
-</Table>
+</table>
 
    
       </div>
