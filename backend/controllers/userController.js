@@ -106,6 +106,7 @@ const registerDonor = asyncHandler(async (req, res) => {
 // @route   POST /api/users/recieve
 // @access  Private
 const registerReciepent = asyncHandler(async (req, res) => {
+    console.log(req.body)
     let { nid_birthCtf,uid,last_received,blood_group,phone_no } = req.body
     let {building,village_road,post_office,city,district} = req.body
 

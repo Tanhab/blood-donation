@@ -24,7 +24,7 @@ import DriverReg from "./pages/DriverReg";
 import Organization from "./pages/Organization";
 import OrgReg from "./pages/OrgReg";
 import Settings from "./pages/Settings";
-import BloodReq from "./pages/BloodReq";
+import BloodRequest from "./pages/BloodRequest";
 import DonorRegister from "./pages/DonorRegister";
 // import ForgotPassword from "./ForgotPassword";
 
@@ -66,7 +66,7 @@ function App() {
               <Route path="/amb" element={<AmbS/>}/>
               <Route path="/donations" element={<Donations/>} />
               <Route path="/medicalcentre" element={<MedicalCentre/>}/>
-              <Route path="/blood-req" element={<BloodReq />}/> 
+              <Route path="/blood-req" element={<BloodRequest />}/> 
               <Route path="/donation-req" element={<DonorRegister />}/>
               {authState && (
               <>

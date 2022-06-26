@@ -6,12 +6,11 @@ import { isExpired, decodeToken } from "react-jwt";
 const {getCurrentUid} = require('../components/Utility')
 
 
-export default function DonorRegister() {
-
+export default function BloodRequest() {
     const [user, setUser] = useState([]);
     const nid_birthCtfRef = useRef()
     const phoneNoRef = useRef()
-    const last_donatedRef = useRef()
+    const last_recievedRef = useRef()
     const buildingRef = useRef()
     const village_roadRef = useRef()
     const postOfficeRef = useRef()
@@ -66,34 +65,34 @@ export default function DonorRegister() {
         getUser();
     }, []);
 
-    const register = async ()=>
+    const requestBlood = async ()=>
     {
         const myDecodedToken = decodeToken(localStorage.getItem('token'));
-        let donor = {
+        let reciever = {
             uid : myDecodedToken.id,
             blood_group: bloodGrpRef.current.value
 
         }
         if(nid_birthCtfRef.current.value)
-            donor['nid_birthCtf']=nid_birthCtfRef.current.value
+            reciever['nid_birthCtf']=nid_birthCtfRef.current.value
         if(buildingRef.current.value)
-            donor['building']=buildingRef.current.value
+            reciever['building']=buildingRef.current.value
         if(village_roadRef.current.value)
-            donor['village_road']=village_roadRef.current.value
+            reciever['village_road']=village_roadRef.current.value
         if(postOfficeRef.current.value)
-            donor['post_office']=postOfficeRef.current.value
+            reciever['post_office']=postOfficeRef.current.value
         if(cityRef.current.value)
-            donor['city']=cityRef.current.value
+            reciever['city']=cityRef.current.value
         if(districtRef.current.value)
-            donor['district']=districtRef.current.value
+            reciever['district']=districtRef.current.value
         if(phoneNoRef.current.value)
-            donor['phone_no']=phoneNoRef.current.value
-        if(last_donatedRef.current.value)
-            donor['last_donated']=last_donatedRef.current.value
-        console.log(donor)
+            reciever['phone_no']=phoneNoRef.current.value
+        if(last_recievedRef.current.value)
+            reciever['last_received']=last_recievedRef.current.value
+        console.log(reciever)
         console.log("ekhono thik")
         
-            Axios.post("http://localhost:5001/api/user/donor/",donor,{
+            Axios.post("http://localhost:5001/api/user/recieve/",reciever,{
             headers: {
                 //"Content-Type": "application/x-www-form-urlencoded",
         //"Authorization": "Bearer " + localStorage.getItem("token")
@@ -120,7 +119,7 @@ export default function DonorRegister() {
     try {
       setError("")
       setLoading(true)
-      await register()
+      await requestBlood()
     } catch (error){
       console.log(error)
       setError("Failed to create an account")
@@ -140,10 +139,9 @@ export default function DonorRegister() {
             width="72"
             height="72"
           />
-          <h2>Register to be a Donor</h2>
+          <h2>Request Blood Donation</h2>
           <p className="lead">
-            CRIMSON is there to help you save the life of other people and
-            become a potential donor. Fill this short form to register as a potential donor. We will contact you when blood donation is needed of your type.
+            Request for blood.
           </p>
         </div>
 
@@ -252,21 +250,21 @@ export default function DonorRegister() {
               className="form-control"
               id="district"
               placeholder="enter your District(Required)"
-              required 
+              required
               ref={districtRef}
             />
         </div>
 
         <SelectComponent />
         <div className="mb-3 mt-3">
-        <label> Last blood donated </label>
+        <label> Last blood Received </label>
         <Form.Control type="date"
-        name = 'last_donated'
-        ref={last_donatedRef}
+        name = 'last_received'
+        ref={last_recievedRef}
         />
         </div>
         <button className="btn btn-danger btn-lg btn-block m-5" onClick={(e)=>handleSubmit(e)} >
-            Become a Donor
+            Request Blood
           </button>
         </Card>
       </div>
