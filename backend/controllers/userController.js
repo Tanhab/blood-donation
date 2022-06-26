@@ -4,8 +4,6 @@ const asyncHandler = require('express-async-handler')
 const pool = require("../config/database")
 const {insertAddress} = require('../controllers/addressController')
 
-
-
 // @desc    Register new user
 // @route   POST /api/users
 // @access  Public
@@ -50,21 +48,18 @@ const registerUser = asyncHandler(async (req, res) => {
 // @desc    Register new donor
 // @route   POST /api/users/donor
 // @access  private
-/*
-INSERT INTO `blood_donation`.`donor`
-(`nid/birthCtf`,`uid`,`last_donated`,`blood_group` ,`phone_no`,`a_id`)
-VALUES
-( "12345678", "1",now(),"A-",08338343,1);
-*/
 const registerDonor = asyncHandler(async (req, res) => {
+    console.log(req.body)
     let { nid_birthCtf,uid,last_donated,blood_group,phone_no } = req.body
     let {building,village_road,post_office,city,district} = req.body
+    console.log(building)
 
     if (!nid_birthCtf ||!uid ||  !last_donated || !blood_group || !phone_no || ! city || !district) {
         res.status(400)
         throw new Error('Please add all required fields')
     }
-    
+    console.log("register donor api called")
+    console.log(req.body)
     // input adress and get its a_id
     validKey = ["building","village_road","post_office","city","district"]
     address = {}
@@ -72,7 +67,6 @@ const registerDonor = asyncHandler(async (req, res) => {
         if (validKey.includes(key))
             address[key]=req.body[key]
     }
-    console.log(address)
     
     try {
         a_id = await insertAddress(Object.keys(address),Object.values(address))
@@ -80,12 +74,10 @@ const registerDonor = asyncHandler(async (req, res) => {
         res.status(400).json({'Error message': error.message})
     }
     
-    console.log("first",nid_birthCtf)
     if(typeof uid == "string") uid = parseInt(uid)
     if(typeof nid_birthCtf == "string") nid_birthCtf = parseInt(nid_birthCtf)
     if(phone_no && typeof phone_no == "string") phone_no = parseInt(phone_no)
     values = [nid_birthCtf,uid,last_donated,blood_group,phone_no,a_id ]
-    console.log(values)
     
     const promisePool = pool.promise();
     // query database using promises
@@ -95,7 +87,6 @@ const registerDonor = asyncHandler(async (req, res) => {
         const [donor,fields2 ] = await promisePool.query("SELECT * FROM donor WHERE nid_birthCtf = ?",
             nid_birthCtf
         )
-        console.log(donor)
         
         res.status(201).json({
             uid : donor[0].uid,
@@ -106,20 +97,14 @@ const registerDonor = asyncHandler(async (req, res) => {
             a_id : donor[0].aid,
         })
     } catch (error) {
-        console.log(error)
-        res.status(400).json({'Error message on last': error.message})
+        
+        res.status(400).json({'Error message ': error.message})
     }
 })
 
-// @desc    Register new user
-// @route   POST /api/users/donor
-// @access  Public
-/*
-INSERT INTO `blood_donation`.`donor`
-(`nid/birthCtf`,`uid`,`last_donated`,`blood_group` ,`phone_no`,`a_id`)
-VALUES
-( "12345678", "1",now(),"A-",08338343,1);
-*/
+// @desc    Register new reciever
+// @route   POST /api/users/recieve
+// @access  Private
 const registerReciepent = asyncHandler(async (req, res) => {
     let { nid_birthCtf,uid,last_received,blood_group,phone_no } = req.body
     let {building,village_road,post_office,city,district} = req.body
@@ -136,20 +121,16 @@ const registerReciepent = asyncHandler(async (req, res) => {
         if (validKey.includes(key))
             address[key]=req.body[key]
     }
-    console.log(address)
     
     try {
         a_id = await insertAddress(Object.keys(address),Object.values(address))
     } catch (error) {
         res.status(400).json({'Error message': error.message})
     }
-    
-    console.log("first",nid_birthCtf)
     if(typeof uid == "string") uid = parseInt(uid)
     if(typeof nid_birthCtf == "string") nid_birthCtf = parseInt(nid_birthCtf)
     if(phone_no && typeof phone_no == "string") phone_no = parseInt(phone_no)
     values = [nid_birthCtf,uid,last_received,blood_group,phone_no,a_id ]
-    console.log(values)
     
     const promisePool = pool.promise();
     // query database using promises
@@ -159,7 +140,6 @@ const registerReciepent = asyncHandler(async (req, res) => {
         const [reciever,fields2 ] = await promisePool.query("SELECT * FROM recipient WHERE nid_birthCtf = ?",
             nid_birthCtf
         )
-        console.log(reciever)
         
         res.status(201).json({
             uid : reciever[0].uid,
@@ -170,8 +150,7 @@ const registerReciepent = asyncHandler(async (req, res) => {
             a_id : reciever[0].aid,
         })
     } catch (error) {
-        console.log(error)
-        res.status(400).json({'Error message on last': error.message})
+        res.status(400).json({'Error message': error.message})
     }
 })
 

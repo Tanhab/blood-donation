@@ -40,7 +40,7 @@ export default function NavigationBar() {
       <div className={click ? "main-container" : ""} onClick={() => Close()} />
       <nav className="navbar" onClick={(e) => e.stopPropagation()}>
         <div className="nav-container">
-          <NavLink exact to="/" className="nav-logo">
+          <NavLink exact="true" to="/" className="nav-logo">
             <img src="icon.png" alt="icon" height={40}></img>
             CRIMSON
           </NavLink>
@@ -48,14 +48,14 @@ export default function NavigationBar() {
           {authState && (
           <li className="nav-item">
                   <NavLink
-                    exact
+                    exact="true"
                     to="/home"
                     //activeClassName="active"
                     className="nav-links"
                     onClick={click ? handleClick : null}
                   >
                     <i
-                      class="fa fa-home"
+                      className="fa fa-home"
                       aria-hidden="true"
                       style={{ marginRight: 5 }}
                     ></i>
@@ -65,14 +65,14 @@ export default function NavigationBar() {
           )}
             <li className="nav-item">
               <NavLink
-                exact
+                exact="true"
                 to="/search"
                 //activeClassName="active"
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
                 <i
-                  class="fa fa-search"
+                  className="fa fa-search"
                   aria-hidden="true"
                   style={{ marginRight: 5 }}
                 ></i>
@@ -82,14 +82,14 @@ export default function NavigationBar() {
             {!authState && (
               <li className="nav-item">
                 <NavLink
-                  exact
+                  exact="true"
                   to="/signup"
                  // activeClassName="active"
                   className="nav-links"
                   onClick={click ? handleClick : null}
                 >
                   <i
-                    class="fa fa-sign-in"
+                    className="fa fa-sign-in"
                     aria-hidden="true"
                     style={{ marginRight: 5 }}
                   ></i>
@@ -102,14 +102,14 @@ export default function NavigationBar() {
                 
                 <li className="nav-item">
                   <NavLink
-                    exact
+                    exact="true"
                     to="/"
                     //activeClassName="active"
                     className="nav-links"
                     onClick={logout}
                   >
                     <i
-                      class="fa fa-sign-out"
+                      className="fa fa-sign-out"
                       aria-hidden="true"
                       style={{ marginRight: 5 }}
                     ></i>

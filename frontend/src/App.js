@@ -14,7 +14,7 @@ import MedicalCentreReg from "./pages/MedicalCentreReg"
 import MedicalCentre from "./pages/MedicalCentre";
 import Driver from "./pages/Driver";
 import Ambulance from "./pages/Ambulance"
-import DonorS from "./pages/DonorS";
+import DonorSearch from "./pages/DonorSearch";
 import BloodS from "./pages/BloodS";
 import MedCenS from "./pages/MedCenS";
 import AmbS from "./pages/AmbS";
@@ -25,7 +25,7 @@ import Organization from "./pages/Organization";
 import OrgReg from "./pages/OrgReg";
 import Settings from "./pages/Settings";
 import BloodReq from "./pages/BloodReq";
-import DonationReq from "./pages/DonationReq";
+import DonorRegister from "./pages/DonorRegister";
 // import ForgotPassword from "./ForgotPassword";
 
 
@@ -60,14 +60,14 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
               <Route path="/search" element={<Search />} />
-              <Route path="/donor" element={<DonorS/>} />
+              <Route path="/donor" element={<DonorSearch/>} />
               <Route path="/blood" element={<BloodS/>} />
               <Route path="/med-cen" element={<MedCenS/>} />
               <Route path="/amb" element={<AmbS/>}/>
               <Route path="/donations" element={<Donations/>} />
               <Route path="/medicalcentre" element={<MedicalCentre/>}/>
               <Route path="/blood-req" element={<BloodReq />}/> 
-              <Route path="/donation-req" element={<DonationReq />}/>
+              <Route path="/donation-req" element={<DonorRegister />}/>
               {authState && (
               <>
                 <Route path="/home" element={<Home />} />

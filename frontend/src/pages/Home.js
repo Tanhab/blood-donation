@@ -27,13 +27,13 @@ export default function Home() {
               // you can use your own custom Icon component as well
               // icon is optional
               elemBefore: () => (
-                <i class="fa fa-dashboard" aria-hidden="true"></i>
+                <i className="fa fa-dashboard" aria-hidden="true"></i>
               ),
             },
             {
               title: "Profile",
               itemId: "",
-              elemBefore: () => <i class="fa fa-user" aria-hidden="true"></i>,
+              elemBefore: () => <i className="fa fa-user" aria-hidden="true"></i>,
               subNav: [
                 {
                   title: "User info",
@@ -49,7 +49,7 @@ export default function Home() {
             {
               title: "Donations",
               itemId: "/donations",
-              elemBefore: () => <i class="fa fa-bed" aria-hidden="true"></i>,
+              elemBefore: () => <i className="fa fa-bed" aria-hidden="true"></i>,
               subNav: [
                 {
                   title: "Donor",
@@ -67,7 +67,7 @@ export default function Home() {
               // you can use your own custom Icon component as well
               // icon is optional
               elemBefore: () => (
-                <i class="fa fa-hospital-o" aria-hidden="true"></i>
+                <i className="fa fa-hospital-o" aria-hidden="true"></i>
               ),
             },
             {
@@ -76,7 +76,7 @@ export default function Home() {
               // you can use your own custom Icon component as well
               // icon is optional
               elemBefore: () => (
-                <i class="fa fa-bell" aria-hidden="true"></i>
+                <i className="fa fa-bell" aria-hidden="true"></i>
               ),
             },
             {
@@ -84,7 +84,7 @@ export default function Home() {
               itemId: "/map",
               // you can use your own custom Icon component as well
               // icon is optional
-              elemBefore: () => <i class="fa fa-map" aria-hidden="true"></i>,
+              elemBefore: () => <i className="fa fa-map" aria-hidden="true"></i>,
             },
             {
               title: "Ambulances",
@@ -92,7 +92,7 @@ export default function Home() {
               // you can use your own custom Icon component as well
               // icon is optional
               elemBefore: () => (
-                <i class="fa fa-ambulance" aria-hidden="true"></i>
+                <i className="fa fa-ambulance" aria-hidden="true"></i>
               ),
             },
             {
@@ -100,7 +100,7 @@ export default function Home() {
               itemId: "/driver",
               // you can use your own custom Icon component as well
               // icon is optional
-              elemBefore: () => <i class="fa fa-car" aria-hidden="true"></i>,
+              elemBefore: () => <i className="fa fa-car" aria-hidden="true"></i>,
             },
             {
               title: "Other Organizations",
@@ -108,7 +108,7 @@ export default function Home() {
               // you can use your own custom Icon component as well
               // icon is optional
               elemBefore: () => (
-                <i class="fa fa-building" aria-hidden="true"></i>
+                <i className="fa fa-building" aria-hidden="true"></i>
               ),
             },
             {
@@ -116,7 +116,7 @@ export default function Home() {
               itemId: "/settings",
               // you can use your own custom Icon component as well
               // icon is optional
-              elemBefore: () => <i class="fa fa-gear" aria-hidden="true"></i>,
+              elemBefore: () => <i className="fa fa-gear" aria-hidden="true"></i>,
             },
           ]}
         />
@@ -173,7 +173,7 @@ export default function Home() {
             style={{color: "white"}}
           >
             {" "}
-           Make a donation
+          Register to be a donor
           </Link>
 
           <Link

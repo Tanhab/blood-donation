@@ -35,11 +35,11 @@ export default function Login() {
   }
   async function handleSubmit(e) {
     e.preventDefault()
-
+    console.log("i am here")
     try {
       setError("")
       setLoading(true)
-      login()
+      await login()
       
      
     } catch {

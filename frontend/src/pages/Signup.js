@@ -10,51 +10,20 @@ import { AuthContext } from "../helpers/AuthContext";
 
 export default function Signup() {
 
-  const { setAuthState } = useContext(AuthContext);
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const passwordConfirmRef = useRef()
-  const firstNameRef = useRef();
-  const lastNameRef = useRef();
-  const phoneNoRef = useRef();
-  const bloodGrpRef = useRef();
+const { setAuthState } = useContext(AuthContext);
+const emailRef = useRef()
+const passwordRef = useRef()
+const passwordConfirmRef = useRef()
+const firstNameRef = useRef();
+const lastNameRef = useRef();
+const phoneNoRef = useRef();
+const bloodGrpRef = useRef();
 
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
-  const navigate = useNavigate();
-
-  function SelectComponent() {
+const [error, setError] = useState("")
+const [loading, setLoading] = useState(false)
+const navigate = useNavigate();
 
 
-    const [bloodGrp, setBloodGrp] = useState("");
-      return(
-          <div>
-              <div className="row">
-                 
-                      
-                          <div className="form-row">
-                              <div className="form-group" style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                                  <div  htmlFor="blood-select">Blood Group:</div>
-                                  <select style={{width: "65%"}} className="form-control" ref={bloodGrpRef} value={bloodGrp} onChange={(e) => setBloodGrp(e.target.value)}>
-                                      <option selected>Select Blood Group</option>
-                                      <option value="1">O+</option>
-                                      <option value="2">O-</option>
-                                      <option value="3">A+</option>
-                                      <option value="4">A-</option>
-                                      <option value="5">B+</option>
-                                      <option value="6">B-</option>
-                                      <option value="7">AB+</option>
-                                      <option value="8">AB-</option>
-                                  </select>
-                              </div>
-                          </div>
-                       
-                      
-               
-              </div>
-          </div>
-      )  
-  }
 
   function register()
   {
@@ -63,9 +32,9 @@ export default function Signup() {
       last_name: lastNameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
-      phone_no: phoneNoRef.current.value,
-      a_id: 1,
-      blood_group: bloodGrpRef.current.value
+    //   phone_no: phoneNoRef.current.value,
+    //   a_id: 1,
+    //   blood_group: bloodGrpRef.current.value
 
     }).then((response) => {
       if (response.data.error) {
@@ -90,13 +59,9 @@ export default function Signup() {
       setError("")
       setLoading(true)
       await register()
-      
-     
-    
     } catch {
       setError("Failed to create an account")
     }
-
     setLoading(false)
   }
 
@@ -112,7 +77,6 @@ export default function Signup() {
               <Form.Control type="text" placeholder="First name" ref={firstNameRef} required />
               <Form.Control type="text" placeholder="Last name" ref={lastNameRef} required />
               <Form.Control type="email" placeholder="Email" ref={emailRef} required />
-              <Form.Control type="text" placeholder="Phone number" ref={phoneNoRef} required />
               <Form.Control type="password" placeholder="Password" ref={passwordRef} required />
               <Form.Control
                 type="password"
@@ -120,7 +84,7 @@ export default function Signup() {
                 ref={passwordConfirmRef}
                 required
               />
-   <SelectComponent/>
+                {/* <SelectComponent/> */}
               <Button disabled={loading} type="submit">Sign Up</Button>
               <p className={styles.message}>
                 Already registered? <Link to="/login">Login</Link>

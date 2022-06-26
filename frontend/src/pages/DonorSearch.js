@@ -3,7 +3,7 @@ import { Card, Form, Button } from "react-bootstrap";
 import styles from "../styles/Search.module.css";
 import NavigationBar from "../components/NavigationBar";
 
-export default function DonorS() {
+export default function DonorSearch() {
   function SelectComponent() {
     //  const [bloodGrp, setBloodGrp] = useState("");
     return (
