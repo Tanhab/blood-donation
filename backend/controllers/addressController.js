@@ -8,12 +8,16 @@ function isNumeric(str) {
 
 
 function insertAddress(addressFieldName,addressFieldValue){
+    
     let query = 'INSERT INTO blood_donation.address ('
     let first = true
     addressFieldName.map((item)=>{
-        if(!first) query+= ','
+        if(!first) 
+            query+= ','
+        
         query += item;
         first = false;
+        
     })
     values = addressFieldValue.map((item)=>{
         if(!isNumeric(item))

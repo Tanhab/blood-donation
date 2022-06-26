@@ -7,20 +7,35 @@
   `first_name` VARCHAR(20) NOT NULL,
   `last_name` VARCHAR(20) NOT NULL,
   `email` VARCHAR(60) NOT NULL,
-  `blood_group` VARCHAR(3) NOT NULL,
-  `a_id` INT NOT NULL,
-  `phone_no` BIGINT(15) NULL,
   `is_admin` TINYINT(1) UNSIGNED NULL DEFAULT 0,
   `password` TEXT NOT NULL,
-  PRIMARY KEY (`uid`),
-  INDEX `a_id_idx` (`a_id` ASC) INVISIBLE,
-  CONSTRAINT `a_id`
-    FOREIGN KEY (`a_id`)
-    REFERENCES `blood_donation`.`address` (`a_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE);
-
--- address table
+  PRIMARY KEY (`uid`));
+    
+-- donor
+CREATE TABLE `blood_donation`.`donor`(
+`nid_birthCtf` BIGINT(20) NOT NULL,
+`uid` INT NOT NULL,
+`last_donated` DATETIME NOT NULL,
+`blood_group` VARCHAR(3) NOT NULL,
+`phone_no` BIGINT(15) NOT NULL,
+`a_id` INT NOT NULL,
+ PRIMARY KEY (`nid_birthCtf`),
+ FOREIGN KEY (`uid`) REFERENCES `blood_donation`.`users`(`uid`)
+ );
+ 
+  -- recipient
+ CREATE TABLE `blood_donation`.`recipient`(
+`nid_birthCtf` BIGINT(20) NOT NULL,
+`uid` INT NOT NULL ,
+`last_received` DATETIME NOT NULL,
+`blood_group` VARCHAR(3) NOT NULL,
+`phone_no` BIGINT(15) NOT NULL,
+`a_id` INT NOT NULL,
+ PRIMARY KEY (`nid_birthCtf`),
+ FOREIGN KEY (`uid`) REFERENCES `blood_donation`.`users`(`uid`)
+ );
+ 
+ -- address table
 CREATE TABLE `blood_donation`.`address` (
   `a_id` INT NOT NULL AUTO_INCREMENT,
   `building` VARCHAR(45) NULL,
@@ -91,25 +106,6 @@ CREATE TABLE `blood_donation`.`otherOrg` (
 PRIMARY KEY (`org_id`)
 );
 
-
--- donor
-CREATE TABLE `blood_donation`.`donor`(
-`nid/birthcertificate` BIGINT(20) NOT NULL,
-`uid` INT NOT NULL ,
-`last_donated` DATETIME NOT NULL,
-PRIMARY KEY (`nid/birthcertificate`),
- FOREIGN KEY (`uid`) REFERENCES `blood_donation`.`users`(`uid`)
- );
- 
- -- recipient
- CREATE TABLE `blood_donation`.`recipient`(
-`nid/birthcertificate` BIGINT(20) NOT NULL,
-`uid` INT NOT NULL ,
-`last_received` DATETIME NOT NULL,
-PRIMARY KEY (`nid/birthcertificate`),
- FOREIGN KEY (`uid`) REFERENCES `blood_donation`.`users`(`uid`)
- );
- 
  -- donations
 CREATE TABLE `blood_donation`.`donations` (
 `id` INT NOT NULL AUTO_INCREMENT,

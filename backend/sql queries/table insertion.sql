@@ -4,19 +4,31 @@ VALUES
 ("SHAHI HOUSE","12/A ROAD3","POST OFFICE3","khulshi","CHITTAGONG",90.99,55.55);
 
 SELECT * FROM `blood_donation`.`address`;
+delete from `blood_donation`.`address`;
 
 SELECT * from `blood_donation`.`address` where a_id = last_insert_id();
 
 INSERT INTO `blood_donation`.`users`
-(`first_name`,`last_name`,`email`,`blood_group`,`a_id`,`phone_no`,`password`)
+(`first_name`,`last_name`,`email`,`password`)
 VALUES
-( "TANHAB", "HOSSAIN","tanhab1@gmail.com", "A+",1,null,"sdlfjdskjhfkjdshfkj");
+( "TANHAB", "HOSSAIN","tanhab1@gmail.com","sdlfjdskjhfkjdshfkj");
 
 SELECT * FROM `blood_donation`.`users`;
 
+INSERT INTO `blood_donation`.`donor`
+(`nid_birthCtf`,`uid`,`last_donated`,`blood_group` ,`phone_no`,`a_id`)
+VALUES
+( "12345678", "1",now(),"A-",08338343,1);
+SELECT * FROM `blood_donation`.`donor`;
+
+INSERT INTO `blood_donation`.`recipient`
+(`nid/birthCtf`,`uid`,`last_donated`,`blood_group` ,`phone_no`,`a_id`)
+VALUES
+( "12345678", "1",now(),"A-",08338343,1);
+
 INSERT INTO medical_centre(
 	name,phone_no,a_id,verified
-) VALUES ("SMC",123456,3,1);
+) VALUES ("SMC",123456,1,1);
 SELECT * from medical_centre;
 INSERT INTO medical_history(
 	uid,last_checked,checked_at,physical_illness,genetical_issues

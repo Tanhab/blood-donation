@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const pool = require("../config/database")
+const {insertAddress} = require('../controllers/addressController')
 
 
 
@@ -9,9 +10,9 @@ const pool = require("../config/database")
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-    let { first_name,last_name,email,blood_group,phone_no,a_id,password } = req.body
+    let { first_name,last_name,email,password } = req.body
 
-    if (!first_name ||!last_name ||  !email || !blood_group || !password) {
+    if (!first_name ||!last_name ||  !email || !password) {
         res.status(400)
         throw new Error('Please add all fields')
     }
@@ -21,14 +22,12 @@ const registerUser = asyncHandler(async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt)
 
   // Create user
-    if(typeof a_id == "string") a_id = parseInt(a_id)
-    if(phone_no && typeof phone_no == "string") phone_no = parseInt(phone_no)
-    values = [first_name,last_name,email,blood_group,a_id,phone_no,hashedPassword]
+    values = [first_name,last_name,email,hashedPassword]
     console.log(values)
     
     const promisePool = pool.promise();
     // query database using promises
-    let query = "INSERT INTO blood_donation.users (first_name,last_name,email,blood_group,a_id,phone_no,password) VALUES(?);"
+    let query = "INSERT INTO blood_donation.users (first_name,last_name,email,password) VALUES(?);"
     try {
         const [rows,fields] = await promisePool.query(query,[values]);
         const [user,fields2 ] = await promisePool.query("SELECT * FROM users WHERE uid = ?",
@@ -41,12 +40,138 @@ const registerUser = asyncHandler(async (req, res) => {
             first_name : user[0].first_name,
             last_name : user[0].last_name,
             email: user[0].email,
-            blood_group : user[0].blood_group,
-            a_id : user[0].aid,
             token : generateToken(user[0].uid)
         })
     } catch (error) {
         res.status(400).json({'Error message': error.message})
+    }
+})
+
+// @desc    Register new donor
+// @route   POST /api/users/donor
+// @access  private
+/*
+INSERT INTO `blood_donation`.`donor`
+(`nid/birthCtf`,`uid`,`last_donated`,`blood_group` ,`phone_no`,`a_id`)
+VALUES
+( "12345678", "1",now(),"A-",08338343,1);
+*/
+const registerDonor = asyncHandler(async (req, res) => {
+    let { nid_birthCtf,uid,last_donated,blood_group,phone_no } = req.body
+    let {building,village_road,post_office,city,district} = req.body
+
+    if (!nid_birthCtf ||!uid ||  !last_donated || !blood_group || !phone_no || ! city || !district) {
+        res.status(400)
+        throw new Error('Please add all required fields')
+    }
+    
+    // input adress and get its a_id
+    validKey = ["building","village_road","post_office","city","district"]
+    address = {}
+    for (key in req.body){
+        if (validKey.includes(key))
+            address[key]=req.body[key]
+    }
+    console.log(address)
+    
+    try {
+        a_id = await insertAddress(Object.keys(address),Object.values(address))
+    } catch (error) {
+        res.status(400).json({'Error message': error.message})
+    }
+    
+    console.log("first",nid_birthCtf)
+    if(typeof uid == "string") uid = parseInt(uid)
+    if(typeof nid_birthCtf == "string") nid_birthCtf = parseInt(nid_birthCtf)
+    if(phone_no && typeof phone_no == "string") phone_no = parseInt(phone_no)
+    values = [nid_birthCtf,uid,last_donated,blood_group,phone_no,a_id ]
+    console.log(values)
+    
+    const promisePool = pool.promise();
+    // query database using promises
+    let query = "INSERT INTO blood_donation.donor (`nid_birthCtf`,`uid`,`last_donated`,`blood_group`,`phone_no`,`a_id`) VALUES(?);"
+    try {
+        const [rows,fields] = await promisePool.query(query,[values]);
+        const [donor,fields2 ] = await promisePool.query("SELECT * FROM donor WHERE nid_birthCtf = ?",
+            nid_birthCtf
+        )
+        console.log(donor)
+        
+        res.status(201).json({
+            uid : donor[0].uid,
+            nid_birthCtf : donor[0].nid_birthCtf,
+            last_donated : donor[0].last_donated,
+            phone_no: donor[0].phone_no,
+            blood_group : donor[0].blood_group,
+            a_id : donor[0].aid,
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({'Error message on last': error.message})
+    }
+})
+
+// @desc    Register new user
+// @route   POST /api/users/donor
+// @access  Public
+/*
+INSERT INTO `blood_donation`.`donor`
+(`nid/birthCtf`,`uid`,`last_donated`,`blood_group` ,`phone_no`,`a_id`)
+VALUES
+( "12345678", "1",now(),"A-",08338343,1);
+*/
+const registerReciepent = asyncHandler(async (req, res) => {
+    let { nid_birthCtf,uid,last_received,blood_group,phone_no } = req.body
+    let {building,village_road,post_office,city,district} = req.body
+
+    if (!nid_birthCtf ||!uid ||  !last_received || !blood_group || !phone_no || ! city || !district) {
+        res.status(400)
+        throw new Error('Please add all required fields')
+    }
+    
+    // input adress and get its a_id
+    validKey = ["building","village_road","post_office","city","district"]
+    address = {}
+    for (key in req.body){
+        if (validKey.includes(key))
+            address[key]=req.body[key]
+    }
+    console.log(address)
+    
+    try {
+        a_id = await insertAddress(Object.keys(address),Object.values(address))
+    } catch (error) {
+        res.status(400).json({'Error message': error.message})
+    }
+    
+    console.log("first",nid_birthCtf)
+    if(typeof uid == "string") uid = parseInt(uid)
+    if(typeof nid_birthCtf == "string") nid_birthCtf = parseInt(nid_birthCtf)
+    if(phone_no && typeof phone_no == "string") phone_no = parseInt(phone_no)
+    values = [nid_birthCtf,uid,last_received,blood_group,phone_no,a_id ]
+    console.log(values)
+    
+    const promisePool = pool.promise();
+    // query database using promises
+    let query = "INSERT INTO blood_donation.recipient (`nid_birthCtf`,`uid`,`last_received`,`blood_group`,`phone_no`,`a_id`) VALUES(?);"
+    try {
+        const [rows,fields] = await promisePool.query(query,[values]);
+        const [reciever,fields2 ] = await promisePool.query("SELECT * FROM recipient WHERE nid_birthCtf = ?",
+            nid_birthCtf
+        )
+        console.log(reciever)
+        
+        res.status(201).json({
+            uid : reciever[0].uid,
+            nid_birthCtf : reciever[0].nid_birthCtf,
+            last_received : reciever[0].last_received,
+            phone_no: reciever[0].phone_no,
+            blood_group : reciever[0].blood_group,
+            a_id : reciever[0].aid,
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({'Error message on last': error.message})
     }
 })
 
@@ -71,7 +196,6 @@ const loginUser = asyncHandler(async (req, res) => {
         })
     } else {
         res.status(400)
-       
         throw new Error('Invalid credentials')
     }
     })
@@ -97,4 +221,6 @@ module.exports = {
     registerUser,
     loginUser,
     getMe,
+    registerDonor,
+    registerReciepent
 }

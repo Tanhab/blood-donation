@@ -7,8 +7,6 @@ export default function Donations() {
   return (
     <>
       <NavigationBar />
-
-
       <div className="container" style={{ marginTop: 50 }}>
         <h2 style={{ textAlign: "center"}}>DONATIONS</h2>
 
