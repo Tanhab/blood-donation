@@ -50,7 +50,6 @@ router.post('/user-update', (req,res)=>{
 })
 
 router.get("/auth", protect, (req, res) => {
-    console.log("here")
     res.json(req.user);
   });
 

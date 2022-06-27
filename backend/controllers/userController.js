@@ -3,10 +3,11 @@ const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const pool = require("../config/database")
 const {insertAddress} = require('../controllers/addressController')
-
-// @desc    Register new user
-// @route   POST /api/users
-// @access  Public
+/** 
+@desc    Register new user
+@route   POST /api/users
+@access  Public
+*/
 const registerUser = asyncHandler(async (req, res) => {
     let { first_name,last_name,email,password } = req.body
 

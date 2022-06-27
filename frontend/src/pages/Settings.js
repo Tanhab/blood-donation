@@ -38,7 +38,6 @@ export default function Settings() {
                         <div className="col">
                             <strong className="mb-0">Register Medical Centre</strong>
                         </div>
-                     
                     </div>
                 </div>
                 <div onClick={regAmb} className="list-group-item">
@@ -72,7 +71,6 @@ export default function Settings() {
                         <div className="col">
                             <strong className="mb-0">Unregister Medical Centre</strong>
                         </div>
-                     
                     </div>
                 </div>
                 <div className="list-group-item">

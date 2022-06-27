@@ -4,7 +4,7 @@ VALUES
 ("SHAHI HOUSE","12/A ROAD3","POST OFFICE3","khulshi","CHITTAGONG",90.99,55.55);
 
 SELECT * FROM `blood_donation`.`address`;
-delete from `blood_donation`.`address`;
+SELECT a_id FROM address WHERE district='chittagong';
 
 SELECT * from `blood_donation`.`address` where a_id = last_insert_id();
 
@@ -18,13 +18,15 @@ SELECT * FROM `blood_donation`.`users`;
 INSERT INTO `blood_donation`.`donor`
 (`nid_birthCtf`,`uid`,`last_donated`,`blood_group` ,`phone_no`,`a_id`)
 VALUES
-( "12345678", "1",now(),"A-",08338343,1);
+( "123456766", "1",now(),"A-",08338343,1);
 SELECT * FROM `blood_donation`.`donor`;
 
 INSERT INTO `blood_donation`.`recipient`
-(`nid/birthCtf`,`uid`,`last_donated`,`blood_group` ,`phone_no`,`a_id`)
+(`nid_birthCtf`,`uid`,`last_received`,`blood_group` ,`phone_no`,`a_id`)
 VALUES
 ( "12345678", "1",now(),"A-",08338343,1);
+
+SELECT * FROM `blood_donation`.`recipient`;
 
 INSERT INTO medical_centre(
 	name,phone_no,a_id,verified
