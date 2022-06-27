@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const pool = require("../config/database")
-
+const {insertAddress} = require('../controllers/addressController')
 
 
 
@@ -29,10 +29,27 @@ const getMedicalCentre = asyncHandler(async (req, res) => {
 // @access  private
 const createMedicalCentre = asyncHandler(async (req, res) => {
     console.log(req.body)
-    let {name,phone_no,a_id} = req.body
-
+    let {name,phone_no} = req.body
+    let {building,village_road,post_office,city,district} = req.body
+    if (!name  || !phone_no || ! city || !district) {
+        res.status(400)
+        throw new Error('Please add all required fields')
+    }
     if( typeof phone_no == 'string' ) phone_no = parseInt(phone_no)
-    if( typeof a_id == 'string' ) a_id = parseInt(a_id)
+    //if( typeof a_id == 'string' ) a_id = parseInt(a_id)
+    validKey = ["building","village_road","post_office","city","district"]
+    address = {}
+    for (key in req.body){
+        if (validKey.includes(key))
+            address[key]=req.body[key]
+    }
+    
+    try {
+        a_id = await insertAddress(Object.keys(address),Object.values(address))
+    } catch (error) {
+        res.status(400).json({'Error message': error.message})
+    }
+
     console.log([name,phone_no,a_id])
     const promisePool = pool.promise()
     try {

@@ -1,24 +1,51 @@
+import axios from "axios";
 import React, { useRef, useState, useContext, useEffect } from "react";
 import NavigationBar from "../components/NavigationBar";
 
 
 export default function MedicalCentreReg() {
 
-    const [buildingValue, setBuildingValue] = useState("");
-    const [villageroadValue, setVillageroadValue] = useState("");
-    const [postOfficeValue, setpostOfficeValue] = useState("");
-    const [townValue, setTownValue] = useState("");
-    const [districtValue, setDistrictValue] = useState("");
-    const [longitudeValue, setLongitudeValue] = useState("");
-    const [latitudeValue, setLatitudeValue] = useState("");
-
+    const nameRef = useRef()
     const buildingRef = useRef();
     const villlageroadRef = useRef();
     const postOfficeRef = useRef();
     const townRef = useRef();
     const districtRef = useRef();
-    const longitudeRef = useRef();
-    const latitudeRef = useRef();
+    const phoneNoRef = useRef();
+
+    const registerMedical = async ()=>{
+        let medical  = {}
+        if(nameRef.current.value)
+            medical['name']=nameRef.current.value
+        if(buildingRef.current.value)
+            medical['building']=buildingRef.current.value
+        if(villlageroadRef.current.value)
+            medical['village_road']=villlageroadRef.current.value
+        if(postOfficeRef.current.value)
+            medical['post_office']=postOfficeRef.current.value
+        if(townRef.current.value)
+            medical['city']=townRef.current.value
+        if(districtRef.current.value)
+            medical['district']=districtRef.current.value
+        if(phoneNoRef.current.value)
+            medical['phone_no']=phoneNoRef.current.value
+        
+        axios.post("http://localhost:5001/api/medical-centre/",medical)
+        .then((response)=>{
+            console.log("succesfull")
+        }).catch((error)=>{
+            console.log(error)
+        })
+    }
+
+    async function handleSubmit(e){
+        e.preventDefault()
+        try {
+            await registerMedical()
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <>
@@ -52,7 +79,7 @@ export default function MedicalCentreReg() {
                     className="form-control"
                     placeholder="name"
                     // value={firstNameValue}
-                    // ref={firstNameRef}
+                    ref={nameRef}
                     // onChange={(e) => setFirstNameValue(e.target.value)}
                   />
                 </div>
@@ -69,7 +96,7 @@ export default function MedicalCentreReg() {
                     className="form-control"
                     placeholder="enter phone number"
                     // value={phoneNoValue}
-                    // ref={phoneNoRef}
+                    ref={phoneNoRef}
                     // onChange={(e) => setPhoneNoValue(e.target.value)}
                   />
                 </div>
@@ -80,9 +107,9 @@ export default function MedicalCentreReg() {
                     type="text"
                     className="form-control"
                     placeholder="enter building name"
-                    value={buildingValue}
+                    //value={buildingValue}
                     ref={buildingRef}
-                    onChange={(e) => setBuildingValue(e.target.value)}
+                    //onChange={(e) => setBuildingValue(e.target.value)}
                   />
                 </div>
                 <div className="col-md-12 mt-2">
@@ -91,9 +118,9 @@ export default function MedicalCentreReg() {
                     type="text"
                     className="form-control"
                     placeholder="enter village/road name"
-                    value={villageroadValue}
+                    //value={villageroadValue}
                     ref={villlageroadRef}
-                    onChange={(e) => setVillageroadValue(e.target.value)}
+                    //onChange={(e) => setVillageroadValue(e.target.value)}
                   />
                 </div>
                 <div className="col-md-12 mt-2">
@@ -102,9 +129,9 @@ export default function MedicalCentreReg() {
                     type="text"
                     className="form-control"
                     placeholder="enter psot office name"
-                    value={postOfficeValue}
+                    //value={postOfficeValue}
                     ref={postOfficeRef}
-                    onChange={(e) => setpostOfficeValue(e.target.value)}
+                    //onChange={(e) => setpostOfficeValue(e.target.value)}
                   />
                 </div>
                 <div className="col-md-12 mt-2">
@@ -113,9 +140,9 @@ export default function MedicalCentreReg() {
                     type="text"
                     className="form-control"
                     placeholder="enter town name"
-                    value={townValue}
+                    //value={townValue}
                     ref={townRef}
-                    onChange={(e) => setTownValue(e.target.value)}
+                    //onChange={(e) => setTownValue(e.target.value)}
                   />
                 </div>
                 <div className="col-md-12 mt-2">
@@ -124,40 +151,17 @@ export default function MedicalCentreReg() {
                     type="text"
                     className="form-control"
                     placeholder="enter district name"
-                    value={districtValue}
+                    //value={districtValue}
                     ref={districtRef}
-                    onChange={(e) => setDistrictValue(e.target.value)}
+                    //onChange={(e) => setDistrictValue(e.target.value)}
                   />
                 </div>
            
                 </div>
               </div>
-              <div className="row ">
-                <div className="col-md-6">
-                  <label className="labels">Longitude</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="longitude"
-                    value={longitudeValue}
-                    ref={longitudeRef}
-                    onChange={(e) => setLongitudeValue(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-6">
-                  <label className="labels">Latitude</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={latitudeValue}
-                    ref={latitudeRef}
-                    onChange={(e) => setLatitudeValue(e.target.value)}
-                    placeholder="latitude"
-                  />
-                </div>
-              </div>
               <div className="mt-5 text-center">
-                <button className="btn btn-danger profile-button" type="button">
+                <button className="btn btn-danger profile-button" type="button"
+                onClick={(e)=>handleSubmit(e)}>
                   Save Medical Centre
                 </button>
               </div>
