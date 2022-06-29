@@ -7,27 +7,28 @@ import styles from "../App.css";
 export default function NavigationBar() {
   const navigate = useNavigate();
   const [authState, setAuthState] = useState(false);
-  
+
   useEffect(() => {
-    axios.get("http://localhost:5001/api/user/auth", {
-      headers: {
-        "Authorization": "Bearer " + localStorage.getItem("token")
-    },
-    }).then((response) => {
-      console.log(response)
-      if (response.data.error) {
-        setAuthState(false);
-      } else {
-        setAuthState(true);
-      }
-   
-    });
+    axios
+      .get("http://localhost:5001/api/user/auth", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.data.error) {
+          setAuthState(false);
+        } else {
+          setAuthState(true);
+        }
+      });
   }, []);
 
   const logout = () => {
     localStorage.removeItem("token");
+  
     setAuthState(false);
-
   };
 
   const [click, setClick] = useState(false);
@@ -42,27 +43,28 @@ export default function NavigationBar() {
         <div className="nav-container">
           <NavLink exact="true" to="/" className="nav-logo">
             <img src="icon.png" alt="icon" height={40}></img>
-            CRIMSON
+            CRIMSON 
           </NavLink>
+          <span className="badge"> Admin</span>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
-          {authState && (
-          <li className="nav-item">
-                  <NavLink
-                    exact="true"
-                    to="/home"
-                    //activeClassName="active"
-                    className="nav-links"
-                    onClick={click ? handleClick : null}
-                  >
-                    <i
-                      className="fa fa-home"
-                      aria-hidden="true"
-                      style={{ marginRight: 5 }}
-                    ></i>
-                    Home
-                  </NavLink>
-                </li>
-          )}
+            {authState && (
+              <li className="nav-item">
+                <NavLink
+                  exact="true"
+                  to="/home"
+                  //activeClassName="active"
+                  className="nav-links"
+                  onClick={click ? handleClick : null}
+                >
+                  <i
+                    className="fa fa-home"
+                    aria-hidden="true"
+                    style={{ marginRight: 5 }}
+                  ></i>
+                  Home
+                </NavLink>
+              </li>
+            )}
             <li className="nav-item">
               <NavLink
                 exact="true"
@@ -83,8 +85,8 @@ export default function NavigationBar() {
               <li className="nav-item">
                 <NavLink
                   exact="true"
-                  to="/signup"
-                 // activeClassName="active"
+                  to="/choice"
+                  // activeClassName="active"
                   className="nav-links"
                   onClick={click ? handleClick : null}
                 >
@@ -99,7 +101,6 @@ export default function NavigationBar() {
             )}
             {authState && (
               <>
-                
                 <li className="nav-item">
                   <NavLink
                     exact="true"

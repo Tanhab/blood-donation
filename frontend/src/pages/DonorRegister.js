@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import NavigationBar from "../components/NavigationBar";
-import { Card,Form, Toast } from "react-bootstrap";
+import { Card,Form, Toast, Alert } from "react-bootstrap";
 import Axios from "axios";
 import { isExpired, decodeToken } from "react-jwt";
-const {getCurrentUid} = require('../components/Utility')
+
 
 
 export default function DonorRegister() {
-
+  const [alert, setAlert] = useState(false);
+  const [alert1, setAlert1] = useState(false);
+  const [alertContent, setAlertContent] = useState('');
     const [user, setUser] = useState([]);
     const nid_birthCtfRef = useRef()
     const phoneNoRef = useRef()
@@ -53,6 +55,7 @@ export default function DonorRegister() {
           "Authorization": "Bearer " + localStorage.getItem("token")
       },
       }).then((response) => {
+       
         if (response.data.error) {
           console.log(response.data.error)
         } else {
@@ -74,6 +77,7 @@ export default function DonorRegister() {
             blood_group: bloodGrpRef.current.value
 
         }
+       
         if(nid_birthCtfRef.current.value)
             donor['nid_birthCtf']=nid_birthCtfRef.current.value
         if(buildingRef.current.value)
@@ -100,17 +104,24 @@ export default function DonorRegister() {
     },
         }).then((response)=>{
             console.log(response)
+         
             if(response.data.error){
+              setAlertContent(response.data.error);
+              setAlert(true);
                 setError(response.data.error)
                 console.log(response.data.error)
             }
             else{
+              setAlertContent("Your registration is successful");
+              setAlert1(true);
                 console.log("successfull")
                 console.log(response.data)
             }
         })
         .catch ((error)=> {
-            console.log(error)
+          setAlertContent(error.response.data.message);
+          setAlert(true);
+            console.log({error2: error.response.data.message})
         })
     }
 
@@ -126,6 +137,8 @@ export default function DonorRegister() {
       setError("Failed to create an account")
     }
     setLoading(false)
+
+    console.log(alert)
   }
   return (
     <>
@@ -133,6 +146,9 @@ export default function DonorRegister() {
 
       <div className="container ">
         <div className="py-5 text-center">
+
+        {alert ? <Alert variant={'danger'}>{alertContent}</Alert> : <></> }
+        {alert1 ? <Alert variant={'success'}>{alertContent}</Alert> : <></> }
           <img
             className="d-block mx-auto mb-4"
             src="icon.png"
@@ -170,7 +186,8 @@ export default function DonorRegister() {
               />
             </div>
           </div>
-          <div className="mb-3">
+          <div className="row">
+          <div className="col-md-6 mb-3">
             <label>Email </label>
             <input
               type="email"
@@ -179,6 +196,18 @@ export default function DonorRegister() {
               placeholder= {user.email}
               disabled = {true}
             />
+          </div>
+
+          <div className="col-md-6 mb-3">
+            <label>Phone number </label>
+            <input
+              type="text"
+              className="form-control"
+              id="phone_no"
+              placeholder="enter your phone no"
+              ref={phoneNoRef}
+            />
+          </div>
           </div>
           <div className="mb-3">
             <label>NID/ Birth Certificate Number </label>
@@ -190,19 +219,10 @@ export default function DonorRegister() {
               ref={nid_birthCtfRef}
             />
           </div>
-          <div className="mb-3">
-            <label>Phone number </label>
-            <input
-              type="text"
-              className="form-control"
-              id="phone_no"
-              placeholder="enter your phone no"
-              ref={phoneNoRef}
-            />
-          </div>
+        
           
           <div className="row">
-            <div className="mb-3">
+            <div className="col-md-6 mb-3">
             <label>Building </label>
             <input
               type="text"
@@ -211,10 +231,10 @@ export default function DonorRegister() {
               placeholder="Enter Building Name"
               ref={buildingRef}
             />
-          </div>
+          
           
           </div>
-           <div className="mb-3">
+          <div className="col-md-6 mb-3">
             <label>Village/road </label>
             <input
               type="text"
@@ -224,7 +244,9 @@ export default function DonorRegister() {
               ref={village_roadRef}
             />
           </div>
-          <div className="mb-3">
+          </div>
+          <div className="row">
+          <div className="col-md-6 mb-3">
             <label>Post office </label>
             <input
               type="text"
@@ -234,7 +256,7 @@ export default function DonorRegister() {
               ref = {postOfficeRef }
             />
           </div>
-          <div className="mb-3">
+          <div className="col-md-6 mb-3">
             <label>City </label>
             <input
               type="text"
@@ -244,6 +266,7 @@ export default function DonorRegister() {
               required
               ref={cityRef}
             />
+          </div>
           </div>
           <div className="mb-3">
             <label>District </label>
@@ -257,14 +280,18 @@ export default function DonorRegister() {
             />
         </div>
 
+  
         <SelectComponent />
+      
         <div className="mb-3 mt-3">
         <label> Last blood donated </label>
         <Form.Control type="date"
+        datatype="dd/mm/yy"
         name = 'last_donated'
         ref={last_donatedRef}
         />
         </div>
+        
         <button className="btn btn-danger btn-lg btn-block m-5" onClick={(e)=>handleSubmit(e)} >
             Become a Donor
           </button>

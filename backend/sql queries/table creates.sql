@@ -1,6 +1,8 @@
  CREATE DATABASE blood_donation;
  
  use blood_donation;
+ 
+
   -- user table 
   CREATE TABLE `blood_donation`.`users` (
   `uid` INT NOT NULL AUTO_INCREMENT,

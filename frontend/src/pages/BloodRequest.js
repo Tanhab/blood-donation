@@ -168,7 +168,8 @@ export default function BloodRequest() {
               />
             </div>
           </div>
-          <div className="mb-3">
+          <div className="row">
+          <div className="col-md-6 mb-3">
             <label>Email </label>
             <input
               type="email"
@@ -177,6 +178,18 @@ export default function BloodRequest() {
               placeholder= {user.email}
               disabled = {true}
             />
+          </div>
+
+          <div className="col-md-6 mb-3">
+            <label>Phone number </label>
+            <input
+              type="text"
+              className="form-control"
+              id="phone_no"
+              placeholder="enter your phone no"
+              ref={phoneNoRef}
+            />
+          </div>
           </div>
           <div className="mb-3">
             <label>NID/ Birth Certificate Number </label>
@@ -188,19 +201,10 @@ export default function BloodRequest() {
               ref={nid_birthCtfRef}
             />
           </div>
-          <div className="mb-3">
-            <label>Phone number </label>
-            <input
-              type="text"
-              className="form-control"
-              id="phone_no"
-              placeholder="enter your phone no"
-              ref={phoneNoRef}
-            />
-          </div>
+         
           
           <div className="row">
-            <div className="mb-3">
+            <div className="col-md-6 mb-3">
             <label>Building </label>
             <input
               type="text"
@@ -209,10 +213,10 @@ export default function BloodRequest() {
               placeholder="Enter Building Name"
               ref={buildingRef}
             />
-          </div>
+          
           
           </div>
-           <div className="mb-3">
+          <div className="col-md-6 mb-3">
             <label>Village/road </label>
             <input
               type="text"
@@ -222,7 +226,9 @@ export default function BloodRequest() {
               ref={village_roadRef}
             />
           </div>
-          <div className="mb-3">
+          </div>
+          <div className="row">
+          <div className="col-md-6 mb-3">
             <label>Post office </label>
             <input
               type="text"
@@ -232,7 +238,7 @@ export default function BloodRequest() {
               ref = {postOfficeRef }
             />
           </div>
-          <div className="mb-3">
+          <div className="col-md-6 mb-3">
             <label>City </label>
             <input
               type="text"
@@ -242,6 +248,7 @@ export default function BloodRequest() {
               required
               ref={cityRef}
             />
+          </div>
           </div>
           <div className="mb-3">
             <label>District </label>

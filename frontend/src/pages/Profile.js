@@ -1,4 +1,5 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
+import { Card } from "react-bootstrap";
 import NavigationBar from "../components/NavigationBar";
 import axios from "axios";
 
@@ -38,64 +39,72 @@ export default function Profile() {
 
   function save()
   {
-   let building = "", village_road = "", post_office = "", city = "", district = "", longitude = "", latitude = "";
+   let building = "", village_road = "", post_office = "", city = "", district = "", longitude = "", latitude = "", first_name="", last_name="", email="";
 
-   if(buildingRef.current.value)
-   building = buildingRef.current.value
+   if(firstNameRef.current.value)
+   first_name = firstNameRef.current.value
 
-   if(villlageroadRef.current.value)
-   village_road = villlageroadRef.current.value
+   if(lastNameRef.current.value)
+   last_name = lastNameRef.current.value
 
-   if(postOfficeRef.current.value)
-   post_office = postOfficeRef.current.value
+   if(emailRef.current.value)
+   email = emailRef.current.value
 
-   if(townRef.current.value)
-   city = townRef.current.value
-
-   if(districtRef.current.value)
-   district = districtRef.current.value
-
-   if(longitudeRef.current.value)
-   longitude = longitudeRef.current.value
-
-   if(latitudeRef.current.value)
-   latitude = latitudeRef.current.value
-   
-    axios.post("http://localhost:5001/api/address/",{
-     
-      building: building,
-      village_road: village_road,
-      post_office: post_office,
-      city: city,
-      district: district,
-      longitude: longitude,
-      latitude: latitude,
-
+   axios.post("http://localhost:5001/api/user/user-update/", {
+    first_name: first_name,
+    last_name: last_name,
+    email: email,
+ 
     }).then((response) => {
-      if (response.data.error) {
-        alert(response.data.error);
-      } else {
-        console.log(response.data)
-        axios.post("http://localhost:5001/api/user/user-update/", {
-        first_name: firstNameValue,
-        last_name: lastNameValue,
-        blood_group: bd_inv(bloodGroupValue),
-        phone_no: phoneNoValue,
-        email: emailValue,
-        a_id: response.data.address[0].a_id 
-        ,}).then((response) => {
-      
-          if(response.data.error){
-            console.log(response.data.error)
-          }
-          else
-          {
-            console.log(response.data)
-          }
-        })
+  
+      if(response.data.error){
+        console.log(response.data.error)
       }
-      
+      else
+      {
+        console.log(response.data)
+      }
     })
+  //  if(buildingRef.current.value)
+  //  building = buildingRef.current.value
+
+  //  if(villlageroadRef.current.value)
+  //  village_road = villlageroadRef.current.value
+
+  //  if(postOfficeRef.current.value)
+  //  post_office = postOfficeRef.current.value
+
+  //  if(townRef.current.value)
+  //  city = townRef.current.value
+
+  //  if(districtRef.current.value)
+  //  district = districtRef.current.value
+
+  //  if(longitudeRef.current.value)
+  //  longitude = longitudeRef.current.value
+
+  //  if(latitudeRef.current.value)
+  //  latitude = latitudeRef.current.value
+   
+  //   axios.post("http://localhost:5001/api/address/",{
+     
+  //     building: building,
+  //     village_road: village_road,
+  //     post_office: post_office,
+  //     city: city,
+  //     district: district,
+  //     longitude: longitude,
+  //     latitude: latitude,
+
+  //   }).then((response) => {
+  //     if (response.data.error) {
+  //       alert(response.data.error);
+  //     } else {
+  //       console.log(response.data)
+       
+  //     }
+      
+  //   })
   }
 
   async function handleSubmit(e) {
@@ -128,38 +137,36 @@ export default function Profile() {
         if (response.data.error) {
           console.log(response.data.error)
         } else {
-         console.log(response.data.a_id)
+       
           setFirstNameValue(response.data.first_name)
           setLastNameValue(response.data.last_name)
           setEmailValue(response.data.email)
-          setPhoneNoValue(response.data.phone_no)
-          setBloodGroupValue(bd(response.data.blood_group))
 
         }
      
       });
 
-      axios.get("http://localhost:5001/api/address/me-address", {
-        headers: {
-          "Authorization": "Bearer " + localStorage.getItem("token")
-      },
-      }).then((response) => {
+      // axios.get("http://localhost:5001/api/address/me-address", {
+      //   headers: {
+      //     "Authorization": "Bearer " + localStorage.getItem("token")
+      // },
+      // }).then((response) => {
        
-        if (response.data.error) {
-          console.log(response.data.error)
-        } else {
-         console.log(response.data)
-         setBuildingValue(response.data.address[0].building)
-         setVillageroadValue(response.data.address[0].village_road)
-         setTownValue(response.data.address[0].city)
-         setpostOfficeValue(response.data.address[0].post_office)
-         setDistrictValue(response.data.address[0].district)
-         setLatitudeValue(response.data.address[0].latitude)
-         setLongitudeValue(response.data.address[0].longitude)
+      //   if (response.data.error) {
+      //     console.log(response.data.error)
+      //   } else {
+      //    console.log(response.data)
+      //    setBuildingValue(response.data.address[0].building)
+      //    setVillageroadValue(response.data.address[0].village_road)
+      //    setTownValue(response.data.address[0].city)
+      //    setpostOfficeValue(response.data.address[0].post_office)
+      //    setDistrictValue(response.data.address[0].district)
+      //    setLatitudeValue(response.data.address[0].latitude)
+      //    setLongitudeValue(response.data.address[0].longitude)
          
-        }
+      //   }
      
-      });
+      // });
  
    },[]);
 
@@ -206,7 +213,9 @@ export default function Profile() {
   return (
     <>
       <NavigationBar />
-      <form onSubmit={handleSubmit}>
+
+  
+      <form onSubmit={handleSubmit} style={{marginTop:100}}>
       <div className="container rounded  mb-5">
         <div className="row">
           <div className="col-md-3 border-right">
@@ -218,12 +227,13 @@ export default function Profile() {
               />
               
               <h3 style={{color:'red'}}>Donations</h3>
-              <span>Number of donations made: 2 </span>
+              <span>Number of donations made: 0 </span>
               <span>Number of transfusion done: 0 </span>
             </div>
           </div>
+
          
-          <div className="col-md-5 border-right">
+          <div className="col-md-9 border-right">
           
             <div className="p-3 py-5">
               <div className="d-flex justify-content-between align-items-center mb-3">
@@ -262,11 +272,12 @@ export default function Profile() {
                     placeholder="enter email address"
                     value={emailValue}
                     ref={emailRef}
+                    disabled={true}
                     onChange={(e) => setEmailValue(e.target.value)}
                   />
                 </div>
               
-       
+       {/*
                 <div className="col-md-12 mt-2">
                   <label className="labels">Mobile Number</label>
                   <input
@@ -278,7 +289,7 @@ export default function Profile() {
                     onChange={(e) => setPhoneNoValue(e.target.value)}
                   />
                 </div>
-                <div className="col-md-12 mt-2">
+                 <div className="col-md-12 mt-2">
                   <label className="labels">Blood Group</label>
                   <input
                     type="text"
@@ -369,16 +380,38 @@ export default function Profile() {
                     onChange={(e) => setLatitudeValue(e.target.value)}
                     placeholder="latitude"
                   />
-                </div>
+                </div> */}
               </div>
+              <div className="p-3 py-5">
+              <div className="d-flex justify-content-between align-items-center experience">
+                <h4>Physical Issues</h4>
+              
+              </div>
+              <br />
+              <div className="col-md-12">
+                <label className="labels">Physical Illness</label>
+                <input
+                    type="text"
+                    className="form-control"
+                  />
+              </div>
+              <br />
+              <div className="col-md-12">
+                <label className="labels">Genetic Issues</label>
+                <input
+                    type="text"
+                    className="form-control"
+                  />
+              </div>
+            </div>
               <div className="mt-5 text-center">
                 <button className="btn btn-danger profile-button" type="submit">
                   Save Profile
                 </button>
               </div>
             </div>
-       
-          <div className="col-md-4">
+       </div>
+          {/* <div className="col-md-4">
             <div className="p-3 py-5">
               <div className="d-flex justify-content-between align-items-center experience">
                 <h4>Physical Issues</h4>
@@ -394,13 +427,13 @@ export default function Profile() {
                 <label className="labels">Genetic Issues</label>
                 <textarea name="Text1" cols="40" rows="5"></textarea>
               </div>
-           
-
             </div>
-          </div>
+          </div> */}
+         
         </div>
       </div>
       </form>
+ 
     </>
   );
 }

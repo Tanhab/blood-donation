@@ -13,12 +13,34 @@ INSERT INTO `blood_donation`.`users`
 VALUES
 ( "TANHAB", "HOSSAIN","tanhab1@gmail.com","sdlfjdskjhfkjdshfkj");
 
+INSERT INTO `blood_donation`.`users`
+(`first_name`,`last_name`,`email`,`password`)
+VALUES
+( "ANANNA", "DRISTY","dristy@gmail.com","sjbwjgbwiwjvwej");
+
 SELECT * FROM `blood_donation`.`users`;
 
 INSERT INTO `blood_donation`.`donor`
 (`nid_birthCtf`,`uid`,`last_donated`,`blood_group` ,`phone_no`,`a_id`)
 VALUES
-( "123456766", "1",now(),"A-",08338343,1);
+( "1974", "3",'2022-01-16',"O+",03888343,5);
+
+INSERT INTO `blood_donation`.`donor`
+(`nid_birthCtf`,`uid`,`last_donated`,`blood_group` ,`phone_no`,`a_id`)
+VALUES
+( "1989884", "4",'2022-01-16',"B+",03343,5);
+
+INSERT INTO `blood_donation`.`donor`
+(`nid_birthCtf`,`uid`,`last_donated`,`blood_group` ,`phone_no`,`a_id`)
+VALUES
+( "126", "2",'2022-01-16',"O-",088343,1);
+
+INSERT INTO `blood_donation`.`donor`
+(`nid_birthCtf`,`uid`,`last_donated`,`blood_group` ,`phone_no`,`a_id`)
+VALUES
+( "126766", "1",now(),"A-",08338343,1);
+
+
 SELECT * FROM `blood_donation`.`donor`;
 
 INSERT INTO `blood_donation`.`recipient`
@@ -38,6 +60,12 @@ INSERT INTO medical_history(
 
 SELECT * from medical_history;
 
-UPDATE `blood_donation`.`users` SET `a_id`= 8 WHERE `email` = "a@gmail.com"
+UPDATE `blood_donation`.`users` SET `a_id`= 8 WHERE `email` = "a@gmail.com";
+
+-- admin user 
+INSERT INTO `blood_donation`.`users`
+(`first_name`,`last_name`,`email`,`password`, `is_admin`)
+VALUES
+( "ANA", "DRISTY","ad@gmail.com","qwerty", 1);
 
 

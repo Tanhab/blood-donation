@@ -27,21 +27,74 @@ const registerUser = asyncHandler(async (req, res) => {
     const promisePool = pool.promise();
     // query database using promises
     let query = "INSERT INTO blood_donation.users (first_name,last_name,email,password) VALUES(?);"
+  
     try {
         const [rows,fields] = await promisePool.query(query,[values]);
+       
         const [user,fields2 ] = await promisePool.query("SELECT * FROM users WHERE uid = ?",
             rows.insertId
         )
-        console.log(user)
+        console.log(rows)
         
         res.status(201).json({
             uid : user[0].uid,
             first_name : user[0].first_name,
             last_name : user[0].last_name,
             email: user[0].email,
-            token : generateToken(user[0].uid)
+            token : generateToken(user[0].uid, 0)
         })
     } catch (error) {
+       
+        res.status(400).json({'Error message': error.message})
+    }
+})
+
+
+const registerAdmin = asyncHandler(async (req, res) => {
+
+    console.log(req.body)
+    let { first_name,last_name,email,password,secret } = req.body
+
+    if (!first_name ||!last_name ||  !email || !password || !secret) {
+        res.status(400)
+        throw new Error('Please add all fields')
+    }
+
+    if(secret != "admin")
+    {
+        res.status(400)
+        throw new Error('Wrong Admin Secret')
+    }
+
+  // Hash password
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password, salt)
+
+  // Create user
+    values = [first_name,last_name,email,hashedPassword, 1]
+    console.log(values)
+    
+    const promisePool = pool.promise();
+    // query database using promises
+    let query = "INSERT INTO blood_donation.users (first_name,last_name,email,password,is_admin) VALUES(?);"
+  
+    try {
+        const [rows,fields] = await promisePool.query(query,[values]);
+       
+        const [user,fields2 ] = await promisePool.query("SELECT * FROM users WHERE uid = ?",
+            rows.insertId
+        )
+        console.log(rows)
+        
+        res.status(201).json({
+            uid : user[0].uid,
+            first_name : user[0].first_name,
+            last_name : user[0].last_name,
+            email: user[0].email,
+            token : generateToken(user[0].uid, 1)
+        })
+    } catch (error) {
+       
         res.status(400).json({'Error message': error.message})
     }
 })
@@ -171,9 +224,8 @@ const loginUser = asyncHandler(async (req, res) => {
             first_name : user[0].first_name,
             last_name : user[0].last_name,
             email: user[0].email,
-            blood_group : user[0].blood_group,
-            a_id : user[0].aid,
-            token : generateToken(user[0].uid)
+            is_admin : user[0].is_admin,
+            token : generateToken(user[0].uid, is_admin)
         })
     } else {
         res.status(400)
@@ -191,9 +243,12 @@ const getMe = asyncHandler(async (req, res) => {
     res.status(200).json(req.user)
 })
 
+
+
+
 // Generate JWT
-const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
+const generateToken = (id, is_admin) => {
+    return jwt.sign({ id, is_admin}, process.env.JWT_SECRET, {
         expiresIn: '30d',
     })
 }
@@ -203,5 +258,6 @@ module.exports = {
     loginUser,
     getMe,
     registerDonor,
-    registerReciepent
+    registerReciepent,
+    registerAdmin
 }

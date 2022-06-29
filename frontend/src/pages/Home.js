@@ -4,8 +4,12 @@ import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
 import NavigationBar from "../components/NavigationBar";
 import { useNavigate, Link } from "react-router-dom";
 import { Carousel, Card } from "react-bootstrap";
-export default function Home() {
+import { isExpired, decodeToken } from "react-jwt";
 
+export default function Home() {
+  const myDecodedToken = decodeToken(localStorage.getItem('token'));
+  console.log(myDecodedToken.is_admin)
+  const admin = myDecodedToken.is_admin ===1 ? '/settings': ''
   const navigate = useNavigate();
   return (
     <>
@@ -112,8 +116,8 @@ export default function Home() {
               ),
             },
             {
-              title: "Settings",
-              itemId: "/settings",
+              title: "Admin Panel",
+              itemId: admin,
               // you can use your own custom Icon component as well
               // icon is optional
               elemBefore: () => <i className="fa fa-gear" aria-hidden="true"></i>,
@@ -123,7 +127,8 @@ export default function Home() {
 
         <div className="container mt-5" style={{ textAlign: "center" }}>
           <div className="container">
-            <Carousel>
+            {admin==='/settings' && <h2>WELCOME TO ADMINISTRATION</h2>}
+            <Carousel style={{marginTop: 20}}>
               <Carousel.Item>
                 <img
                   className="d-block w-100"
@@ -166,7 +171,8 @@ export default function Home() {
             We Believe that We can <span style={{ color: "red" }}> Save </span>{" "}
             More <span style={{ color: "red" }}> Lives </span> with you
           </h1>
-
+          {admin==='' &&
+          <>
           <Link
             className="me-3 btn text-white shadow book-button"
             to="/donation-req"
@@ -184,6 +190,8 @@ export default function Home() {
             {" "}
         Request for blood
           </Link>
+          </>
+}
 
           <div className="row" >
             <div className="col-md-6 col-xl-4 mb-4">

@@ -26,13 +26,16 @@ import OrgReg from "./pages/OrgReg";
 import Settings from "./pages/Settings";
 import BloodRequest from "./pages/BloodRequest";
 import DonorRegister from "./pages/DonorRegister";
+import SignupChoice from "./pages/SignupChoice";
+import AdminSignup from "./pages/AdminSignup";
 // import ForgotPassword from "./ForgotPassword";
+
 
 
 function App() {
 
   const [authState, setAuthState] = useState(false);
-
+  
   useEffect(() => {
     axios
       .get("http://localhost:5001/api/user/auth", {
@@ -68,6 +71,9 @@ function App() {
               <Route path="/medicalcentre" element={<MedicalCentre/>}/>
               <Route path="/blood-req" element={<BloodRequest />}/> 
               <Route path="/donation-req" element={<DonorRegister />}/>
+              <Route path="/choice" element={< SignupChoice />} />
+              <Route path="/admin-signup" element={<AdminSignup />}/>
+
               {authState && (
               <>
                 <Route path="/home" element={<Home />} />
@@ -82,9 +88,12 @@ function App() {
                 <Route path="/org" element={< Organization/>} />
                 <Route path="/org-reg" element={< OrgReg/>} />
                 <Route path="/settings" element={<Settings />}/>
+                
                
               </>
             )}
+
+          
             
          
             </Routes>

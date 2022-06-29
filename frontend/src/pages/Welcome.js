@@ -29,19 +29,19 @@ export default function Welcome() {
           <div className="row">
           <Link
             className="me-3 btn text-white shadow book-button"
-            to="/donation-req"
+            to="/login"
             style={{color: "white"}}
           >
-            {" "}
+          
            Make a donation
           </Link>
 
           <Link
             className="me-3 btn text-white shadow book-button"
-            to="/blood-req"
+            to="/login"
             style={{color: "white"}}
           >
-            {" "}
+           
         Request for blood
           </Link>
           </div>

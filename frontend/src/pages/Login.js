@@ -65,7 +65,7 @@ export default function Login() {
             
             {error && <Alert variant="danger">{error}</Alert>}
             <Button disabled={loading} type="submit">login</Button>
-            <p className={styles.message}>Not registered? <Link to="/signup">Create an account</Link></p>
+            <p className={styles.message}>Not registered? <Link to="/choice">Create an account</Link></p>
           </Form>
         </div>
       </div>

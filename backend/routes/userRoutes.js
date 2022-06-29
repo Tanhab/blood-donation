@@ -7,13 +7,15 @@ const {
     loginUser,
     getMe,
     registerDonor,
-    registerReciepent
+    registerReciepent,
+    registerAdmin
 } = require('../controllers/userController')
 const { protect} = require('../middleware/authMiddleware')
 
 
 // api/user/
 router.post('/', registerUser)
+router.post('/admin', registerAdmin)
 router.post('/donor',registerDonor)
 router.post('/recieve',registerReciepent)
 router.post('/login', loginUser)
@@ -39,8 +41,21 @@ router.get('/',(req,res)=>{
 
 router.post('/user-update', (req,res)=>{
     console.log(req.body)
-    const {first_name, last_name, blood_group, phone_no, email, a_id} = req.body
-    pool.query('UPDATE users SET a_id=?, first_name=?, last_name=?, blood_group=?, phone_no=?  WHERE email=?', [a_id, first_name, last_name, blood_group, phone_no, email], function (error, results, fields) {
+    const {first_name, last_name, email} = req.body
+    pool.query('UPDATE users SET first_name=?, last_name=?  WHERE email=?', [ first_name, last_name, email], function (error, results, fields) {
+    if (error) 
+       return res.status(401).json({"Error message": err.message})
+
+    console.log(results)
+    return res.status(200).json({ 'users' : results})
+    });
+})
+
+router.get('/user-info', (req,res)=>{
+    console.log(req.query)
+    const {uid} = req.query
+    console.log('inside user_info')
+    pool.query('SELECT * FROM users WHERE uid = ?',[uid], function (error, results, fields) {
     if (error) 
        return res.status(401).json({"Error message": err.message})
 
