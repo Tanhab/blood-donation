@@ -9,7 +9,7 @@ import { isExpired, decodeToken } from "react-jwt";
 export default function Home() {
   const myDecodedToken = decodeToken(localStorage.getItem('token'));
   console.log(myDecodedToken.is_admin)
-  const admin = myDecodedToken.is_admin ===1 ? '/settings': ''
+  const admin = myDecodedToken.is_admin === 1 ? '/settings': ''
   const navigate = useNavigate();
   return (
     <>
@@ -57,11 +57,11 @@ export default function Home() {
               subNav: [
                 {
                   title: "Donor",
-                  itemId: "",
+                  itemId: "d",
                 },
                 {
                   title: "Recipient",
-                  itemId: "",
+                  itemId: "r",
                 },
               ],
             },
@@ -115,13 +115,13 @@ export default function Home() {
                 <i className="fa fa-building" aria-hidden="true"></i>
               ),
             },
-            {
+            (myDecodedToken.is_admin === 1 && {
               title: "Admin Panel",
               itemId: admin,
               // you can use your own custom Icon component as well
               // icon is optional
-              elemBefore: () => <i className="fa fa-gear" aria-hidden="true"></i>,
-            },
+              elemBefore: () => <i className="fa fa-gear" aria-hidden="true"></i>
+            }),
           ]}
         />
 

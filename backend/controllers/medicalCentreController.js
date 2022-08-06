@@ -24,11 +24,27 @@ const getMedicalCentre = asyncHandler(async (req, res) => {
     
 })
 
+
+// @desc    Get the data of a medical centre
+// @route   GET /api/medical-centre/:id
+// @access  Public
+const getAllMedicalCentre = asyncHandler(async (req, res) => {
+    
+    const promisePool = pool.promise()
+    try {
+        const [rows,fields] = await promisePool.query("SELECT m_id,name FROM medical_centre")
+        res.status(200).json({ medical_centre: rows })
+    } catch (error) {
+        res.status(400).json({'Error message': error.message})
+    }
+    
+    
+})
+
 // @desc    Register new medical centre
 // @route   POST /api/medical-centre/
 // @access  private
 const createMedicalCentre = asyncHandler(async (req, res) => {
-    console.log(req.body)
     let {name,phone_no} = req.body
     let {building,village_road,post_office,city,district} = req.body
     if (!name  || !phone_no || ! city || !district) {
@@ -82,6 +98,7 @@ const deleteMedicalCentre = asyncHandler(async (req, res) => {
 
 
 module.exports = {
+    getAllMedicalCentre,
     getMedicalCentre,
     createMedicalCentre,
     deleteMedicalCentre,

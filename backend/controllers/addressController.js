@@ -21,7 +21,7 @@ function insertAddress(addressFieldName,addressFieldValue){
     })
     values = addressFieldValue.map((item)=>{
         if(!isNumeric(item))
-        return item
+        return item.toLowerCase()
         else 
             return parseFloat(item)
     })

@@ -28,8 +28,9 @@ import BloodRequest from "./pages/BloodRequest";
 import DonorRegister from "./pages/DonorRegister";
 import SignupChoice from "./pages/SignupChoice";
 import AdminSignup from "./pages/AdminSignup";
+import Test from "./pages/Test";
 // import ForgotPassword from "./ForgotPassword";
-
+ import "bootstrap/dist/css/bootstrap.min.css"
 
 
 function App() {
@@ -54,54 +55,49 @@ function App() {
 
   return (
     <>
-        <AuthContext.Provider value={{ authState, setAuthState }}>
+      <AuthContext.Provider value={{ authState, setAuthState }}>
         <BrowserRouter>
-         
-            <Routes>
-             
-              <Route path="/" element={<Welcome />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/donor" element={<DonorSearch/>} />
-              <Route path="/blood" element={<BloodS/>} />
-              <Route path="/med-cen" element={<MedCenS/>} />
-              <Route path="/amb" element={<AmbS/>}/>
-              <Route path="/donations" element={<Donations/>} />
-              <Route path="/medicalcentre" element={<MedicalCentre/>}/>
-              <Route path="/blood-req" element={<BloodRequest />}/> 
-              <Route path="/donation-req" element={<DonorRegister />}/>
-              <Route path="/choice" element={< SignupChoice />} />
-              <Route path="/admin-signup" element={<AdminSignup />}/>
+          <Routes>
+            <Route path="/" element={<Welcome />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/donor" element={<DonorSearch />} />
+            <Route path="/blood" element={<BloodS />} />
+            <Route path="/med-cen" element={<MedCenS />} />
+            <Route path="/amb" element={<AmbS />} />
+            <Route path="/donations" element={<Donations />} />
+            <Route path="/medicalcentre" element={<MedicalCentre />} />
+            <Route path="/blood-req" element={<BloodRequest />} />
+            <Route path="/donation-req" element={<DonorRegister />} />
+            <Route path="/choice" element={<SignupChoice />} />
+            <Route path="/admin-signup" element={<AdminSignup />} />
 
-              {authState && (
+            {authState && (
               <>
                 <Route path="/home" element={<Home />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/medical-history" element={<MedicalHistory/>}/>
-                <Route path="/medical-centre-reg" element={<MedicalCentreReg/>}/>
+                <Route path="/medical-history" element={<MedicalHistory />} />
+                <Route
+                  path="/medical-centre-reg"
+                  element={<MedicalCentreReg />}
+                />
                 <Route path="/driver" element={<Driver />} />
                 <Route path="/driver-reg" element={<DriverReg />} />
                 <Route path="/ambulance" element={<Ambulance />} />
                 <Route path="/ambulance-reg" element={<AmbulanceReg />} />
-                <Route path="/notification" element={<Notification/>}/>
-                <Route path="/org" element={< Organization/>} />
-                <Route path="/org-reg" element={< OrgReg/>} />
-                <Route path="/settings" element={<Settings />}/>
-                
-               
+                <Route path="/notification" element={<Notification />} />
+                <Route path="/org" element={<Organization />} />
+                <Route path="/org-reg" element={<OrgReg />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/test" element={<Test />} />
               </>
             )}
-
-          
-            
-         
-            </Routes>
-        
+          </Routes>
         </BrowserRouter>
-        </AuthContext.Provider>
-   </>
-  );
+      </AuthContext.Provider>
+    </>
+  )
 }
 
 export default App;

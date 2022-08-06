@@ -15,8 +15,9 @@ app.use(express.urlencoded({extended : false}))
 app.use('/api/',require('./routes/donationRoutes'))
 app.use('/api/user/',require('./routes/userRoutes'))
 app.use('/api/address/', require('./routes/addressRoutes'))
+app.use("/api/driver/", require('./routes/driverRoutes'))
 app.use('/api/medical-centre/',require('./routes/medicalCentreRoutes'))
-
+app.use("/api/request-blood",require('./routes/bloodRequestRoutes'))
 
 app.use(errorHandler)
 // const pool = require('../backend/config/database')

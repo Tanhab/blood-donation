@@ -18,7 +18,6 @@ const protect = asyncHandler(async (req, res, next) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
         const promisePool = pool.promise()
         const [rows,fields] = await promisePool.query('SELECT * FROM users WHERE uid = ?',decoded.id)
-        console.log(rows)
         if(rows.length==1){
             req.user = rows[0]
             delete req.user.password

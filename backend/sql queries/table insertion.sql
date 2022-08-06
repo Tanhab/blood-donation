@@ -68,4 +68,9 @@ INSERT INTO `blood_donation`.`users`
 VALUES
 ( "ANA", "DRISTY","ad@gmail.com","qwerty", 1);
 
+INSERT INTO `blood_donation`.`driver`
+(`driving_license`,`first_name`,`last_name`,`station`,`a_id`)
+VALUES
+(1234, "DRISTY","ad@gmail.com",2, 1);
+
 

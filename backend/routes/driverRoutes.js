@@ -3,15 +3,16 @@ const router =  express.Router()
 const {
     getDriver,
     createDriver,
-
-} = require("../controllers/medicalCentreController")
+    getAllDriver,
+    verifyDriver
+} = require("../controllers/driverController")
 const { protect } = require('../middleware/authMiddleware')
-
+const { adminProtect } = require("../middleware/adminMiddleware")
 
 
 router.get('/:id',protect, getDriver)
-router.post('/',createDriver)
-
+router.post('/',protect,createDriver)
+router.post('/verify/:id',adminProtect, verifyDriver)
 
 module.exports = router
 

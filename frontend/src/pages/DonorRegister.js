@@ -94,8 +94,6 @@ export default function DonorRegister() {
             donor['phone_no']=phoneNoRef.current.value
         if(last_donatedRef.current.value)
             donor['last_donated']=last_donatedRef.current.value
-        console.log(donor)
-        console.log("ekhono thik")
         
             Axios.post("http://localhost:5001/api/user/donor/",donor,{
             headers: {
