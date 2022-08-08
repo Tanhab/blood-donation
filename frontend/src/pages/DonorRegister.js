@@ -98,7 +98,7 @@ export default function DonorRegister() {
             Axios.post("http://localhost:5001/api/user/donor/",donor,{
             headers: {
                 //"Content-Type": "application/x-www-form-urlencoded",
-        //"Authorization": "Bearer " + localStorage.getItem("token")
+        "Authorization": "Bearer " + localStorage.getItem("token")
     },
         }).then((response)=>{
             console.log(response)

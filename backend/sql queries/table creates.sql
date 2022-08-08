@@ -34,6 +34,8 @@ CREATE TABLE `blood_donation`.`donor`(
 `blood_group` VARCHAR(3) NOT NULL,
 `phone_no` BIGINT(15) NOT NULL,
 `a_id` INT NOT NULL,
+ `donor` INT NULL ,
+ `completed` INT NOT NULL DEFAULT 0,
  PRIMARY KEY (`req_id`),
  FOREIGN KEY (`uid`) REFERENCES `blood_donation`.`users`(`uid`),
  FOREIGN KEY (`a_id`) REFERENCES `blood_donation`.`address`(`a_id`)
@@ -126,7 +128,7 @@ CREATE TABLE `blood_donation`.`donations` (
  FOREIGN KEY (`medical_centre`) REFERENCES `blood_donation`.`medical_centre`(`m_id`)
  );
 CREATE TABLE `blood_donation`.`notification` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `message` VARCHAR(100) NULL,
   `blood_request` INT NOT NULL,
   `sender` INT NOT NULL,

@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import { isExpired, decodeToken } from "react-jwt";
 import { Link, useNavigate, NavLink } from "react-router-dom";
 import styles from "../App.css";
 
 export default function NavigationBar() {
   const navigate = useNavigate();
   const [authState, setAuthState] = useState(false);
+  const [notifications,setNotifications] = useState([])
 
   useEffect(() => {
-    let auuthrequest = 
-
     axios
       .get("http://localhost:5001/api/user/auth", {
         headers: {
@@ -23,8 +22,19 @@ export default function NavigationBar() {
         } else {
           setAuthState(true);
         }
-      });
-  }, []);
+        const myDecodedToken = decodeToken(localStorage.getItem('token'))
+
+        return axios.get(`http://localhost:5001/api/notification/${myDecodedToken.id}`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+      }).then((response)=>{
+        console.log(response)
+        setNotifications(response.data)
+      })
+      .catch(error => console.log(error));
+  }, [setNotifications]);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -81,21 +91,20 @@ export default function NavigationBar() {
                     </span>
                   </button>
                   <ul className="dropdown-menu">
-                    <li>
-                      <button className="dropdown-item" type="button">
-                        Action
-                      </button>
-                    </li>
-                    <li>
-                      <button className="dropdown-item" type="button">
-                        Another action
-                      </button>
-                    </li>
-                    <li>
-                      <button className="dropdown-item" type="button">
-                        Something else here
-                      </button>
-                    </li>
+                    {
+                      notifications.map((item)=>{
+                        return <li key={item.id}>
+                          <button
+                            key={item.id}
+                            className="dropdown-item"
+                            type="button"
+                          >
+                            {item.message}
+                          </button>
+                        </li>
+                      })
+                    }
+                    
                   </ul>
                 </div>
               </>

@@ -70,7 +70,6 @@ const createDriver = asyncHandler(async (req, res) => {
 })
 
 const verifyDriver = asyncHandler(async (req, res) => {
-
   const promisePool = pool.promise()
   try {
     const [rows, fields] = await promisePool.query(

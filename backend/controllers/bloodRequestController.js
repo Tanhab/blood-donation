@@ -62,6 +62,36 @@ const createBloodRequest = asyncHandler(async (req, res) => {
   }
 })
 
+const getBloodReqById = asyncHandler(async (req, res) => {
+  const promisePool = pool.promise()
+  try {
+     const [bloodReq, fields2] = await promisePool.query(
+      "SELECT * FROM blood_request WHERE req_id = ?",
+      req.params.id )
+      res.json(bloodReq)
+  } catch (error) {
+    console.log(error)
+    res.status(400).json({ "Error message": error.message })
+  }
+
+})
+
+
+const getAllBloodReq = asyncHandler(async (req, res) => {
+  const promisePool = pool.promise()
+   try {
+     const [bloodReq, fields2] = await promisePool.query(
+       "SELECT * FROM blood_request"
+     )
+     res.json(bloodReq)
+   } catch (error) {
+     console.log(error)
+     res.status(400).json({ "Error message": error.message })
+   }
+})
+
 module.exports = {
   createBloodRequest,
+  getAllBloodReq,
+  getBloodReqById
 }

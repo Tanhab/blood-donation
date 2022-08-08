@@ -73,4 +73,7 @@ INSERT INTO `blood_donation`.`driver`
 VALUES
 (1234, "DRISTY","ad@gmail.com",2, 1);
 
+INSERT INTO `blood_donation`.`blood_request` 
+(`nid_birthCtf`, `uid`, `blood_group`, `phone_no`, `a_id`) VALUES ('124', '2', 'A+', '4534534', '4');
+
 
