@@ -29,16 +29,19 @@ CREATE TABLE `blood_donation`.`donor`(
   -- recipient
  CREATE TABLE `blood_donation`.`blood_request`(
  `req_id` INT NOT NULL AUTO_INCREMENT, 
-`nid_birthCtf` BIGINT(20) NOT NULL,
-`uid` INT NOT NULL ,
-`blood_group` VARCHAR(3) NOT NULL,
+ `nid_birthCtf` BIGINT(20) NOT NULL,
+ `uid` INT NOT NULL ,
+ `blood_group` VARCHAR(3) NOT NULL,
 `phone_no` BIGINT(15) NOT NULL,
 `a_id` INT NOT NULL,
  `donor` INT NULL ,
  `completed` INT NOT NULL DEFAULT 0,
+ `date_donated` DATETIME  NULL,
+ `medical_centre` INT  NULL,
  PRIMARY KEY (`req_id`),
  FOREIGN KEY (`uid`) REFERENCES `blood_donation`.`users`(`uid`),
- FOREIGN KEY (`a_id`) REFERENCES `blood_donation`.`address`(`a_id`)
+ FOREIGN KEY (`a_id`) REFERENCES `blood_donation`.`address`(`a_id`),
+ FOREIGN KEY (`medical_centre`) REFERENCES `blood_donation`.`medical_centre`(`m_id`)
  );
  
  -- address table
@@ -138,10 +141,10 @@ CREATE TABLE `blood_donation`.`notification` (
   ;
   
   CREATE TABLE `blood_donation`.`notification_reciever` (
-  `notification_id` INT NOT NULL,
+  `id` INT NOT NULL,
   `reciever` INT NOT NULL,
   `seen` TINYINT(1) NOT NULL DEFAULT 0,
-  FOREIGN KEY (`notification_id`) REFERENCES `blood_donation`.`notification`(`id`),
+  FOREIGN KEY (`id`) REFERENCES `blood_donation`.`notification`(`id`),
   FOREIGN KEY (`reciever`) REFERENCES `blood_donation`.`users`(`uid`)
   );
 
