@@ -31,6 +31,7 @@ import AdminSignup from "./pages/AdminSignup";
 import Test from "./pages/Test";
 // import ForgotPassword from "./ForgotPassword";
  import "bootstrap/dist/css/bootstrap.min.css"
+import AcceptBloodReq from "./pages/AcceptBloodReq";
 
 
 function App() {
@@ -72,7 +73,7 @@ function App() {
             <Route path="/donation-req" element={<DonorRegister />} />
             <Route path="/choice" element={<SignupChoice />} />
             <Route path="/admin-signup" element={<AdminSignup />} />
-
+            <Route path="/accept-blood-req/:id" element={<AcceptBloodReq />} />
             {authState && (
               <>
                 <Route path="/home" element={<Home />} />

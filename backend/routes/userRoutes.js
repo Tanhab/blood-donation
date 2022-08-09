@@ -7,7 +7,9 @@ const {
     loginUser,
     getMe,
     registerDonor,
-    registerAdmin
+    registerAdmin,
+    getDonor,
+    getUser
 } = require('../controllers/userController')
 const { protect} = require('../middleware/authMiddleware')
 
@@ -18,6 +20,8 @@ router.post('/admin', registerAdmin)
 router.post('/donor',protect,registerDonor)
 router.post('/login', loginUser)
 router.get('/me', protect, getMe)
+router.get('/donor/:id',protect,getDonor)
+router.get('/profile/:id',protect,getUser)
 
 
 

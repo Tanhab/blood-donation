@@ -199,10 +199,55 @@ const generateToken = (id, is_admin) => {
     })
 }
 
+const getUser = asyncHandler(async (req, res) => {
+    try {
+        const promisePool = pool.promise()
+        const [user, fields] = await promisePool.query(
+          "SELECT * FROM users WHERE uid = ?",
+          req.params.id
+        )
+        console.log(user[0].a_id)
+         res.status(200).json({
+           uid: user[0].uid,
+           first_name: user[0].first_name,
+           last_name: user[0].last_name,
+           email: user[0].email,
+           //is_admin: user[0].is_admin,
+           //token: generateToken(user[0].uid, user[0].is_admin),
+         })
+        
+    } catch (error) {
+        res.status(400).json({ "Error message": error.message })
+    }
+})
+
+const getDonor = asyncHandler(async (req, res) => {
+    const promisePool = pool.promise()
+    try {
+        const [user, fields] = await promisePool.query(
+          "Select * from users INNER JOIN donor where users.uid = donor.uid and donor.uid = ?",
+          req.params.id,
+        )
+        if(user.length!= 1){
+            res.status(401).json({"message": "donor not found"})
+        }
+        const [address,field] = await promisePool.query("select * from address where a_id=?",user[0].a_id)
+        delete user[0].password
+        delete user[0].is_admin
+        delete user[0].a_id
+        user[0].adress = address[0]
+       res.json(user[0])
+    } catch (error) {
+        res.status(400).json({ "Error message": error.message })
+    }
+})
+
 module.exports = {
     registerUser,
     loginUser,
     getMe,
     registerDonor,
-    registerAdmin
+    registerAdmin,
+    getDonor,
+    getUser
 }

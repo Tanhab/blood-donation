@@ -3,6 +3,7 @@ import NavigationBar from "../components/NavigationBar";
 import { Card,Form, Toast } from "react-bootstrap";
 import Axios from "axios";
 import { isExpired, decodeToken } from "react-jwt";
+import axios from "axios";
 const {getCurrentUid} = require('../components/Utility')
 
 
@@ -92,25 +93,43 @@ export default function BloodRequest() {
         console.log(reciever)
         console.log("ekhono thik")
         
-            Axios.post("http://localhost:5001/api/user/recieve/",reciever,{
-            headers: {
+            Axios.post("http://localhost:5001/api/request-blood", reciever, {
+              headers: {
                 //"Content-Type": "application/x-www-form-urlencoded",
-        //"Authorization": "Bearer " + localStorage.getItem("token")
-    },
-        }).then((response)=>{
-            console.log(response)
-            if(response.data.error){
-                setError(response.data.error)
-                console.log(response.data.error)
-            }
-            else{
-                console.log("successfull")
-                console.log(response.data)
-            }
-        })
-        .catch ((error)=> {
-            console.log(error)
-        })
+                Authorization: "Bearer " + localStorage.getItem("token")
+              },
+            })
+              .then((response) => {
+                console.log(response)
+                if (response.data.error) {
+                  setError(response.data.error)
+                  console.log(response.data.error)
+                } else {
+                  console.log("successfull")
+                  console.log(response.data)
+                }
+
+                return axios.post(
+                  "http://localhost:5001/api/notification",
+                  {
+                    message: `${user.first_name} ${user.last_name} is asking for ${response.data.blood_group} blood`,
+                    sender: myDecodedToken.id,
+                    blood_request: response.data.req_id,
+                  },
+                  {
+                    headers: {
+                      //"Content-Type": "application/x-www-form-urlencoded",
+                      Authorization: "Bearer " + localStorage.getItem("token"),
+                    },
+                  }
+                )
+              })
+              .then((response) => {
+                console.log("notification done")
+              })
+              .catch((error) => {
+                console.log(error)
+              })
     }
 
     async function handleSubmit(e) {

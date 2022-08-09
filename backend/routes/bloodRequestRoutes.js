@@ -4,7 +4,8 @@ const pool = require("../config/database")
 const {
   createBloodRequest,
   getBloodReqById,
-  getAllBloodReq
+  getAllBloodReq,
+  acceptBloodReq
 } = require("../controllers/bloodRequestController")
 const { protect } = require("../middleware/authMiddleware")
 
@@ -13,5 +14,6 @@ const { protect } = require("../middleware/authMiddleware")
 router.post("/", protect, createBloodRequest)
 router.get('/blood-req/:id',protect,getBloodReqById)
 router.get('/all',protect,getAllBloodReq)
+router.post('/accept-req/:id',protect,acceptBloodReq)
 
 module.exports = router

@@ -8,6 +8,8 @@ export default function NavigationBar() {
   const navigate = useNavigate();
   const [authState, setAuthState] = useState(false);
   const [notifications,setNotifications] = useState([])
+  const myDecodedToken = decodeToken(localStorage.getItem("token"))
+
 
   useEffect(() => {
     axios
@@ -22,7 +24,7 @@ export default function NavigationBar() {
         } else {
           setAuthState(true);
         }
-        const myDecodedToken = decodeToken(localStorage.getItem('token'))
+        
 
         return axios.get(`http://localhost:5001/api/notification/${myDecodedToken.id}`, {
           headers: {
@@ -45,6 +47,24 @@ export default function NavigationBar() {
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
+  const handleNotificationClick = (id,req_id) =>{
+    console.log(id,req_id) 
+    axios.put(
+      "http://localhost:5001/api/notification",
+      {
+        notification_id: id,
+        reciever: myDecodedToken.id,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    ).then((response)=>{
+        navigate(`/accept-blood-req/${req_id}`, {})
+    }).catch(error=> console.log(error))
+    
+  }
   const Close = () => setClick(false);
 
   return (
@@ -93,15 +113,20 @@ export default function NavigationBar() {
                   <ul className="dropdown-menu">
                     {
                       notifications.map((item)=>{
-                        return <li key={item.id}>
-                          <button
-                            key={item.id}
-                            className="dropdown-item"
-                            type="button"
-                          >
-                            {item.message}
-                          </button>
-                        </li>
+                        return (
+                          <li key={item.id}>
+                            <button
+                              key={item.id}
+                              className="dropdown-item"
+                              type="button"
+                              onClick={() =>
+                                handleNotificationClick(item.id,item.blood_request)
+                              }
+                            >
+                              {item.message}
+                            </button>
+                          </li>
+                        )
                       })
                     }
                     

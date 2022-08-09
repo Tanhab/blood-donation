@@ -68,6 +68,11 @@ const getBloodReqById = asyncHandler(async (req, res) => {
      const [bloodReq, fields2] = await promisePool.query(
       "SELECT * FROM blood_request WHERE req_id = ?",
       req.params.id )
+      const [address, field] = await promisePool.query(
+        "select * from address where a_id=?",
+        bloodReq[0].a_id
+      )
+      bloodReq[0].address=address[0]
       res.json(bloodReq)
   } catch (error) {
     console.log(error)
@@ -90,8 +95,29 @@ const getAllBloodReq = asyncHandler(async (req, res) => {
    }
 })
 
+const acceptBloodReq = asyncHandler(async (req, res) => {
+  let {date_donated,medical_centre,donor} = req.body
+ if(!date_donated || !medical_centre || !donor){
+  res.status(400).json({"error Message": "Required all fields"})
+ }
+
+  if (typeof medical_centre == "string") medical_centre = parseInt(medical_centre)
+  if (typeof donor == "string") donor = parseInt(donor)
+  const promisePool = pool.promise()
+  let query =
+    "UPDATE `blood_donation`.`blood_request` SET `donor` = ?, `date_donated` = ?, `medical_centre` = ?, completed = 1 WHERE (`req_id` = ?);"
+
+    try {
+      await promisePool.query(query, [donor, date_donated, medical_centre,req.params.id])
+      res.status(200).json({"message":"blood request accepted"})
+    }catch (error) {
+      res.status(400).json({ "Error message": error.message })
+    }
+})
+
 module.exports = {
   createBloodRequest,
   getAllBloodReq,
-  getBloodReqById
+  getBloodReqById,
+  acceptBloodReq
 }
