@@ -156,10 +156,12 @@ export default function DonorSearch() {
                      Blood Group: {item.blood_group} 
 
                     </p>
-                    <p className="card-text">
-                      Last Date of donation: {item.last_donated.substring(0,10)} 
-                      
-                    </p>
+                    {item.last_donated!=null &&  <p className="card-text">
+                     
+                     Last Date of donation: {item.last_donated.substring(0,10)} 
+                     
+                   </p>}
+                   
                   
 
                     <button className="btn btn-sm bg-white">More Info</button>

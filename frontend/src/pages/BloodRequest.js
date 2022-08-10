@@ -5,7 +5,9 @@ import Axios from "axios";
 import { isExpired, decodeToken } from "react-jwt";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 const {getCurrentUid} = require('../components/Utility')
+
 
 
 
@@ -71,31 +73,31 @@ export default function BloodRequest() {
     const requestBlood = async ()=>
     {
         const myDecodedToken = decodeToken(localStorage.getItem('token'));
-        let reciever = {
+        let receiver = {
             uid : myDecodedToken.id,
             blood_group: bloodGrpRef.current.value
 
         }
         if(nid_birthCtfRef.current.value)
-            reciever['nid_birthCtf']=nid_birthCtfRef.current.value
+            receiver['nid_birthCtf']=nid_birthCtfRef.current.value
         if(buildingRef.current.value)
-            reciever['building']=buildingRef.current.value
+            receiver['building']=buildingRef.current.value
         if(village_roadRef.current.value)
-            reciever['village_road']=village_roadRef.current.value
+            receiver['village_road']=village_roadRef.current.value
         if(postOfficeRef.current.value)
-            reciever['post_office']=postOfficeRef.current.value
+            receiver['post_office']=postOfficeRef.current.value
         if(cityRef.current.value)
-            reciever['city']=cityRef.current.value
+            receiver['city']=cityRef.current.value
         if(districtRef.current.value)
-            reciever['district']=districtRef.current.value
+            receiver['district']=districtRef.current.value
         if(phoneNoRef.current.value)
-            reciever['phone_no']=phoneNoRef.current.value
+            receiver['phone_no']=phoneNoRef.current.value
         if(last_recievedRef.current.value)
-            reciever['last_received']=last_recievedRef.current.value
-        console.log(reciever)
+            receiver['last_received']=last_recievedRef.current.value
+        console.log(receiver)
         console.log("ekhono thik")
         
-            Axios.post("http://localhost:5001/api/request-blood", reciever, {
+            Axios.post("http://localhost:5001/api/request-blood", receiver, {
               headers: {
                 //"Content-Type": "application/x-www-form-urlencoded",
                 Authorization: "Bearer " + localStorage.getItem("token")
@@ -142,7 +144,15 @@ export default function BloodRequest() {
       setError("")
       setLoading(true)
       await requestBlood()
-      navigate('/home')
+      toast.success('Blood is Requested Successfully! Head back to home page.', {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        })
     } catch (error){
       console.log(error)
       setError("Failed to create an account")
@@ -305,6 +315,7 @@ export default function BloodRequest() {
             Request Blood
           </button>
         </Card>
+        <ToastContainer />
       </div>
     </>
   );

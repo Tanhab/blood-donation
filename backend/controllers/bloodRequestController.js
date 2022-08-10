@@ -6,7 +6,7 @@ const { insertAddress } = require("../controllers/addressController")
 // @route   POST /api/users/recieve
 // @access  Private
 const createBloodRequest = asyncHandler(async (req, res) => {
-  let { nid_birthCtf, uid, blood_group, phone_no } = req.body
+  let { nid_birthCtf, uid, blood_group, phone_no, last_received } = req.body
   let { building, village_road, post_office, city, district } = req.body
 
   if (
@@ -15,7 +15,8 @@ const createBloodRequest = asyncHandler(async (req, res) => {
     !blood_group ||
     !phone_no ||
     !city ||
-    !district
+    !district ||
+    !last_received
   ) {
     res.status(400)
     throw new Error("Please add all required fields")
@@ -36,26 +37,27 @@ const createBloodRequest = asyncHandler(async (req, res) => {
   if (typeof uid == "string") uid = parseInt(uid)
   if (typeof nid_birthCtf == "string") nid_birthCtf = parseInt(nid_birthCtf)
   if (phone_no && typeof phone_no == "string") phone_no = parseInt(phone_no)
-  values = [nid_birthCtf, uid, blood_group, phone_no, a_id]
+  values = [nid_birthCtf, uid, blood_group, phone_no, a_id,last_received]
 
   const promisePool = pool.promise()
   // query database using promises
   let query =
-    "INSERT INTO blood_donation.blood_request (`nid_birthCtf`,`uid`,`blood_group`,`phone_no`,`a_id`) VALUES(?);"
+    "INSERT INTO blood_donation.blood_request (`nid_birthCtf`,`uid`,`blood_group`,`phone_no`,`a_id`,`date_donated`) VALUES(?);"
   try {
     const [rows, fields] = await promisePool.query(query, [values])
-    const [reciever, fields2] = await promisePool.query(
+    const [receiver, fields2] = await promisePool.query(
       "SELECT * FROM blood_request WHERE req_id = ?",
       rows.insertId
     )
 
     res.status(201).json({
-      req_id: reciever[0].req_id,
-      uid: reciever[0].uid,
-      nid_birthCtf: reciever[0].nid_birthCtf,
-      phone_no: reciever[0].phone_no,
-      blood_group: reciever[0].blood_group,
-      a_id: reciever[0].a_id,
+      req_id: receiver[0].req_id,
+      uid: receiver[0].uid,
+      nid_birthCtf: receiver[0].nid_birthCtf,
+      phone_no: receiver[0].phone_no,
+      blood_group: receiver[0].blood_group,
+      a_id: receiver[0].a_id,
+      last_donated: receiver[0].last_donated
     })
   } catch (error) {
     res.status(400).json({ "Error message": error.message })
@@ -96,8 +98,8 @@ const getAllBloodReq = asyncHandler(async (req, res) => {
 })
 
 const acceptBloodReq = asyncHandler(async (req, res) => {
-  let {date_donated,medical_centre,donor} = req.body
- if(!date_donated || !medical_centre || !donor){
+  let {medical_centre,donor} = req.body
+ if(!medical_centre || !donor){
   res.status(400).json({"error Message": "Required all fields"})
  }
 
@@ -105,10 +107,10 @@ const acceptBloodReq = asyncHandler(async (req, res) => {
   if (typeof donor == "string") donor = parseInt(donor)
   const promisePool = pool.promise()
   let query =
-    "UPDATE `blood_donation`.`blood_request` SET `donor` = ?, `date_donated` = ?, `medical_centre` = ?, completed = 1 WHERE (`req_id` = ?);"
+    "UPDATE `blood_donation`.`blood_request` SET `donor` = ?, `medical_centre` = ?, completed = 1 WHERE (`req_id` = ?);"
 
     try {
-      await promisePool.query(query, [donor, date_donated, medical_centre,req.params.id])
+      await promisePool.query(query, [donor, medical_centre,req.params.id])
       res.status(200).json({"message":"blood request accepted"})
     }catch (error) {
       res.status(400).json({ "Error message": error.message })

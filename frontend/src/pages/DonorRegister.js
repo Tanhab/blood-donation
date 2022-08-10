@@ -4,6 +4,8 @@ import { Card,Form, Toast, Alert } from "react-bootstrap";
 import Axios from "axios";
 import { isExpired, decodeToken } from "react-jwt";
 import { useNavigate, Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -116,7 +118,15 @@ export default function DonorRegister() {
               
                 console.log("successfull")
                 console.log(response.data)
-                navigate('/home')
+                toast.success('Registration Successful! Head back to home page.', {
+                  position: "bottom-left",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  })
               
             }
         })
@@ -306,6 +316,7 @@ export default function DonorRegister() {
             Become a Donor
           </button>
         </Card>
+        <ToastContainer />
       </div>
     </>
   );

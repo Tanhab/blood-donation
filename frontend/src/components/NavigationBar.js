@@ -127,25 +127,56 @@ export default function NavigationBar() {
                    {unseen!=0 && (unseen)}
                     </span>
                   </button>
-                  <ul className="dropdown-menu ">
+                  <ul className="dropdown-menu " >
                     {
                       notifications.map((item)=>{
-                        return (
-                         
-                          <li key={item.id} style={{backgroundColor: "#D3D3D3", padding: 10}} >
-                            <button
-                              key={item.id}
-                              className="dropdown-item"
-                              type="button"
-                              onClick={() =>
-                                handleNotificationClick(item.id,item.blood_request)
-                              }
-                            >
-                              {item.message}
-                            </button>
-                          </li>
-                         
-                        )
+                        if(item.seen==0)
+                        {
+                          return (
+                            <>
+                             
+                              <li key={item.id} style={{backgroundColor:"#D3D3D3", padding: 10}} >
+                                <button
+                                  key={item.id}
+                                  className="dropdown-item"
+                                  type="button"
+                                  onClick={() =>
+                                    handleNotificationClick(item.id,item.blood_request)
+                                  }
+                                >
+                                  <i class="fa fa-tint" aria-hidden="true" style={{marginRight: 10}}></i>
+                                  {item.message}
+                                </button>
+                              </li>
+                             
+                             </> 
+                             
+                            )
+                        }
+                        else
+                        {
+                          return (
+                            <>
+                             
+                              <li key={item.id} style={{padding: 10}} >
+                                <button
+                                  key={item.id}
+                                  className="dropdown-item"
+                                  type="button"
+                                  onClick={() =>
+                                    handleNotificationClick(item.id,item.blood_request)
+                                  }
+                                >
+                                  <i class="fa fa-tint" aria-hidden="true" style={{marginRight: 10}}></i>
+                                  {item.message}
+                                </button>
+                              </li>
+                             
+                             </> 
+                             
+                            )
+                        }
+                        
                       })
                     }
                     

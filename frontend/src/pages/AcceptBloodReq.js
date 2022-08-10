@@ -11,11 +11,15 @@ const AcceptBloodReq = () => {
   const [station, setStation] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [blood_request, setBloodReq] = useState([]);
-  const [reciepent, setRecipent] = useState([]);
+  const [recipient, setRecipient] = useState([]);
+  const[name,setName]=useState('')
+  const[email,setEmail]=useState('')
   const dateDonatedRef = useRef();
   const params = useParams();
   const myDecodedToken = decodeToken(localStorage.getItem("token"));
   const navigate = useNavigate();
+
+
   useEffect(() => {
     axios
       .get(`http://localhost:5001/api/request-blood/blood-req/${params.id}`, {
@@ -37,7 +41,7 @@ const AcceptBloodReq = () => {
       })
       .then((response) => {
         console.log(response.data);
-        setRecipent(response.data);
+        setRecipient(response.data);
 
         return axios.get(
           "http://localhost:5001/api/medical-centre/all-medical-centres",
@@ -57,19 +61,46 @@ const AcceptBloodReq = () => {
         }
       })
       .catch((error) => console.log(error));
+
+   
   }, [setBloodReq, setMedicals, setIsLoading]);
+
+  const viewDonor= () => {
+    console.log(blood_request.donor)
+    axios.get(
+      `http://localhost:5001/api/user/profile/${blood_request.donor}`,
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    ).then((response) => {
+
+      
+      if(response.data.error)
+      {
+        console.log(response.data.error)
+      }
+      else
+      {
+        console.log(response.data)
+        setName(response.data.first_name+' ' +response.data.last_name)
+        setEmail(response.data.email)
+      }
+    
+  })
+  }
 
   const handleMedicalSelect = (e) => {
     console.log(e);
     setStation(e);
-    const selcted = medicals.find(({ m_id }) => m_id == e);
-    setMedicalName(selcted.name);
+    const selected = medicals.find(({ m_id }) => m_id == e);
+    setMedicalName(selected.name);
   };
   const handleAccept = (e) => {
     e.preventDefault();
     const data = {
       donor: myDecodedToken.id,
-      date_donated: dateDonatedRef.current.value,
       medical_centre: station,
     };
 
@@ -84,9 +115,11 @@ const AcceptBloodReq = () => {
         }
       )
       .then((response) => {
+       
+      
         let data = {
           message: "Your blood request was accepted",
-          reciever: reciepent.uid,
+          receiver: recipient.uid,
           blood_request: blood_request.req_id,
           sender: myDecodedToken.id,
         };
@@ -139,7 +172,7 @@ const AcceptBloodReq = () => {
                  
                 {blood_request.completed ? (
               <button type="button" className="btn btn btn-success">
-                Completed
+                Accepted
               </button>
             ) : (
               <button type="button" className="btn btn btn-warning">
@@ -161,7 +194,7 @@ const AcceptBloodReq = () => {
                       }}
                     >
                       <span style={{ fontWeight: 700 }}>Name: </span>
-                      {reciepent.first_name} {reciepent.last_name}
+                      {recipient.first_name} {recipient.last_name}
                     </div>
                     <div
                       style={{
@@ -226,6 +259,7 @@ const AcceptBloodReq = () => {
                       {blood_request.address.district}
                     </div>
                </div>
+               {!blood_request.completed && (
                <button
                     className="btn btn-danger btn-md"
                     type="button"
@@ -236,15 +270,29 @@ const AcceptBloodReq = () => {
                   >
                     Donate blood
                   </button>
+               )}
+               {blood_request.completed==1 && (
+               <button
+                    className="btn btn-success btn-md"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseExample"
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
+                    onClick={viewDonor}
+                  >
+                    View Donar Details
+                  </button>
+               )}
               </div>
              
               {!blood_request.completed && (
                 <>
-                
-
-                  <div className="collapse" id="collapseExample">
-                    <div className="card card-body">
-                      <div className="mt-5 ">
+             
+                  <div className="collapse container" id="collapseExample">
+                    <div className="card card-body shadow">
+                      <div className="mt-2 ">
+                      
                         <DropdownButton
                           title={
                             medicalName ? medicalName : "Select Medical Centre"
@@ -264,21 +312,44 @@ const AcceptBloodReq = () => {
                           })}
                         </DropdownButton>
                       </div>
-                      <div className="mb-3 mt-3">
-                        <label> Last blood donated </label>
-                        <Form.Control
-                          type="date"
-                          datatype="dd/mm/yy"
-                          name="last_donated"
-                          ref={dateDonatedRef}
-                        />
-                      </div>
+                    
                       <button
-                        className="btn btn-success col-3"
+                        className="btn btn-success  text-center mt-5"
                         onClick={handleAccept}
                       >
                         Submit
                       </button>
+                    </div>
+                  </div>
+                </>
+              )}
+                {blood_request.completed==1 && (
+                <>
+             
+                  <div className="collapse container" id="collapseExample">
+                    <div className="card card-body shadow">
+                      <div className="mt-2 ">
+
+                    
+                      <div
+                      style={{
+                        cursor: "pointer",
+                      }}
+                    >
+                      <span style={{ fontWeight: 700 }}>Name: </span>
+                      {name}
+                    </div>
+
+                    <div
+                      style={{
+                        cursor: "pointer",
+                      }}
+                    >
+                      <span style={{ fontWeight: 700 }}>Email: </span>
+                      {email}
+                    </div>
+                      
+                      </div>
                     </div>
                   </div>
                 </>
