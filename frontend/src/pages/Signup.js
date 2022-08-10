@@ -9,7 +9,8 @@ import { AuthContext } from "../helpers/AuthContext";
 
 
 export default function Signup() {
-
+  const [alert, setAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState('');
 const { setAuthState } = useContext(AuthContext);
 const emailRef = useRef()
 const passwordRef = useRef()
@@ -38,6 +39,8 @@ const navigate = useNavigate();
 
     }).then((response) => {
       if (response.data.error) {
+        setAlertContent(response.data.error);
+        setAlert(true);
         console.log(response.data.error);
       } else {
         localStorage.setItem("token", response.data.token);
@@ -52,17 +55,25 @@ const navigate = useNavigate();
     e.preventDefault()
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match")
+      setAlertContent("Password didn't match");
+      setAlert(true);
+    }
+    else
+    {
+      try {
+     
+        setAlert(false);
+        setLoading(true)
+        await register()
+      } catch {
+        setAlertContent("Failed to create an account");
+        setAlert(true);
+       
+      }
+      setLoading(false)
     }
 
-    try {
-      setError("")
-      setLoading(true)
-      await register()
-    } catch {
-      setError("Failed to create an account")
-    }
-    setLoading(false)
+    
   }
 
   return (
@@ -85,6 +96,7 @@ const navigate = useNavigate();
                 required
               />
                 {/* <SelectComponent/> */}
+                {alert ? <Alert variant={'danger'}>{alertContent}</Alert> : <></> }
               <Button disabled={loading} type="submit">Sign Up</Button>
               <p className={styles.message}>
                 Already registered? <Link to="/login">Login</Link>

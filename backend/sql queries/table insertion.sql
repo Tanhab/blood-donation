@@ -76,4 +76,8 @@ VALUES
 INSERT INTO `blood_donation`.`blood_request` 
 (`nid_birthCtf`, `uid`, `blood_group`, `phone_no`, `a_id`) VALUES ('124', '2', 'A+', '4534534', '4');
 
+INSERT INTO `blood_donation`.`medical_centre`
+(`nid_birthCtf`, `uid`, `blood_group`, `phone_no`, `a_id`) VALUES ('124', '2', 'A+', '4534534', '4');
 
+SELECT * from `blood_donation`.`blood_request`;
+SELECT * from `blood_donation`.`medical_centre`;

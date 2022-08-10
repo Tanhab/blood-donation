@@ -3,6 +3,7 @@ import NavigationBar from "../components/NavigationBar";
 import { Card,Form, Toast, Alert } from "react-bootstrap";
 import Axios from "axios";
 import { isExpired, decodeToken } from "react-jwt";
+import { useNavigate, Link } from "react-router-dom";
 
 
 
@@ -20,6 +21,7 @@ export default function DonorRegister() {
     const cityRef = useRef()
     const districtRef = useRef()
     const bloodGrpRef = useRef()
+    const navigate = useNavigate()
 
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
@@ -31,7 +33,8 @@ export default function DonorRegister() {
             <div className="row">
                 <div className="form-row">
                     <div className="form-group" style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                        <div  htmlFor="blood-select">Blood Group:</div>
+                        <div  htmlFor="blood-select">Blood Group: <span style={{color: 'red'}}>*</span></div>
+                        
                         <select style={{width: "75%"}} className="form-control" ref={bloodGrpRef} value={bloodGrp} onChange={(e) => setBloodGrp(e.target.value)}>
                             <option defaultValue="undefined">Select Blood Group</option>
                             <option value="O+">O+</option>
@@ -110,10 +113,11 @@ export default function DonorRegister() {
                 console.log(response.data.error)
             }
             else{
-              setAlertContent("Your registration is successful");
-              setAlert1(true);
+              
                 console.log("successfull")
                 console.log(response.data)
+                navigate('/home')
+              
             }
         })
         .catch ((error)=> {
@@ -146,7 +150,7 @@ export default function DonorRegister() {
         <div className="py-5 text-center">
 
         {alert ? <Alert variant={'danger'}>{alertContent}</Alert> : <></> }
-        {alert1 ? <Alert variant={'success'}>{alertContent}</Alert> : <></> }
+       
           <img
             className="d-block mx-auto mb-4"
             src="icon.png"
@@ -165,6 +169,7 @@ export default function DonorRegister() {
           <div className="row">
             <div className="col-md-6 mb-3">
               <label>First name</label>
+              <span style={{color: 'red'}}>*</span>
               <input
                 type="text"
                 className="form-control"
@@ -172,9 +177,11 @@ export default function DonorRegister() {
                 placeholder= {user.first_name}
                 disabled = {true}
               />
+              
             </div>
             <div className="col-md-6 mb-3">
               <label>Last name</label>
+              <span style={{color: 'red'}}>*</span>
               <input
                 type="text"
                 className="form-control"
@@ -187,6 +194,7 @@ export default function DonorRegister() {
           <div className="row">
           <div className="col-md-6 mb-3">
             <label>Email </label>
+            <span style={{color: 'red'}}>*</span>
             <input
               type="email"
               className="form-control"
@@ -198,6 +206,7 @@ export default function DonorRegister() {
 
           <div className="col-md-6 mb-3">
             <label>Phone number </label>
+            <span style={{color: 'red'}}>*</span>
             <input
               type="text"
               className="form-control"
@@ -209,6 +218,7 @@ export default function DonorRegister() {
           </div>
           <div className="mb-3">
             <label>NID/ Birth Certificate Number </label>
+            <span style={{color: 'red'}}>*</span>
             <input
               type="number"
               className="form-control"
@@ -256,6 +266,7 @@ export default function DonorRegister() {
           </div>
           <div className="col-md-6 mb-3">
             <label>City </label>
+            <span style={{color: 'red'}}>*</span>
             <input
               type="text"
               className="form-control"
@@ -268,6 +279,7 @@ export default function DonorRegister() {
           </div>
           <div className="mb-3">
             <label>District </label>
+            <span style={{color: 'red'}}>*</span>
             <input
               type="text"
               className="form-control"
@@ -279,7 +291,7 @@ export default function DonorRegister() {
         </div>
 
   
-        <SelectComponent />
+        <SelectComponent  />
       
         <div className="mb-3 mt-3">
         <label> Last blood donated </label>

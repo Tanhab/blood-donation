@@ -8,6 +8,8 @@ import { AuthContext } from "../helpers/AuthContext";
 
 
 export default function Login() {
+  const [alert, setAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState('');
   const emailRef = useRef()
   const passwordRef = useRef()
   const [error, setError] = useState("")
@@ -23,15 +25,23 @@ export default function Login() {
       password: passwordRef.current.value,
    
     }).then((response) => {
+      console.log(response)
       if (response.data.error) {
-        alert(response.data.error);
+        setAlertContent(response.data.error);
+        setAlert(true);
+        console.log(response.data.error);
       } else {
         localStorage.setItem("token", response.data.token);
         setAuthState(true)
         navigate('/home')
       }
      
+    }) .catch ((error)=> {
+      setAlertContent(error.response.data.message);
+      setAlert(true);
+        console.log({error2: error.response.data.message})
     })
+
   }
   async function handleSubmit(e) {
     e.preventDefault()
@@ -43,7 +53,9 @@ export default function Login() {
       
      
     } catch {
-      setError("Failed to log in")
+      setAlertContent("Failed to log in");
+      setAlert(true);
+     
     }
 
     setLoading(false)
@@ -63,7 +75,7 @@ export default function Login() {
             <Form.Control type="email" placeholder="Email" ref={emailRef} required/>
             <Form.Control type="password" placeholder="Password" ref={passwordRef} required />
             
-            {error && <Alert variant="danger">{error}</Alert>}
+            {alert ? <Alert variant={'danger'}>{alertContent}</Alert> : <></> }
             <Button disabled={loading} type="submit">login</Button>
             <p className={styles.message}>Not registered? <Link to="/choice">Create an account</Link></p>
           </Form>

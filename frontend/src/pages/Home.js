@@ -83,13 +83,7 @@ export default function Home() {
                 <i className="fa fa-bell" aria-hidden="true"></i>
               ),
             },
-            {
-              title: "Map",
-              itemId: "/map",
-              // you can use your own custom Icon component as well
-              // icon is optional
-              elemBefore: () => <i className="fa fa-map" aria-hidden="true"></i>,
-            },
+           
             {
               title: "Ambulances",
               itemId: "/ambulance",

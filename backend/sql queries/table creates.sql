@@ -26,6 +26,8 @@ CREATE TABLE `blood_donation`.`donor`(
  FOREIGN KEY (`a_id`) REFERENCES `blood_donation`.`address`(`a_id`)
  );
  
+ ALTER TABLE blood_donation.`donor` CHANGE COLUMN last_donated last_donated DATETIME NULL ;
+
   -- recipient
  CREATE TABLE `blood_donation`.`blood_request`(
  `req_id` INT NOT NULL AUTO_INCREMENT, 
@@ -147,6 +149,7 @@ CREATE TABLE `blood_donation`.`notification` (
   FOREIGN KEY (`id`) REFERENCES `blood_donation`.`notification`(`id`),
   FOREIGN KEY (`reciever`) REFERENCES `blood_donation`.`users`(`uid`)
   );
+  
 
 
   

@@ -108,6 +108,19 @@ const getAllNotificationByID = asyncHandler(async (req, res) => {
   }
 })
 
+const countNotificationByID = asyncHandler(async (req, res) => {
+  const promisePool = pool.promise()
+  
+  try {
+    const [notification, fields] = await promisePool.query(
+      "Select COUNT(*) from notification INNER JOIN notification_reciever where notification_reciever.id = notification.id and notification_reciever.reciever = ? and notification.sender != notification_reciever.reciever and notification_reciever.seen=?",[req.params.reciever,0])
+      console.log(notification)
+      res.json(notification) 
+  } catch (error) {
+    res.status(400).json({ "Error message": error.message })
+  }
+})
+
 const createAcceptNotification = asyncHandler(async (req, res) => {
   let { message, sender, blood_request,reciever } = req.body
 
@@ -147,5 +160,6 @@ module.exports = {
   createNotification,
   seenNotification,
   getAllNotificationByID,
-  createAcceptNotification
+  createAcceptNotification,
+  countNotificationByID
 }

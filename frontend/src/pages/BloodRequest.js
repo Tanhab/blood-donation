@@ -4,7 +4,9 @@ import { Card,Form, Toast } from "react-bootstrap";
 import Axios from "axios";
 import { isExpired, decodeToken } from "react-jwt";
 import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 const {getCurrentUid} = require('../components/Utility')
+
 
 
 export default function BloodRequest() {
@@ -21,7 +23,7 @@ export default function BloodRequest() {
 
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
-
+    const navigate = useNavigate()
     function SelectComponent() {
     const [bloodGrp, setBloodGrp] = useState("");
     return(
@@ -29,7 +31,7 @@ export default function BloodRequest() {
             <div className="row">
                 <div className="form-row">
                     <div className="form-group" style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                        <div  htmlFor="blood-select">Blood Group:</div>
+                        <div  htmlFor="blood-select">Blood Group: <span style={{color: 'red'}}>*</span></div>
                         <select style={{width: "75%"}} className="form-control" ref={bloodGrpRef} value={bloodGrp} onChange={(e) => setBloodGrp(e.target.value)}>
                             <option defaultValue="undefined">Select Blood Group</option>
                             <option value="O+">O+</option>
@@ -107,6 +109,7 @@ export default function BloodRequest() {
                 } else {
                   console.log("successfull")
                   console.log(response.data)
+                 
                 }
 
                 return axios.post(
@@ -139,6 +142,7 @@ export default function BloodRequest() {
       setError("")
       setLoading(true)
       await requestBlood()
+      navigate('/home')
     } catch (error){
       console.log(error)
       setError("Failed to create an account")
@@ -168,6 +172,7 @@ export default function BloodRequest() {
           <div className="row">
             <div className="col-md-6 mb-3">
               <label>First name</label>
+              <span style={{color: 'red'}}>*</span>
               <input
                 type="text"
                 className="form-control"
@@ -178,6 +183,7 @@ export default function BloodRequest() {
             </div>
             <div className="col-md-6 mb-3">
               <label>Last name</label>
+              <span style={{color: 'red'}}>*</span>
               <input
                 type="text"
                 className="form-control"
@@ -190,6 +196,7 @@ export default function BloodRequest() {
           <div className="row">
           <div className="col-md-6 mb-3">
             <label>Email </label>
+            <span style={{color: 'red'}}>*</span>
             <input
               type="email"
               className="form-control"
@@ -201,6 +208,7 @@ export default function BloodRequest() {
 
           <div className="col-md-6 mb-3">
             <label>Phone number </label>
+            <span style={{color: 'red'}}>*</span>
             <input
               type="text"
               className="form-control"
@@ -212,6 +220,7 @@ export default function BloodRequest() {
           </div>
           <div className="mb-3">
             <label>NID/ Birth Certificate Number </label>
+            <span style={{color: 'red'}}>*</span>
             <input
               type="number"
               className="form-control"
@@ -259,6 +268,7 @@ export default function BloodRequest() {
           </div>
           <div className="col-md-6 mb-3">
             <label>City </label>
+            <span style={{color: 'red'}}>*</span>
             <input
               type="text"
               className="form-control"
@@ -271,6 +281,7 @@ export default function BloodRequest() {
           </div>
           <div className="mb-3">
             <label>District </label>
+            <span style={{color: 'red'}}>*</span>
             <input
               type="text"
               className="form-control"
@@ -283,7 +294,8 @@ export default function BloodRequest() {
 
         <SelectComponent />
         <div className="mb-3 mt-3">
-        <label> Last blood Received </label>
+        <label>Date of blood receiving </label>
+        <span style={{color: 'red'}}>*</span>
         <Form.Control type="date"
         name = 'last_received'
         ref={last_recievedRef}

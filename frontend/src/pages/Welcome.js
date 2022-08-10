@@ -39,7 +39,7 @@ export default function Welcome() {
           <Link
             className="me-3 btn text-white shadow book-button"
             to="/login"
-            style={{color: "white"}}
+            style={{color: "white", marginLeft: 10}}
           >
            
         Request for blood

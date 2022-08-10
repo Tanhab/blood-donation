@@ -104,7 +104,9 @@ const registerDonor = asyncHandler(async (req, res) => {
     let {building,village_road,post_office,city,district} = req.body
     console.log(building)
 
-    if (!nid_birthCtf ||!uid ||  !last_donated || !blood_group || !phone_no || ! city || !district) {
+    
+
+    if (!nid_birthCtf ||!uid || !blood_group || !phone_no || ! city || !district) {
         res.status(400)
         throw new Error('Please add all required fields')
     }
@@ -123,10 +125,15 @@ const registerDonor = asyncHandler(async (req, res) => {
         res.status(400).json({'Error message': error.message})
     }
     
+  
     if(typeof uid == "string") uid = parseInt(uid)
     if(typeof nid_birthCtf == "string") nid_birthCtf = parseInt(nid_birthCtf)
     if(phone_no && typeof phone_no == "string") phone_no = parseInt(phone_no)
     values = [nid_birthCtf,uid,last_donated,blood_group,phone_no,a_id ]
+    if(!last_donated)
+    {
+        last_donated = null
+    }
     
     const promisePool = pool.promise();
     // query database using promises
@@ -242,6 +249,8 @@ const getDonor = asyncHandler(async (req, res) => {
     }
 })
 
+
+
 module.exports = {
     registerUser,
     loginUser,
@@ -249,5 +258,6 @@ module.exports = {
     registerDonor,
     registerAdmin,
     getDonor,
-    getUser
+    getUser,
+  
 }

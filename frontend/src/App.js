@@ -30,8 +30,9 @@ import SignupChoice from "./pages/SignupChoice";
 import AdminSignup from "./pages/AdminSignup";
 import Test from "./pages/Test";
 // import ForgotPassword from "./ForgotPassword";
- import "bootstrap/dist/css/bootstrap.min.css"
+// import "bootstrap/dist/css/bootstrap.min.css"
 import AcceptBloodReq from "./pages/AcceptBloodReq";
+import DonorList from "./pages/DonorList";
 
 
 function App() {
@@ -92,6 +93,7 @@ function App() {
                 <Route path="/org-reg" element={<OrgReg />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/test" element={<Test />} />
+                <Route path="/donor-list" element={< DonorList/>}/>
               </>
             )}
           </Routes>
