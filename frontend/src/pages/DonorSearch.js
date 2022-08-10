@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Card, Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import styles from "../styles/Search.module.css";
 import NavigationBar from "../components/NavigationBar";
 import axios from "axios";
@@ -13,6 +14,7 @@ export default function DonorSearch() {
   const [bloodGrp, setBloodGrp] = useState("undefined");
   const [donors, setDonors] = useState([]);
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("useEffect called");
@@ -67,6 +69,8 @@ export default function DonorSearch() {
       </div>
     );
   }
+
+
   async function handleSubmit(e) {
     e.preventDefault();
     console.log("here in handle");
@@ -90,6 +94,11 @@ export default function DonorSearch() {
   
     });
   }
+  // const info = (e) => {
+  //    navigate('/donor-info',{
+  //      state: e
+  //    })
+  // }
 
   return (
     <>
@@ -164,7 +173,7 @@ export default function DonorSearch() {
                    
                   
 
-                    <button className="btn btn-sm bg-white">More Info</button>
+                    <button  className="btn btn-sm bg-white">More Info</button>
                   </div>
                 </div>
               </div>)

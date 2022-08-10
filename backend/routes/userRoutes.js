@@ -1,3 +1,4 @@
+const { Router } = require("express");
 const express = require("express");
 const router =  express.Router()
 const pool = require('../config/database')
@@ -9,7 +10,8 @@ const {
     registerDonor,
     registerAdmin,
     getDonor,
-    getUser
+    getUser,
+    getAllDonors
 } = require('../controllers/userController')
 const { protect} = require('../middleware/authMiddleware')
 
@@ -21,6 +23,7 @@ router.post('/donor',protect,registerDonor)
 router.post('/login', loginUser)
 router.get('/me', protect, getMe)
 router.get('/donor/:id',protect,getDonor)
+router.get('/donors',protect,getAllDonors)
 router.get('/profile/:id',protect,getUser)
 
 

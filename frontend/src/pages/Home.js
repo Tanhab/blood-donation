@@ -75,12 +75,12 @@ export default function Home() {
               ),
             },
             {
-              title: "Notifications",
-              itemId: "/notification",
+              title: "Eligibility",
+              itemId: "/eligibility",
               // you can use your own custom Icon component as well
               // icon is optional
               elemBefore: () => (
-                <i className="fa fa-bell" aria-hidden="true"></i>
+                <i className="fa fa-tint" aria-hidden="true"></i>
               ),
             },
            

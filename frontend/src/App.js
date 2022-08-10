@@ -33,7 +33,8 @@ import Test from "./pages/Test";
 // import "bootstrap/dist/css/bootstrap.min.css"
 import AcceptBloodReq from "./pages/AcceptBloodReq";
 import DonorList from "./pages/DonorList";
-
+import DonorInfo from "./pages/DonorInfo";
+import Eligibility from "./pages/Eligibility";
 
 function App() {
 
@@ -94,6 +95,8 @@ function App() {
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/test" element={<Test />} />
                 <Route path="/donor-list" element={< DonorList/>}/>
+                <Route path="/donor-info" element={< DonorInfo/>}/>
+                <Route path="/eligibility" element={< Eligibility/>}/>
               </>
             )}
           </Routes>

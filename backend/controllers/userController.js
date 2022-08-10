@@ -249,6 +249,31 @@ const getDonor = asyncHandler(async (req, res) => {
     }
 })
 
+const getAllDonors = asyncHandler(async(req,res) => {
+    const promisePool =pool.promise()
+    try{
+        const[donors, fields] = await promisePool.query(
+            "Select * from users INNER JOIN donor where users.uid = donor.uid"
+        )
+        console.log(donors)
+
+        for(let i=0; i< donors.length;i++)
+        {
+            const [address,field] =  await promisePool.query("Select * from address where a_id=?",donors[i].a_id)
+            delete donors[i].password
+            delete donors[i].is_admin
+            delete donors[i].a_id
+            donors[i].address = address[0]
+        }
+       
+        console.log(donors)
+        res.status(200).json({donors: donors })
+    } catch (error) {
+        console.log(error.message)
+        res.status(400).json({'Error message': error.message})
+    }
+})
+
 
 
 module.exports = {
@@ -259,5 +284,6 @@ module.exports = {
     registerAdmin,
     getDonor,
     getUser,
+    getAllDonors
   
 }

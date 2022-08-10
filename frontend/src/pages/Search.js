@@ -44,7 +44,7 @@ export default function Search() {
             <Card
               onClick={goToDonor}
               className="shadow-sm"
-              style={{ padding: 10 }}
+              style={{ padding: 10, cursor:'pointer' }}
             >
               Find Donors
             </Card>
@@ -53,18 +53,18 @@ export default function Search() {
             <Card
               onClick={goToBlood}
               className="shadow-sm"
-              style={{ padding: 10 }}
+              style={{ padding: 10, cursor:'pointer' }}
             >
               Find Blood
             </Card>
           </li>
           <li>
-            <Card className="shadow-sm" style={{ padding: 10 }} onClick={goToMedCen}>
+            <Card className="shadow-sm" style={{ padding: 10, cursor:'pointer' }} onClick={goToMedCen}>
               Find Medical Centres
             </Card>
           </li>
           <li>
-            <Card className="shadow-sm" style={{ padding: 10 }} onClick={goToAmb}>
+            <Card className="shadow-sm" style={{ padding: 10, cursor:'pointer' }} onClick={goToAmb}>
               Find Ambulances
             </Card>
           </li>

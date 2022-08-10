@@ -12,11 +12,16 @@ export default function DonorList() {
     console.log("useEffect called");
 
     axios
-      .get("http://localhost:5001/api/search")
+      .get("http://localhost:5001/api/user/donors"
+      , {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
       .then((response) => {
-        console.log(response.data.users);
+        console.log(response.data);
 
-        if (response.data.users) setDonors(response.data.users);
+       setDonors(response.data.donors)
        
       })
       .catch((error) => {
@@ -40,48 +45,44 @@ export default function DonorList() {
               <th>Nid/BirthCertificate</th>
               <th>Address</th>
               <th>BloodGroup</th>
+              <th>Phone No</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Paul Nigel </td>
-              <td>02438957283gvedf</td>
-              <td>xyz, skejbdgkvb</td>
-              <td>nil</td>
-              <td>
-                <button type="button" class="btn btn-success">
-                  <i class="fa fa-check" aria-hidden="true"></i>
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-danger"
-                  style={{ marginLeft: 10 }}
-                >
-                  <i class="fa fa-trash" aria-hidden="true"></i>
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Mark Bd </td>
-              <td>0243db 8957283</td>
-              <td>xyz, skejbdgkvb</td>
-              <td>3463637</td>
-              <td>
-                <button type="button" class="btn btn-success">
-                  <i class="fa fa-check" aria-hidden="true"></i>
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-danger"
-                  style={{ marginLeft: 10 }}
-                >
-                  <i class="fa fa-trash" aria-hidden="true"></i>
-                </button>
-              </td>
-            </tr>
+            {donors.map((item,key)=> {
+              return (
+                <tr>
+                <td>{key+1}</td>
+                <td>{item.first_name} {item.last_name}</td>
+                <td>{item.nid_birthCtf}</td>
+                <td>{item.address.city},{item.address.district}</td>
+                <td>{item.blood_group}</td>
+                <td>{item.phone_no}</td>
+                <td className="text-center">
+                  <button type="button" class="btn btn-success">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    style={{ marginLeft: 10 }}
+                  >
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-warning"
+                    style={{ marginLeft: 10 }}
+                  >
+                    Check eligibility
+                  </button>
+
+                </td>
+              </tr>
+              )
+            })}
+           
           </tbody>
         </table>
 

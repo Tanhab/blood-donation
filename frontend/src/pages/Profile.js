@@ -146,27 +146,7 @@ export default function Profile() {
      
       });
 
-      // axios.get("http://localhost:5001/api/address/me-address", {
-      //   headers: {
-      //     "Authorization": "Bearer " + localStorage.getItem("token")
-      // },
-      // }).then((response) => {
-       
-      //   if (response.data.error) {
-      //     console.log(response.data.error)
-      //   } else {
-      //    console.log(response.data)
-      //    setBuildingValue(response.data.address[0].building)
-      //    setVillageroadValue(response.data.address[0].village_road)
-      //    setTownValue(response.data.address[0].city)
-      //    setpostOfficeValue(response.data.address[0].post_office)
-      //    setDistrictValue(response.data.address[0].district)
-      //    setLatitudeValue(response.data.address[0].latitude)
-      //    setLongitudeValue(response.data.address[0].longitude)
-         
-      //   }
-     
-      // });
+
  
    },[]);
 
