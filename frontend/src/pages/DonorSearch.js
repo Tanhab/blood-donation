@@ -94,11 +94,9 @@ export default function DonorSearch() {
   
     });
   }
-  // const info = (e) => {
-  //    navigate('/donor-info',{
-  //      state: e
-  //    })
-  // }
+  function info(e){
+     navigate('/donor-info/'+e)
+  }
 
   return (
     <>
@@ -173,7 +171,7 @@ export default function DonorSearch() {
                    
                   
 
-                    <button  className="btn btn-sm bg-white">More Info</button>
+                    <button onClick={info(item.uid)} className="btn btn-sm bg-white">More Info</button>
                   </div>
                 </div>
               </div>)

@@ -95,7 +95,7 @@ function App() {
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/test" element={<Test />} />
                 <Route path="/donor-list" element={< DonorList/>}/>
-                <Route path="/donor-info" element={< DonorInfo/>}/>
+                <Route path="/donor-info/:id" element={< DonorInfo/>}/>
                 <Route path="/eligibility" element={< Eligibility/>}/>
               </>
             )}
