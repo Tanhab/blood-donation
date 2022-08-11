@@ -4,8 +4,10 @@ import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import NavigationBar from "../components/NavigationBar";
 import styles from "../styles/Table.module.css";
+import { isExpired, decodeToken } from "react-jwt";
 
 export default function Driver() {
+  const myDecodedToken = decodeToken(localStorage.getItem('token'));
   const [drivers,setDrivers] = useState([])
   const [isLoading,setIsLoading] = useState(false)
   
@@ -30,15 +32,17 @@ export default function Driver() {
           <div className="container" style={{ marginTop: 50 }}>
             <h2 style={{ textAlign: "center" }}>Driver</h2>
 
-            <Link
+            {myDecodedToken.is_admin === 0 &&     <Link
               className="btn "
               to="/driver-reg"
               style={{ background: "green", marginTop: 50, color: "white" }}
             >
               Register as Driver
-            </Link>
+            </Link>}
 
-            <table className={styles.tables} style={{ marginTop: 10 }}>
+         
+
+            <table className={styles.tables} style={{ marginTop: 50 }}>
               <thead>
                 <tr>
                   <th>#</th>

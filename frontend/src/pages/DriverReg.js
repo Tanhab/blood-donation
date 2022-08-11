@@ -3,6 +3,8 @@ import React, { useRef, useState, useContext, useEffect } from "react";
 import NavigationBar from "../components/NavigationBar";
 import DropdownButton from "react-bootstrap/DropdownButton"
 import Dropdown from "react-bootstrap/Dropdown"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function DriverReg() {
   
@@ -72,6 +74,15 @@ export default function DriverReg() {
           // setAlert1(true)
           console.log("successfull")
           console.log(response.data)
+          toast.success('Registration Successful! Head back to home page.', {
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            })
         }
       })
       .catch((error) => {
@@ -209,6 +220,7 @@ export default function DriverReg() {
                       Register Driver
                     </button>
                   </div>
+                  <ToastContainer />
                 </div>
               </div>
             </div>

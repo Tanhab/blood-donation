@@ -20,6 +20,7 @@ export default function DonorSearch() {
     console.log("useEffect called");
     let route = "http://localhost:5001/api/search";
     if (query && query.length > 0) route = `${route}?${query}`;
+   
     console.log("route", route);
     axios
       .get(route)
@@ -75,6 +76,7 @@ export default function DonorSearch() {
     e.preventDefault();
     console.log("here in handle");
     let params = {};
+    params["verified"] = 1
     if (bloodGrpRef.current.value !== "Select Blood Group")
       params["blood_group"] = bloodGrpRef.current.value;
     if (cityRef.current.value) params["city"] = cityRef.current.value;

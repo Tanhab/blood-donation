@@ -27,6 +27,7 @@ CREATE TABLE `blood_donation`.`donor`(
  );
  
  ALTER TABLE blood_donation.`donor` CHANGE COLUMN last_donated last_donated DATETIME NULL ;
+ ALTER TABLE blood_donation.`donor` ADD verified INT default 0;
 
   -- recipient
  CREATE TABLE `blood_donation`.`blood_request`(

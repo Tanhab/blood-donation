@@ -26,7 +26,7 @@ const searchDonor = asyncHandler(async (req,res)=>{
     const params = req.query
     console.log(params)
     // default query
-    let query = "SELECT * FROM donor "
+    let query = "SELECT * FROM donor  "
     let a_ids = []
     if(Object.keys(params).length>0){
         query += 'WHERE ';
@@ -81,6 +81,7 @@ const searchDonor = asyncHandler(async (req,res)=>{
         }
         
     }else{
+        query += "WHERE verified = 1"
         pool.query(query,function (error, results, fields) {
                 if (error) throw error;
                 res.status(200).json({ 'users' : results})

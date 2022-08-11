@@ -50,15 +50,9 @@ export default function VerifyDriver() {
           <div className="container" style={{ marginTop: 50 }}>
             <h2 style={{ textAlign: "center" }}>Driver</h2>
 
-            <Link
-              className="btn "
-              to="/driver-reg"
-              style={{ background: "green", marginTop: 50, color: "white" }}
-            >
-              Register as Driver
-            </Link>
+         
 
-            <table className={styles.tables} style={{ marginTop: 10 }}>
+            <table className={styles.tables} style={{ marginTop: 50 }}>
               <thead>
                 <tr>
                   <th>#</th>
