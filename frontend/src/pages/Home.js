@@ -51,19 +51,10 @@ export default function Home() {
              
             },
             {
-              title: "Donations",
+              title: "Donation history",
               itemId: "/donations",
               elemBefore: () => <i className="fa fa-bed" aria-hidden="true"></i>,
-              subNav: [
-                {
-                  title: "Donor",
-                  itemId: "d",
-                },
-                {
-                  title: "Recipient",
-                  itemId: "r",
-                },
-              ],
+              
             },
             {
               title: "Medical Centre",
@@ -74,15 +65,15 @@ export default function Home() {
                 <i className="fa fa-hospital-o" aria-hidden="true"></i>
               ),
             },
-            {
-              title: "Eligibility",
-              itemId: "/eligibility",
-              // you can use your own custom Icon component as well
-              // icon is optional
-              elemBefore: () => (
-                <i className="fa fa-tint" aria-hidden="true"></i>
-              ),
-            },
+            // {
+            //   title: "Medical",
+            //   itemId: "/eligibility",
+            //   // you can use your own custom Icon component as well
+            //   // icon is optional
+            //   elemBefore: () => (
+            //     <i className="fa fa-tint" aria-hidden="true"></i>
+            //   ),
+            // },
            
             {
               title: "Ambulances",

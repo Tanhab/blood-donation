@@ -11,8 +11,8 @@ export default function Settings() {
     function regAmb() {
       navigate("/amb-reg");
     }
-    function regDrv() {
-      navigate("/driver-reg");
+    function verifyDriver() {
+      navigate("/driver-verify");
     }
     function regOrg() {
       navigate("/org-reg");
@@ -89,7 +89,7 @@ export default function Settings() {
                         </div>
                     </div>
                 </div>
-                <div onClick={regDrv} className="list-group-item" style={{cursor: 'pointer'}}>
+                <div onClick={verifyDriver} className="list-group-item" style={{cursor: 'pointer'}}>
                     <div className="row align-items-center">
                         <div className="col">
                             <strong className="mb-0">Verify Driver</strong>

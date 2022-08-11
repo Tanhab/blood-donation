@@ -94,8 +94,8 @@ export default function DonorSearch() {
   
     });
   }
-  function info(e){
-     navigate('/donor-info/'+e)
+  const info = (id)=>{
+    navigate("/donor-info/" + id)
   }
 
   return (
@@ -168,10 +168,7 @@ export default function DonorSearch() {
                      Last Date of donation: {item.last_donated.substring(0,10)} 
                      
                    </p>}
-                   
-                  
-
-                    <button onClick={info(item.uid)} className="btn btn-sm bg-white">More Info</button>
+                    <button onClick={()=>info(item.uid)} className="btn btn-sm bg-white">More Info</button>
                   </div>
                 </div>
               </div>)

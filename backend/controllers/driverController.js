@@ -23,7 +23,7 @@ const getAllDriver = asyncHandler(async (req, res) => {
   const promisePool = pool.promise()
   try {
     const [rows, fields] = await promisePool.query(
-      "SELECT * FROM driver",
+      "SELECT * FROM driver INNER JOIN address where driver.a_id = address.a_id",
     )
     res.status(200).json({drivers: rows})
   } catch (error) {

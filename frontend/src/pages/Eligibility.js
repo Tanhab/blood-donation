@@ -5,7 +5,7 @@ import axios from "axios";
 import { isExpired, decodeToken } from "react-jwt";
 
 export default function Eligibility() {
-    const myDecodedToken = decodeToken(localStorage.getItem('token'));
+  const myDecodedToken = decodeToken(localStorage.getItem('token'));
   const [last_donated, setLastChecked]=useState('')
   const [checked_at, setCheckedAt]= useState('')
   const [phy_illness, setPhyIllness] = useState('')

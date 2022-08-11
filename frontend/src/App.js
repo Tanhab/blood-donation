@@ -35,6 +35,7 @@ import AcceptBloodReq from "./pages/AcceptBloodReq";
 import DonorList from "./pages/DonorList";
 import DonorInfo from "./pages/DonorInfo";
 import Eligibility from "./pages/Eligibility";
+import VerifyDriver from "./pages/VerifyDriver";
 
 function App() {
 
@@ -87,8 +88,9 @@ function App() {
                 />
                 <Route path="/driver" element={<Driver />} />
                 <Route path="/driver-reg" element={<DriverReg />} />
+                <Route path="/driver-verify" element={<VerifyDriver />} />
                 <Route path="/ambulance" element={<Ambulance />} />
-                <Route path="/ambulance-reg" element={<AmbulanceReg />} />
+                <Route path="/amb-reg" element={<AmbulanceReg />} />
                 <Route path="/notification" element={<Notification />} />
                 <Route path="/org" element={<Organization />} />
                 <Route path="/org-reg" element={<OrgReg />} />

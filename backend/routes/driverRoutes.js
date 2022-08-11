@@ -10,9 +10,10 @@ const { protect } = require('../middleware/authMiddleware')
 const { adminProtect } = require("../middleware/adminMiddleware")
 
 
-router.get('/:id',protect, getDriver)
+router.get('/get/:id',protect, getDriver)
 router.post('/',protect,createDriver)
 router.post('/verify/:id',adminProtect, verifyDriver)
+router.get('/all',protect,getAllDriver)
 
 module.exports = router
 

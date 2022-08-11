@@ -7,7 +7,9 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 export default function DonorInfo() {
   const [donor, setDonor] = useState([]);
+  const [isLoading,setIsLoading] = useState(true)
   const params = useParams();
+  
 
   useEffect(() => {
     axios
@@ -27,103 +29,100 @@ export default function DonorInfo() {
       }
       else
       {
-        console.log(response.data)
+        console.log("donor",response.data)
         setDonor(response.data)
+        setIsLoading(false)
       }
 
-    })
-  },[])
+    }).catch(error => console.log(error))
+  },[setDonor])
 
   return (
     <>
+      {!isLoading && (
+        <>
+          <NavigationBar />
 
-      <NavigationBar />
-     
-      <div className="container row mt-5 ">
+          <div className="container row mt-5 ">
+            <div
+              className="card"
+              style={{
+                background: "radial-gradient(#fbc1cc, #fa99b2)",
+                margin: 20,
+                padding: 20,
+                borderRadius: 10,
+                boxShadow: "0px 6px 10px rgba(0, 0, 0, 0.25)",
+                transition: "all 0.2s",
+              }}
+            >
+              <h2 className="text-center">Donor Info </h2>
               <div
-                className="card"
+                className="container"
                 style={{
-                  background: "radial-gradient(#fbc1cc, #fa99b2)",
-                  margin: 20,
-                  padding: 20,
-                  borderRadius: 10,
-                  boxShadow: "0px 6px 10px rgba(0, 0, 0, 0.25)",
-                  transition: "all 0.2s",
+                  padding: 50,
+                  display: "grid",
+                  gridGap: 10,
                 }}
               >
-               
+                <div
+                  style={{
+                    border: "1px solid transparent",
+                    cursor: "pointer",
+                  }}
+                >
+                  <span style={{ fontWeight: 700 }}>Name: </span>
+                  {donor.first_name} {donor.last_name}
+                </div>
+                <div
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <span style={{ fontWeight: 700 }}>
+                    Nid/BirthCertificate No:{" "}
+                  </span>
+                  {donor.nid_birthCtf}
+                </div>
+                <div
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <span style={{ fontWeight: 700 }}>
+                    Blood group requested :{" "}
+                  </span>
+                  {donor.blood_group}
+                </div>
+                <div
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <span style={{ fontWeight: 700 }}>Phone No: </span>
+                  {donor.phone_no}
+                </div>
 
-                <h2 className="text-center">Donor Info </h2>
-               <div className="container"  style={{
-                     padding: 50,
-                      display: "grid",
-                      gridGap: 10,
-                    }}>
-               <div
-                      style={{
-                        border: "1px solid transparent",
-                        cursor: "pointer",
-                      }}
-                    >
-                      <span style={{ fontWeight: 700 }}>Name: </span>
-                      {donor.first_name} {donor.last_name}
-                    </div>
-                    <div
-                      style={{
-                        cursor: "pointer",
-                      }}
-                    >
-                      <span style={{ fontWeight: 700 }}>
-                        Nid/BirthCertificate No:{" "}
-                      </span>
-                      {donor.nid_birthCtf}
-                    </div>
-                    <div
-                      style={{
-                        cursor: "pointer",
-                      }}
-                    >
-                      <span style={{ fontWeight: 700 }}>
-                        Blood group requested :{" "}
-                      </span>
-                      {donor.blood_group}
-                    </div>
-                    <div
-                      style={{
-                        cursor: "pointer",
-                      }}
-                    >
-                      <span style={{ fontWeight: 700 }}>Phone No: </span>
-                      {donor.phone_no}
-                    </div>
-
-                    <div
-                      style={{
-                        cursor: "pointer",
-                      }}
-                    >
-                      <span style={{ fontWeight: 700 }}>City: </span>
-                      {donor.adress.city}
-                    </div>
-                    <div
-                      style={{
-                        cursor: "pointer",
-                      }}
-                    >
-                      <span style={{ fontWeight: 700 }}>District: </span>
-                      {donor.adress.district}
-                    </div>
-               </div>
-               </div>
-               </div>
-            
-              
-          
-
-      
-      
-
-     
+                <div
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <span style={{ fontWeight: 700 }}>City: </span>
+                  {donor.adress.city}
+                </div>
+                <div
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <span style={{ fontWeight: 700 }}>District: </span>
+                  {donor.adress.district}
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </>
-  );
+  )
 }
