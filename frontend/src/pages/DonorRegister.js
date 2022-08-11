@@ -118,9 +118,9 @@ export default function DonorRegister() {
               
                 console.log("successfull")
                 console.log(response.data)
-                toast.success('Registration Successful! Head back to home page.', {
+                toast.success('Registration Successful! Fill up the eligibility form to be verified', {
                   position: "bottom-left",
-                  autoClose: 5000,
+                  autoClose: false,
                   hideProgressBar: false,
                   closeOnClick: true,
                   pauseOnHover: true,
@@ -316,7 +316,15 @@ export default function DonorRegister() {
             Become a Donor
           </button>
         </Card>
-        <ToastContainer />
+        <ToastContainer
+position="bottom-left"
+autoClose={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+/>
       </div>
     </>
   );
