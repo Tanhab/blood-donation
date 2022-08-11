@@ -127,6 +127,7 @@ export default function DonorRegister() {
                   draggable: true,
                   progress: undefined,
                   })
+                  navigate("/eligibility")
               
             }
         })

@@ -276,6 +276,21 @@ const getAllDonors = asyncHandler(async(req,res) => {
 
 
 
+const verifyDonor = asyncHandler(async (req, res) => {
+  const promisePool = pool.promise()
+  try {
+    const [rows, fields] = await promisePool.query(
+      "UPDATE donor SET verified = ? WHERE nid_birthCtf = ?",
+      [1, req.params.id]
+    )
+    res.status(200).json({ message: "donor verified" })
+  } catch (error) {
+    res.status(400).json({ "Error message": error.message })
+  }
+})
+
+
+
 module.exports = {
     registerUser,
     loginUser,
@@ -284,6 +299,7 @@ module.exports = {
     registerAdmin,
     getDonor,
     getUser,
-    getAllDonors
+    getAllDonors,
+    verifyDonor
   
 }

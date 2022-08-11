@@ -36,7 +36,7 @@ const createMedicalHistory = asyncHandler(async (req, res) => {
     //console.log([name,phone_no,a_id])
     const promisePool = pool.promise()
     try {
-        const [rows,fields] = await promisePool.query('INSERT INTO medical_history(uid,last_checked,checked_at,physical_illness,genetical_issues) VALUES(?,?,?);',[req.user.uid,last_checked,checked_at,physical_illness,genetical_issues])
+        const [rows,fields] = await promisePool.query('INSERT INTO medical_history(uid,last_checked,checked_at,physical_illness,genetical_issues) VALUES(?);',[[req.user.uid,last_checked,checked_at,physical_illness,genetical_issues]])
         const [medical,fields2 ] = await promisePool.query("SELECT * FROM medical_history WHERE uid = ?",
             req.user.uid)
         res.status(200).json({"medical": medical[0]})

@@ -1,8 +1,10 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
 import NavigationBar from "../components/NavigationBar";
-import { Form } from "react-bootstrap";
+import { Dropdown, DropdownButton, Form } from "react-bootstrap";
 import axios from "axios";
 import { isExpired, decodeToken } from "react-jwt";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function Eligibility() {
   const myDecodedToken = decodeToken(localStorage.getItem('token'));
@@ -10,54 +12,61 @@ export default function Eligibility() {
   const [checked_at, setCheckedAt]= useState('')
   const [phy_illness, setPhyIllness] = useState('')
   const [gen_issues, setGenIssues] = useState('')
-
-
+  const [medicals, setMedicals] = useState([])
+  const [medicalName, setMedicalName] = useState()
+  const [station, setStation] = useState()
+  const navigate = useNavigate()
   const last_donatedRef = useRef();
   const checked_atRef = useRef();
   const phy_illnessRef = useRef();
   const gen_issuesRef = useRef();
 
   useEffect(() => {
-    axios.get(`http://localhost:5001/api/medical-history/${myDecodedToken.id}`, {
-        headers: {
-          "Authorization": "Bearer " + localStorage.getItem("token")
-      },
-      }).then((response) => {
-       
+    toast.success(
+      "Registration Successful! Fill up the eligibility form to be verified",
+      {
+        position: "bottom-left",
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      }
+    )
+    axios.get(
+          "http://localhost:5001/api/medical-centre/all-medical-centres",
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        
+      ).then((response)=>{
         if (response.data.error) {
           console.log(response.data.error)
         } else {
-       
-          setCheckedAt(response.data.checked_at)
-          setLastChecked(response.data.last_checked)
-          if(response.data.physical_illness!=null)
-          {
-              setPhyIllness(response.data.physical_illness)
-          }
-          if(response.data.genetic_issues!=null)
-          {
-              setGenIssues(response.data.genetic_issues)
-          }
-
-
+          setMedicals(response.data.medical_centre)
+          //setIsLoading(false)
         }
-     
-      });
+      })
+      .catch(error=> console.log(error));
+   },[setMedicals]);
 
+   const handleMedicalSelect = (e) => {
+     //console.log(e)
+     setStation(e)
+     const selected = medicals.find(({ m_id }) => m_id == e)
+     setMedicalName(selected.name)
+   }
 
- 
-   },[]);
-
-   const save = () =>{
-     const  date="", place="", ill = "", gen ="";
+   const save = async () =>{
+     let  date, place="", ill = "", gen ="";
      if(last_donatedRef.current.value)
      {
-         date = last_donatedRef
+         date = last_donatedRef.current.value
      } 
-     if(checked_atRef.current.value)
-     {
-         place=checked_at
-     }
+     place = station
      if(phy_illnessRef.current.value)
      {
          ill=phy_illnessRef.current.value
@@ -66,31 +75,34 @@ export default function Eligibility() {
      {
          gen=gen_issuesRef.current.value
      }
-    axios.post('http://localhost:5001/api/medical-history/', {
-        last_checked: date,
-        checked_at: place,
-        physical_illness: ill,
-        genetical_issues: gen,
-       
-      }).then((response) => {
-       
+    axios
+      .post(
+        "http://localhost:5001/api/medical-history/",
+        {
+          uid : myDecodedToken.id,
+          last_checked: date,
+          checked_at: place,
+          physical_illness: ill,
+          genetical_issues: gen,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((response) => {
         if (response.data.error) {
           console.log(response.data.error)
         } else {
-       
-        console.log(response)
-
-
+          console.log(response)
+          navigate("/home")
         }
-     
-      });
+      })
+      .catch((error) => console.log(error))
    }
 
   return (
-
-   
-
-
     <>
       <NavigationBar />
       <form>
@@ -112,18 +124,26 @@ export default function Eligibility() {
                   <h4 className="text-right">Eligibility</h4>
                 </div>
                 <div className="row mt-2">
-                 
-                <div className="col-md-12 mt-2">
+                  <div className="col-md-12 mt-2">
                     <label className="labels">Checked At</label>
-                    <span style={{color: 'red'}}>*</span>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="enter medical center"
-                      value={checked_at}
-                      ref={checked_atRef}
-                      onChange={(e) => setCheckedAt(e.target.value)}
-                    />
+                    <DropdownButton
+                      title={
+                        medicalName ? medicalName : "Select medical centre"
+                      }
+                      id="dropdown-menu"
+                      onSelect={handleMedicalSelect}
+                    >
+                      {medicals.map((medical) => {
+                        return (
+                          <Dropdown.Item
+                            key={medical.m_id}
+                            eventKey={`${medical.m_id}`}
+                          >
+                            {medical.name}
+                          </Dropdown.Item>
+                        )
+                      })}
+                    </DropdownButton>
                   </div>
                   <div className="col-md-12 mt-2">
                     <label className="labels">Physical Illness</label>
@@ -150,32 +170,32 @@ export default function Eligibility() {
 
                   <div className="col-md-12 mt-2">
                     <label className="labels">Last Checked</label>
-                    <span style={{color: 'red'}}>*</span>
-                   
-        <Form.Control type="date"
-        datatype="dd/mm/yy"
-        name = 'last_donated'
-        ref={last_donatedRef}
-        value={last_donated}
-        onChange={(e) => setLastChecked(e.target.value)}
-        />
+                    <span style={{ color: "red" }}>*</span>
+
+                    <Form.Control
+                      type="date"
+                      datatype="dd/mm/yy"
+                      name="last_donated"
+                      ref={last_donatedRef}
+                      value={last_donated}
+                      onChange={(e) => setLastChecked(e.target.value)}
+                    />
                   </div>
-
-              
-
-                 
-              
-              <div className="mt-5 text-center">
-                <button onClick={save} className="btn btn-danger profile-button" type="button">
-                  Save 
-                </button>
+                  <div className="mt-5 text-center">
+                    <button
+                      onClick={save}
+                      className="btn btn-danger profile-button"
+                      type="button"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        </div>
-        </div>
       </form>
     </>
-  );
+  )
 }

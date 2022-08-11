@@ -144,7 +144,7 @@ export default function NavigationBar() {
                                     handleNotificationClick(item.id,item.blood_request)
                                   }
                                 >
-                                  <i class="fa fa-tint" aria-hidden="true" style={{marginRight: 10}}></i>
+                                  <i className="fa fa-tint" aria-hidden="true" style={{marginRight: 10}}></i>
                                   {item.message}
                                 </button>
                               </li>
@@ -157,7 +157,6 @@ export default function NavigationBar() {
                         {
                           return (
                             <>
-                             
                               <li key={item.id} style={{padding: 10}} >
                                 <button
                                   key={item.id}
@@ -167,7 +166,7 @@ export default function NavigationBar() {
                                     handleNotificationClick(item.id,item.blood_request)
                                   }
                                 >
-                                  <i class="fa fa-tint" aria-hidden="true" style={{marginRight: 10}}></i>
+                                  <i className="fa fa-tint" aria-hidden="true" style={{marginRight: 10}}></i>
                                   {item.message}
                                 </button>
                               </li>

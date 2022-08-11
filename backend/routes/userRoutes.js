@@ -11,9 +11,11 @@ const {
     registerAdmin,
     getDonor,
     getUser,
-    getAllDonors
+    getAllDonors,
+    verifyDonor
 } = require('../controllers/userController')
 const { protect} = require('../middleware/authMiddleware')
+const { adminProtect } = require("../middleware/adminMiddleware")
 
 
 // api/user/
@@ -25,6 +27,7 @@ router.get('/me', protect, getMe)
 router.get('/donor/:id',protect,getDonor)
 router.get('/donors',protect,getAllDonors)
 router.get('/profile/:id',protect,getUser)
+router.get('/verify-donor/:id',adminProtect,verifyDonor)
 
 
 
